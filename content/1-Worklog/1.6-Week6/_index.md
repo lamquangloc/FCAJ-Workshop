@@ -5,53 +5,27 @@ weight: 1
 chapter: false
 pre: " <b> 1.6. </b> "
 ---
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
 
 
 ### Week 6 Objectives:
 
-* Connect and get acquainted with members of First Cloud AI Journey.
-* Understand basic AWS services, how to use the console & CLI.
+* Dive deep into Amazon CloudWatch: Manage Metrics, Logs, Alarms, and Dashboards.
+* Learn and apply effective resource management using Tags and Resource Groups.
+* Grasp Infrastructure as Code (IaC) principles by using AWS CloudFormation to automate infrastructure deployment.
 
 ### Tasks to be carried out this week:
-| Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCAJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-
+| Day | Task | Start Date | Completion Date | Reference Material |
+| --- | --- | --- | --- | --- |
+| 3 | - Learn the theory of Amazon CloudWatch and its comprehensive monitoring capabilities.<br>- **CloudWatch Metrics & Logs Practice:**<br>&emsp; + View and query Metrics using Search and Math expressions.<br>&emsp; + Analyze Logs with CloudWatch Logs Insights.<br>&emsp; + Create a Metric Filter from log data. | 09/06/2026 | 09/06/2026 | <https://000036.awsstudygroup.com/> |
+| 4 | - **CloudWatch Alarms & Dashboards Practice:**<br>&emsp; + Configure CloudWatch Alarms to receive notifications when thresholds are breached.<br>&emsp; + Build CloudWatch Dashboards for visualized monitoring.<br>&emsp; + Clean up resources. | 10/06/2026 | 10/06/2026 | <https://000036.awsstudygroup.com/> |
+| 5 | - Manage resources using Tags and Resource Groups.<br>- **Practice:**<br>&emsp; + Add, edit, remove, and filter Tags via the AWS Console (e.g., EC2).<br>&emsp; + Use AWS CLI to apply tags to resources.<br>&emsp; + Create a Resource Group based on tags to centrally manage resources.<br>&emsp; + Clean up resources. | 11/06/2026 | 11/06/2026 | <https://000027.awsstudygroup.com/> |
+| 6 | - Explore Infrastructure as Code with AWS CloudFormation.<br>- **Practice:**<br>&emsp; + Prepare IAM Roles and an AWS Cloud9 workspace.<br>&emsp; + Deploy Basic CloudFormation: Write templates and create a basic stack.<br>&emsp; + Deploy Advanced CloudFormation: Utilize Custom Resources via Lambda, work with StackSets, and perform Drift Detection.<br>&emsp; + Clean up resources. | 12/06/2026 | 12/06/2026 | <https://000037.awsstudygroup.com/> |
 
 ### Week 6 Achievements:
 
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
-
-* Successfully created and configured an AWS Free Tier account.
-
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
-
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
-
-* Used AWS CLI to perform basic operations such as:
-
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
-
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
+* Enhanced system monitoring capabilities with Amazon CloudWatch.
+  * Capable of building custom dashboards, setting up alarms, and performing deep log analysis with query expressions.
+* Optimized AWS resource categorization and governance.
+  * Proficiently applied Tags and Resource Groups via both Console and CLI, aiding in cost management and security.
+* Understood and practiced Infrastructure as Code using CloudFormation.
+  * Automated resource provisioning and learned how to deploy basic and advanced CloudFormation templates (Custom Resources, StackSets, Drift Detection).

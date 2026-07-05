@@ -5,55 +5,27 @@ weight: 1
 chapter: false
 pre: " <b> 1.8. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
 
 
 ### Mục tiêu tuần 8:
 
-* Kết nối, làm quen với các thành viên trong First Cloud AI Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+* Cập nhật và hoàn thiện kiến trúc dự án nhóm theo các góp ý từ admin.
+* Xây dựng Serverless CRUD API bằng cách kết hợp AWS Lambda và Amazon DynamoDB.
+* Quản lý xác thực người dùng và lưu trữ tệp tin thông qua AWS Amplify.
+* Tích hợp Frontend gọi API thông qua Amazon API Gateway.
 
 ### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCAJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-
+| Thứ | Công việc | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu |
+| --- | --- | --- | --- | --- |
+| 2 | - Làm việc nhóm và rà soát lại bản thiết kế kiến trúc.<br>- **Thực hành:** Chỉnh sửa lại kiến trúc của dự án nhóm qua những góp ý của anh/chị admin. | 22/06/2026 | 22/06/2026 | Project nhóm |
+| 3 | - Phát triển các hàm Serverless CRUD để xử lý dữ liệu với DynamoDB.<br>- **Thực hành:**<br>&emsp; + Tạo bảng DynamoDB lưu trữ tài liệu.<br>&emsp; + Viết các Lambda function thực hiện logic nghiệp vụ: List (danh sách), Upload/Create (tải lên/tạo mới), Delete (xóa).<br>&emsp; + Kiểm thử (Test) các Lambda function vừa tạo. | 23/06/2026 | 23/06/2026 | <https://000133.awsstudygroup.com/> |
+| 4 | - Tích hợp hệ thống quản lý danh tính và kho lưu trữ tĩnh.<br>- **Thực hành:**<br>&emsp; + Cấu hình Authentication (Cognito) bằng AWS Amplify.<br>&emsp; + Cấu hình Storage (S3) để lưu file qua AWS Amplify.<br>&emsp; + Thiết lập và kiểm tra các mức độ phân quyền truy cập (Access Level). | 24/06/2026 | 24/06/2026 | <https://000134.awsstudygroup.com/> |
+| 5 | - Làm việc nhóm và hoàn thiện thiết kế kiến trúc.<br>- **Thực hành:** Tiếp tục chỉnh sửa lại kiến trúc của dự án nhóm qua những góp ý bổ sung của anh/chị admin. | 25/06/2026 | 25/06/2026 | Project nhóm |
+| 6 | - Tích hợp Frontend gọi API qua API Gateway.<br>- **Thực hành:**<br>&emsp; + Triển khai mã nguồn Frontend (Front-end Deployment).<br>&emsp; + Cấu hình Amazon API Gateway làm cầu nối.<br>&emsp; + Kiểm thử API độc lập bằng Postman.<br>&emsp; + Kiểm thử tích hợp gọi API trực tiếp từ giao diện Frontend. | 26/06/2026 | 26/06/2026 | <https://000135.awsstudygroup.com/> |
 
 ### Kết quả đạt được tuần 8:
 
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
-
-* Đã tạo và cấu hình AWS Free Tier account thành công.
-
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
-
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
-
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
-
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
-
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+* Bản thiết kế kiến trúc dự án nhóm trở nên thực tế và tối ưu hơn sau khi được review và chỉnh sửa theo góp ý từ admin.
+* Xây dựng thành công hệ thống Serverless CRUD có thể ghi/đọc dữ liệu từ DynamoDB bằng Lambda.
+* Nắm bắt cách tích hợp xác thực người dùng và lưu trữ dữ liệu an toàn, nhanh chóng bằng hệ sinh thái AWS Amplify.
+* Triển khai hoàn chỉnh luồng Frontend tương tác với hệ thống Serverless backend thông qua API Gateway.

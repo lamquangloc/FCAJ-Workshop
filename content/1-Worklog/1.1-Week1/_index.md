@@ -5,53 +5,38 @@ weight: 1
 chapter: false
 pre: " <b> 1.1. </b> "
 ---
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
+
 
 
 ### Week 1 Objectives:
 
-* Connect and get acquainted with members of First Cloud AI Journey.
-* Understand basic AWS services, how to use the console & CLI.
+* Get acquainted with FCAJ members and internship guidelines.
+* Learn the AWS Free Tier overview and basic credit usage rules.
+* Understand IAM basics, including users, groups, policies, and roles.
+* Learn Amazon VPC fundamentals such as subnets, route tables, Internet Gateway, and NAT Gateway.
 
 ### Tasks to be carried out this week:
 | Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
 | --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCAJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
+| 2   | - Get acquainted with FCAJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 05/04/2026 | 05/04/2026      |
+| 3   | - Learn AWS Free Tier 2025 overview <br>- Compare Free Plan vs Paid Plan <br>- Understand how to get and use the $200 credit <br>- Learn basic rules to avoid unnecessary credit usage<br> - **Practice:** <br>&emsp; + Create AWS account <br> | 05/05/2026 | 05/05/2026      | <https://000001.awsstudygroup.com/> |
+| 4   | - Learn IAM basics: users, groups, policies, and roles <br>- **Practice:** <br>&emsp; + Create IAM group and user <br>&emsp; + Attach policy to user or group <br>&emsp; + Create IAM role <br>&emsp; + Switch role | 05/06/2026 | 05/06/2026      | <https://000002.awsstudygroup.com/> |
+| 5   | - Learn Amazon VPC basics: isolated networks, CIDR blocks, subnets, route tables, Internet Gateway, and NAT Gateway | 05/07/2026 | 05/07/2026      | <https://000003.awsstudygroup.com/> |
+| 6   | - **Practice:** <br>&emsp; + Create and configure VPC subnets <br>&emsp; + Set up route table and Internet Gateway <br>&emsp; + Create NAT Gateway and test network access | 05/08/2026 | 05/08/2026      | <https://000003.awsstudygroup.com/> |
 
 
 ### Week 1 Achievements:
 
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
+* Understood the AWS Free Tier model and how it works.
+	* Compared Free Plan and Paid Plan.
+	* Learned how $200 credit is used and how to avoid unnecessary credit usage.
 
-* Successfully created and configured an AWS Free Tier account.
+* Learned IAM basics.
+	* Understood IAM users, groups, policies, and roles.
+	* Learned root user protection, MFA, and least-privilege access.
+	* Practiced creating IAM group and user, attaching policy, creating role, and switching role.
 
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
-
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
-
-* Used AWS CLI to perform basic operations such as:
-
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
-
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
+* Learned Amazon VPC fundamentals.
+	* Understood isolated networks, CIDR blocks, subnets, route tables, Internet Gateway, and NAT Gateway.
+	* Practiced creating and configuring VPC subnets.
+	* Practiced setting up route tables, Internet Gateway, and NAT Gateway.

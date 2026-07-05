@@ -1,115 +1,99 @@
 ---
 title: "Proposal"
-date: 2024-01-01
+date: 2026-07-04
 weight: 2
 chapter: false
 pre: " <b> 2. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy verbatim** for your report, including this warning.
-{{% /notice %}}
 
-In this section, you need to summarize the contents of the workshop that you **plan** to conduct.
-
-# IoT Weather Platform for Lab Research
-## A Unified AWS Serverless Solution for Real-Time Weather Monitoring
+# DocuFlow AI - Serverless Invoice & Receipt Processing Platform on AWS
 
 ### 1. Executive Summary
-The IoT Weather Platform is designed for the ITea Lab team in Ho Chi Minh City to enhance weather data collection and analysis. It supports up to 5 weather stations, with potential scalability to 10-15, utilizing Raspberry Pi edge devices with ESP32 sensors to transmit data via MQTT. The platform leverages AWS Serverless services to deliver real-time monitoring, predictive analytics, and cost efficiency, with access restricted to 5 lab members via Amazon Cognito.
+DocuFlow AI is an automated invoice and receipt processing platform designed by the AeroOps team. It leverages AWS Serverless architecture combined with AI to eliminate manual data entry for finance and accounting teams. The system automatically extracts data from PDF/JPG/PNG files via Amazon Textract and normalizes it using an External AI API. Built on an asynchronous workflow through EventBridge, SQS, and Step Functions, the solution guarantees high reliability, scalability, and operational cost optimization.
 
 ### 2. Problem Statement
-### What’s the Problem?
-Current weather stations require manual data collection, becoming unmanageable with multiple units. There is no centralized system for real-time data or analytics, and third-party platforms are costly and overly complex.
+*Current Problem*
+Finance teams and SME operations frequently process large volumes of invoices, receipts, and purchasing documents. Manual data entry into spreadsheets or accounting systems leads to inaccurate information (vendor, amount, date), consumes significant time, results in scattered files, and lacks a centralized tracking or alerting system.
 
-### The Solution
-The platform uses AWS IoT Core to ingest MQTT data, AWS Lambda and API Gateway for processing, Amazon S3 for storage (including a data lake), and AWS Glue Crawlers and ETL jobs to extract, transform, and load data from the S3 data lake to another S3 bucket for analysis. AWS Amplify with Next.js provides the web interface, and Amazon Cognito ensures secure access. Similar to Thingsboard and CoreIoT, users can register new devices and manage connections, though this platform operates on a smaller scale and is designed for private use. Key features include real-time dashboards, trend analysis, and low operational costs.
+*Solution*
+DocuFlow AI automates this entire pipeline. Users upload files securely via a web interface powered by Amazon Cognito and CloudFront/Amplify. Files stored in the S3 Raw Bucket trigger EventBridge, routing events to an SQS queue. Step Functions orchestrate the extraction process: validating formats, using Amazon Textract for raw data, and invoking an AI Proxy Lambda to call External AI for JSON normalization. The results and statuses (EXTRACTED, REVIEW_REQUIRED, FAILED) are saved to DynamoDB and S3 Processed. Users can review and correct the parsed data directly on the UI, while system errors trigger SNS/SES alerts.
 
-### Benefits and Return on Investment
-The solution establishes a foundational resource for lab members to develop a larger IoT platform, serving as a study resource, and provides a data foundation for AI enthusiasts for model training or analysis. It reduces manual reporting for each station via a centralized platform, simplifying management and maintenance, and improves data reliability. Monthly costs are $0.66 USD per the AWS Pricing Calculator, with a 12-month total of $7.92 USD. All IoT equipment costs are covered by the existing weather station setup, eliminating additional development expenses. The break-even period of 6-12 months is achieved through significant time savings from reduced manual work.
+*Benefits and ROI*
+The system drastically reduces manual data entry time, accelerates processing, and facilitates document auditing through centralized storage. The serverless architecture ensures pay-as-you-go cost optimization, adapting perfectly to fluctuating invoice volumes. Security guardrails such as IAM, KMS, Secrets Manager, and AWS Budgets ensure financial data safety and prevent unexpected costs.
 
 ### 3. Solution Architecture
-The platform employs a serverless AWS architecture to manage data from 5 Raspberry Pi-based stations, scalable to 15. Data is ingested via AWS IoT Core, stored in an S3 data lake, and processed by AWS Glue Crawlers and ETL jobs to transform and load it into another S3 bucket for analysis. Lambda and API Gateway handle additional processing, while Amplify with Next.js hosts the dashboard, secured by Cognito. The architecture is detailed below:
+The DocuFlow AI architecture strictly follows serverless, event-driven, and asynchronous design principles.
 
-![IoT Weather Station Architecture](/images/2-Proposal/edge_architecture.jpeg)
+![Solution Architecture](/images/2-Proposal/architecture.png)
 
-![IoT Weather Platform Architecture](/images/2-Proposal/platform_architecture.jpeg)
 
-### AWS Services Used
-- **AWS IoT Core**: Ingests MQTT data from 5 stations, scalable to 15.
-- **AWS Lambda**: Processes data and triggers Glue jobs (two functions).
-- **Amazon API Gateway**: Facilitates web app communication.
-- **Amazon S3**: Stores raw data in a data lake and processed outputs (two buckets).
-- **AWS Glue**: Crawlers catalog data, and ETL jobs transform and load it.
-- **AWS Amplify**: Hosts the Next.js web interface.
-- **Amazon Cognito**: Secures access for lab users.
-
-### Component Design
-- **Edge Devices**: Raspberry Pi collects and filters sensor data, sending it to IoT Core.
-- **Data Ingestion**: AWS IoT Core receives MQTT messages from the edge devices.
-- **Data Storage**: Raw data is stored in an S3 data lake; processed data is stored in another S3 bucket.
-- **Data Processing**: AWS Glue Crawlers catalog the data, and ETL jobs transform it for analysis.
-- **Web Interface**: AWS Amplify hosts a Next.js app for real-time dashboards and analytics.
-- **User Management**: Amazon Cognito manages user access, allowing up to 5 active accounts.
+*AWS Services Utilized*
+- **Amazon CloudFront & Amplify:** Frontend hosting and content delivery.
+- **Amazon Cognito:** User authentication and access management.
+- **Amazon API Gateway & Lambda:** Generating S3 presigned URLs for direct file uploads.
+- **Amazon S3:** Storing raw files (Raw Bucket) and normalized JSON results (Processed Bucket).
+- **Amazon EventBridge & SQS:** Capturing upload events and buffering asynchronous jobs (with DLQ).
+- **AWS Step Functions:** Orchestrating the processing pipeline (Validate -> Textract -> AI Proxy -> Confidence Logic -> Save).
+- **Amazon Textract:** Extracting raw text and data points from documents.
+- **Amazon DynamoDB:** Storing document metadata, job states, and enabling high-speed queries.
+- **Amazon SNS & SES:** Sending system alerts and user email notifications.
+- **AWS KMS, Secrets Manager, CloudTrail:** Handling encryption, sensitive key management, and API activity auditing.
 
 ### 4. Technical Implementation
-**Implementation Phases**
-This project has two parts—setting up weather edge stations and building the weather platform—each following 4 phases:
-- Build Theory and Draw Architecture: Research Raspberry Pi setup with ESP32 sensors and design the AWS serverless architecture (1 month pre-internship)
-- Calculate Price and Check Practicality: Use AWS Pricing Calculator to estimate costs and adjust if needed (Month 1).
-- Fix Architecture for Cost or Solution Fit: Tweak the design (e.g., optimize Lambda with Next.js) to stay cost-effective and usable (Month 2).
-- Develop, Test, and Deploy: Code the Raspberry Pi setup, AWS services with CDK/SDK, and Next.js app, then test and release to production (Months 2-3).
+*Implementation Phases*
+The project is executed by the 5-member AeroOps team with distinct roles:
+1. **Design and Standardization:** Finalizing architecture, AWS resource naming conventions (`docuflow-dev-*`), Data Contracts, and API schemas.
+2. **Foundation Setup:** Provisioning Cognito, Amplify, S3, EventBridge, SQS, DynamoDB, and IAM baselines.
+3. **Ingestion & Queue Integration:** Implementing the Presigned URL upload flow and event routing.
+4. **AI Pipeline Development:** Configuring Step Functions, Textract, and the AI Proxy Lambda for secure external API calls.
+5. **UI and Data Persistence:** Saving results and building frontend views for document lists, details, and the review (correction) flow.
+6. **Security & Observability:** Setting up CloudWatch (logs/alarms), X-Ray, Budget alerts, and deploying via AWS SAM.
 
-**Technical Requirements**
-- Weather Edge Station: Sensors (temperature, humidity, rainfall, wind speed), a microcontroller (ESP32), and a Raspberry Pi as the edge device. Raspberry Pi runs Raspbian, handles Docker for filtering, and sends 1 MB/day per station via MQTT over Wi-Fi.
-- Weather Platform: Practical knowledge of AWS Amplify (hosting Next.js), Lambda (minimal use due to Next.js), AWS Glue (ETL), S3 (two buckets), IoT Core (gateway and rules), and Cognito (5 users). Use AWS CDK/SDK to code interactions (e.g., IoT Core rules to S3). Next.js reduces Lambda workload for the fullstack web app.
+*Technical Requirements*
+- Infrastructure as Code (IaC) deployed via AWS SAM.
+- RESTful API endpoints (POST `/documents/upload-url`, GET `/documents`, PATCH `/documents/{documentId}/review`).
+- Output JSON must adhere strictly to the standardized schema (including `status`, `invoice`, `confidence`).
+- AI Proxy Lambda must handle timeouts, rate limits, and conceal API keys retrieved from Secrets Manager.
 
-### 5. Timeline & Milestones
-**Project Timeline**
-- Pre-Internship (Month 0): 1 month for planning and old station review.
-- Internship (Months 1-3): 3 months.
-    - Month 1: Study AWS and upgrade hardware.
-    - Month 2: Design and adjust architecture.
-    - Month 3: Implement, test, and launch.
-- Post-Launch: Up to 1 year for research.
+### 5. Roadmap & Milestones (Weekly)
+- **Week 1:** Architecture brief, data contract v1, API samples, IAM security/cost plan.
+- **Week 2:** Foundation setup (Cognito, S3, DynamoDB, IAM baseline).
+- **Week 3:** Upload & Queue implementation (Presigned URL, S3 events, EventBridge, SQS).
+- **Week 4:** Workflow skeleton (Step Functions) and status UI setup.
+- **Week 5:** AI integration (Textract + External AI normalization).
+- **Week 6-7:** Storage integration (DynamoDB/S3 results) and Review flow implementation.
+- **Week 8-9:** Error handling (Retry/catch, DLQ) and Observability/Governance (CloudWatch, X-Ray, Alarms).
+- **Week 10-12:** E2E testing, workshop documentation, cleanup scripts, and Final Demo.
 
 ### 6. Budget Estimation
-You can find the budget estimation on the [AWS Pricing Calculator](https://calculator.aws/#/estimate?id=621f38b12a1ef026842ba2ddfe46ff936ed4ab01).  
-Or you can download the [Budget Estimation File](../attachments/budget_estimation.pdf).
+**Operational Cost Estimate (For 300 invoices/month)**
 
-### Infrastructure Costs
-- AWS Services:
-    - AWS Lambda: $0.00/month (1,000 requests, 512 MB storage).
-    - S3 Standard: $0.15/month (6 GB, 2,100 requests, 1 GB scanned).
-    - Data Transfer: $0.02/month (1 GB inbound, 1 GB outbound).
-    - AWS Amplify: $0.35/month (256 MB, 500 ms requests).
-    - Amazon API Gateway: $0.01/month (2,000 requests).
-    - AWS Glue ETL Jobs: $0.02/month (2 DPUs).
-    - AWS Glue Crawlers: $0.07/month (1 crawler).
-    - MQTT (IoT Core): $0.08/month (5 devices, 45,000 messages).
+| Service | Estimated Cost |
+| :--- | :--- |
+| AWS Lambda | $0.00/month (within Free Tier) |
+| Amazon S3 (storage & requests) | ~$0.15/month |
+| AWS Amplify (frontend hosting) | ~$0.35/month |
+| Amazon API Gateway | ~$0.01/month |
+| Amazon Textract (AnalyzeExpense) | ~$0.08/month |
+| External AI API (via AI Proxy) | ~$0.02/month |
+| Data Transfer & SNS Alerts | ~$0.02/month |
+| **Total Estimate** | **~$0.70 USD/month** |
 
-Total: $0.7/month, $8.40/12 months
+**Cost Control Guidelines**
 
-- Hardware: $265 one-time (Raspberry Pi 5 and sensors).
+- **AWS Budgets:** Automated alerts when costs exceed **$5.00** and **$10.00**.
+- **File Limits:** Validate Lambda rejects files larger than **5 MB** or exceeding **3 pages**.
+- **Lifecycle Rules:** Automatically delete files in raw/processed buckets after **14 days**.
+- **Post-demo Cleanup:** Run cleanup script and verify no billable resources remain.
 
 ### 7. Risk Assessment
-#### Risk Matrix
-- Network Outages: Medium impact, medium probability.
-- Sensor Failures: High impact, low probability.
-- Cost Overruns: Medium impact, low probability.
+*Risk Matrix and Mitigation Strategies*
+- **Invalid File Formats or Blurry Documents:** Blocked early by a Validation Lambda. If extraction confidence is low, the status is flagged as `REVIEW_REQUIRED`.
+- **External AI API Timeouts/Rate-limits or Leaked Keys:** Handled by AI Proxy Lambda with Step Functions retry/catch policies. API keys are strictly kept in Secrets Manager and never exposed to the frontend.
+- **Workflow Failures Difficult to Debug:** Mitigated by enabling CloudWatch structured logs, AWS X-Ray tracing, and capturing failed executions in an SQS Dead-letter queue (DLQ).
+- **Cost Overruns:** Managed by AWS Budgets tracking, limiting batch uploads, and enforcing daily cleanup routines.
 
-#### Mitigation Strategies
-- Network: Local storage on Raspberry Pi with Docker.
-- Sensors: Regular checks and spares.
-- Cost: AWS budget alerts and optimization.
-
-#### Contingency Plans
-- Revert to manual methods if AWS fails.
-- Use CloudFormation for cost-related rollbacks.
-
-### 8. Expected Outcomes
-#### Technical Improvements: 
-Real-time data and analytics replace manual processes.  
-Scalable to 10-15 stations.
-#### Long-term Value
-1-year data foundation for AI research.  
-Reusable for future projects.
+### 8. Expected Results
+- **Technical:** Successfully deploy an end-to-end automated invoice processing pipeline, smoothly integrating a Serverless Backend with an Amplify Frontend.
+- **User Experience:** Deliver a user-friendly interface to track real-time processing statuses (UPLOADED -> PROCESSING -> EXTRACTED / REVIEW_REQUIRED -> APPROVED) with manual correction capabilities.
+- **Data Management:** Securely store normalized metadata and extracted JSON, acting as a robust foundation for queries and internal financial reporting.

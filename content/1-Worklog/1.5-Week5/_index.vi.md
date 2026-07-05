@@ -5,55 +5,31 @@ weight: 1
 chapter: false
 pre: " <b> 1.5. </b> "
 ---
-{{% notice warning %}}
-⚠️ **Lưu ý:** Các thông tin dưới đây chỉ nhằm mục đích tham khảo, vui lòng **không sao chép nguyên văn** cho bài báo cáo của bạn kể cả warning này.
-{{% /notice %}}
-
 
 ### Mục tiêu tuần 5:
 
-* Kết nối, làm quen với các thành viên trong First Cloud AI Journey.
-* Hiểu dịch vụ AWS cơ bản, cách dùng console & CLI.
+* Tìm hiểu và triển khai Amazon CloudFront để phân phối nội dung tĩnh/động kết hợp với S3 và EC2.
+* Ứng dụng điện toán tại biên (Edge Computing) bằng cách tích hợp Lambda@Edge với CloudFront.
+* Tự động hóa hệ thống (Serverless Automation) để tối ưu chi phí EC2 bằng AWS Lambda.
+* Quản lý quyền truy cập và phân quyền (Access Control) an toàn bằng IAM Policies có điều kiện kết hợp với Resource Tags.
 
 ### Các công việc cần triển khai trong tuần này:
-| Thứ | Công việc                                                                                                                                                                                   | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu                            |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------ | --------------- | ----------------------------------------- |
-| 2   | - Làm quen với các thành viên FCAJ <br> - Đọc và lưu ý các nội quy, quy định tại đơn vị thực tập                                                                                             | 11/08/2025   | 11/08/2025      |
-| 3   | - Tìm hiểu AWS và các loại dịch vụ <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                            | 12/08/2025   | 12/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Tạo AWS Free Tier account <br> - Tìm hiểu AWS Console & AWS CLI <br> - **Thực hành:** <br>&emsp; + Tạo AWS account <br>&emsp; + Cài AWS CLI & cấu hình <br> &emsp; + Cách sử dụng AWS CLI | 13/08/2025   | 13/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Tìm hiểu EC2 cơ bản: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - Các cách remote SSH vào EC2 <br> - Tìm hiểu Elastic IP   <br>                  | 14/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Thực hành:** <br>&emsp; + Tạo EC2 instance <br>&emsp; + Kết nối SSH <br>&emsp; + Gắn EBS volume                                                                                         | 15/08/2025   | 15/08/2025      | <https://cloudjourney.awsstudygroup.com/> |
-
+| Thứ | Công việc | Ngày bắt đầu | Ngày hoàn thành | Nguồn tài liệu |
+| --- | --- | --- | --- | --- |
+| 2 | - Tìm hiểu về Content Delivery với Amazon CloudFront.<br>- **Thực hành:**<br>&emsp; + Tạo S3 bucket và tải lên nội dung web tĩnh (index.html).<br>&emsp; + Cấu hình CloudFront distribution với S3 origin để bảo mật và tăng tốc độ tải trang.<br>&emsp; + Kiểm tra và dọn dẹp tài nguyên. | 01/06/2026 | 01/06/2026 | <https://000094.awsstudygroup.com/> |
+| 3 | - Nâng cao kiến thức CloudFront (Origin Group, Custom Error Page, Cache Behavior).<br>- **Thực hành phần 1:**<br>&emsp; + Chuẩn bị EC2, S3 làm nguồn (Origin).<br>&emsp; + Tạo CloudFront Distribution với EC2 origin, kiểm tra distribution invalidations.<br>&emsp; + Cấu hình Custom Error Page, Origin Group và Response Headers. | 02/06/2026 | 02/06/2026 | <https://000130.awsstudygroup.com/> |
+| 4 | - Tìm hiểu về Edge Computing (Lambda@Edge).<br>- **Thực hành phần 2:**<br>&emsp; + Tạo Cache Behavior mới trên CloudFront.<br>&emsp; + Tạo function Lambda@Edge và triển khai (deploy) lên CloudFront.<br>&emsp; + Giám sát CloudFront với Metrics và Logs, sau đó dọn dẹp tài nguyên. | 03/06/2026 | 03/06/2026 | <https://000130.awsstudygroup.com/> |
+| 5 | - Học cách tự động hóa Serverless để tối ưu chi phí hạ tầng EC2.<br>- **Thực hành:**<br>&emsp; + Chuẩn bị hạ tầng: VPC, Security Group, EC2 và Slack webhook.<br>&emsp; + Đánh Tag (Create Tag) cho EC2 instance.<br>&emsp; + Tạo IAM Role và Lambda functions để tự động Start/Stop EC2 instance theo lịch.<br>&emsp; + Kiểm tra kết quả báo về và dọn dẹp. | 04/06/2026 | 04/06/2026 | <https://000022.awsstudygroup.com/> |
+| 6 | - Quản lý quyền truy cập EC2 sử dụng IAM kết hợp Resource Tags (Least privilege).<br>- **Thực hành:**<br>&emsp; + Tạo IAM User, IAM Policy với các điều kiện (condition) bắt buộc về Tag.<br>&emsp; + Tạo IAM Role và thực hiện Assume Role (Switch Roles).<br>&emsp; + Kiểm tra giới hạn quyền: thử tạo EC2 không có tag, tạo EC2 có tag hợp lệ, sửa tag và quản lý EC2 dựa theo policy. | 05/06/2026 | 05/06/2026 | <https://000028.awsstudygroup.com/> |
 
 ### Kết quả đạt được tuần 5:
 
-* Hiểu AWS là gì và nắm được các nhóm dịch vụ cơ bản: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
-
-* Đã tạo và cấu hình AWS Free Tier account thành công.
-
-* Làm quen với AWS Management Console và biết cách tìm, truy cập, sử dụng dịch vụ từ giao diện web.
-
-* Cài đặt và cấu hình AWS CLI trên máy tính bao gồm:
-  * Access Key
-  * Secret Key
-  * Region mặc định
-  * ...
-
-* Sử dụng AWS CLI để thực hiện các thao tác cơ bản như:
-
-  * Kiểm tra thông tin tài khoản & cấu hình
-  * Lấy danh sách region
-  * Xem dịch vụ EC2
-  * Tạo và quản lý key pair
-  * Kiểm tra thông tin dịch vụ đang chạy
-  * ...
-
-* Có khả năng kết nối giữa giao diện web và CLI để quản lý tài nguyên AWS song song.
-* ...
-
-
+* Triển khai thành công hệ thống CDN với Amazon CloudFront.
+  * Phân phối nội dung web tĩnh từ S3 an toàn, hiệu năng cao.
+  * Cấu hình nâng cao: Origin Groups (Failover), Custom Error Pages, Cache Behaviors.
+* Làm chủ điện toán tại biên với Lambda@Edge.
+  * Viết và triển khai mã (code) để tùy chỉnh HTTP requests/responses tại các Edge Locations.
+* Ứng dụng Serverless Automation tối ưu hóa chi phí.
+  * Dùng AWS Lambda tự động hoá việc bật/tắt các EC2 instances không cần chạy 24/7.
+* Triển khai thành công mô hình bảo mật Least Privilege.
+  * Quản lý quyền truy cập tài nguyên cực kì chi tiết dựa trên Resource Tags và IAM Conditions.

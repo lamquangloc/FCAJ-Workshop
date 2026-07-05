@@ -1,47 +1,28 @@
 ---
 title: "Sharing and Feedback"
-date: 2024-01-01
+date: 2026-07-04
 weight: 7
 chapter: false
 pre: " <b> 7. </b> "
 ---
 
-{{% notice warning %}}
-⚠️ **Note:** The information below is for reference purposes only. Please **do not copy verbatim** for your report, including this warning.
-{{% /notice %}}
-
-> Here, you can freely share your personal opinions about your experience participating in the First Cloud AI Journey program. This will help the FCAJ team improve any shortcomings based on the following aspects:
+> Below are my personal reflections and feedback after completing the First Cloud AI Journey (FCAJ) bootcamp.
 
 ### Overall Evaluation
 
-**1. Working Environment**  
-The working environment is very friendly and open. FCAJ members are always willing to help whenever I encounter difficulties, even outside working hours. The workspace is tidy and comfortable, helping me focus better. However, I think it would be nice to have more social gatherings or team bonding activities to strengthen relationships.
+**1. Working Environment and Culture**  
+The environment at FCAJ is highly dynamic and professional. Despite being a bootcamp, I experienced the fast-paced workflow of a real engineer. Members were incredibly open, always willing to share knowledge and help each other out during difficult debugging sessions.
 
-**2. Support from Mentor / Team Admin**  
-The mentor provides very detailed guidance, explains clearly when I don’t understand, and always encourages me to ask questions. The admin team supports administrative tasks, provides necessary documents, and creates favorable conditions for me to work effectively. I especially appreciate that the mentor allows me to try and solve problems myself instead of just giving the answer.
+**2. Learning Experience and Skill Development**  
+This program pushed me out of my comfort zone. I went from having vague concepts to successfully designing and deploying real-world AWS Serverless architectures (such as API Gateway, Lambda, Step Functions, and DynamoDB). The project-based learning approach proved to be highly effective.
 
-**3. Relevance of Work to Academic Major**  
-The tasks I was assigned align well with the knowledge I learned at university, while also introducing me to new areas I had never encountered before. This allowed me to both strengthen my foundational knowledge and gain practical skills.
+**3. Support from Mentors and Admins**  
+The mentors were exceptionally dedicated. They didn't just give out solutions when I encountered problems in designing the architecture, but also explained the knowledge clearly and thoroughly. The admin team closely monitored our progress and provided prompt support regarding AWS resources and accounts.
 
-**4. Learning & Skill Development Opportunities**  
-During the internship, I learned many new skills such as using project management tools, teamwork skills, and professional communication in a corporate environment. The mentor also shared valuable real-world experiences that helped me better plan my career path.
+### Highlights
 
-**5. Company Culture & Team Spirit**  
-The company culture is very positive: everyone respects each other, works seriously but still keeps things enjoyable. When there are urgent projects, everyone works together and supports one another regardless of their position. This made me feel like a real part of the team, even as an intern.
+**Most Satisfying Aspect:**  
+The opportunity to work hands-on with the latest Cloud and AI technologies directly within the AWS environment, as well as learning professional teamwork and strict Data Contract coordination.
 
-**6. Internship Policies / Benefits**  
-The company provides an internship allowance and offers flexible working hours when needed. In addition, having the opportunity to join internal training sessions is a big plus.
-
----
-
-### Additional Questions
-- What did you find **most satisfying** during your internship?  
-- What do you think the company **should improve** for future interns?  
-- If recommending to a friend, would you **suggest they intern here**? Why or why not?  
-
----
-
-### Suggestions & Expectations
-- Do you have any suggestions to improve the internship experience?  
-- Would you like to continue this program in the future?  
-- Any other comments (free sharing):
+**Conclusion:**  
+FCAJ was truly a highly valuable journey for my technical mindset. I will definitely recommend this bootcamp to my friends and junior students. A huge thank you to the organizing team!

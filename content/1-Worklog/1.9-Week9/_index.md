@@ -5,53 +5,28 @@ weight: 1
 chapter: false
 pre: " <b> 1.9. </b> "
 ---
-{{% notice warning %}} 
-⚠️ **Note:** The following information is for reference purposes only. Please **do not copy verbatim** for your own report, including this warning.
-{{% /notice %}}
 
 
 ### Week 9 Objectives:
 
-* Connect and get acquainted with members of First Cloud AI Journey.
-* Understand basic AWS services, how to use the console & CLI.
+* Finalize and refine the ultimate architecture diagram for the group project.
+* Take on the Data/Backend role: Design the Data Model using DynamoDB and Amazon S3.
+* Develop Backend Logic (Lambda) for APIs: Get, List, Update, and Delete.
+* Test APIs with mock data and integrate them successfully with the Frontend.
+* Fix system bugs and implement multi-threaded data deletion logic.
 
 ### Tasks to be carried out this week:
-| Day | Task                                                                                                                                                                                                   | Start Date | Completion Date | Reference Material                        |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ---------- | --------------- | ----------------------------------------- |
-| 2   | - Get acquainted with FCAJ members <br> - Read and take note of internship unit rules and regulations                                                                                                   | 08/11/2025 | 08/11/2025      |
-| 3   | - Learn about AWS and its types of services <br>&emsp; + Compute <br>&emsp; + Storage <br>&emsp; + Networking <br>&emsp; + Database <br>&emsp; + ... <br>                                              | 08/12/2025 | 08/12/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 4   | - Create AWS Free Tier account <br> - Learn about AWS Console & AWS CLI <br> - **Practice:** <br>&emsp; + Create AWS account <br>&emsp; + Install & configure AWS CLI <br> &emsp; + How to use AWS CLI | 08/13/2025 | 08/13/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 5   | - Learn basic EC2: <br>&emsp; + Instance types <br>&emsp; + AMI <br>&emsp; + EBS <br>&emsp; + ... <br> - SSH connection methods to EC2 <br> - Learn about Elastic IP   <br>                            | 08/14/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-| 6   | - **Practice:** <br>&emsp; + Launch an EC2 instance <br>&emsp; + Connect via SSH <br>&emsp; + Attach an EBS volume                                                                                     | 08/15/2025 | 08/15/2025      | <https://cloudjourney.awsstudygroup.com/> |
-
+| Day | Task | Start Date | Completion Date | Reference Material |
+| --- | --- | --- | --- | --- |
+| 2 | - Finalize Architecture Documentation.<br>- **Practice:**<br>&emsp; + Lock in the final architecture diagram for the group project.<br>&emsp; + Refine and format the diagram to ensure it is clean, readable, and visually appealing. | 06/29/2026 | 06/29/2026 | Group Project |
+| 3 | - Database Design.<br>- **Practice:**<br>&emsp; + Start executing the project tasks based on the team leader's assignments (taking charge of the Data module).<br>&emsp; + Prepare and design the Data Model for DynamoDB and Amazon S3 storage. | 06/30/2026 | 06/30/2026 | Group Project |
+| 4 | - Build Get & List APIs.<br>- **Practice:**<br>&emsp; + Implement Backend Logic using Lambda functions for Get and List APIs.<br>&emsp; + Run tests and verify the newly developed APIs using mock data. | 07/01/2026 | 07/01/2026 | Group Project |
+| 5 | - Build Update & Delete APIs.<br>- **Practice:**<br>&emsp; + Implement Backend Logic using Lambda functions for Update APIs and setup Delete APIs.<br>&emsp; + Thoroughly test these functions using mock data in the database. | 07/02/2026 | 07/02/2026 | Group Project |
+| 6 | - Optimization and Bug Fixing.<br>- **Practice:**<br>&emsp; + Complete the multi-threaded (concurrent) Delete feature.<br>&emsp; + Fix system bugs that occurred during execution and testing.<br>&emsp; + Resolve integration bugs between the Frontend and Backend components. | 07/03/2026 | 07/03/2026 | Group Project |
 
 ### Week 9 Achievements:
 
-* Understood what AWS is and mastered the basic service groups: 
-  * Compute
-  * Storage
-  * Networking 
-  * Database
-  * ...
-
-* Successfully created and configured an AWS Free Tier account.
-
-* Became familiar with the AWS Management Console and learned how to find, access, and use services via the web interface.
-
-* Installed and configured AWS CLI on the computer, including:
-  * Access Key
-  * Secret Key
-  * Default Region
-  * ...
-
-* Used AWS CLI to perform basic operations such as:
-
-  * Check account & configuration information
-  * Retrieve the list of regions
-  * View EC2 service
-  * Create and manage key pairs
-  * Check information about running services
-  * ...
-
-* Acquired the ability to connect between the web interface and CLI to manage AWS resources in parallel.
-* ...
+* Delivered a clear, intuitive system architecture diagram, agreed upon by the entire team as the development blueprint.
+* Successfully designed the Data Model and provisioned DynamoDB tables and S3 buckets to fulfill the project's storage requirements.
+* Completed all CRUD APIs (Get, List, Update, Delete) for the Backend using AWS Lambda, ensuring seamless operation with real data.
+* Completely resolved integration bugs between the Frontend and Backend, and optimized the complex multi-threaded data deletion feature.
