@@ -1,22 +1,22 @@
 ---
-title: "Create and Test Step Functions Skeleton"
+title: "Tạo và Test Step Functions Skeleton"
 date: 2024-01-01
 weight: 4
 chapter: false
 pre: " <b> 5.6.4. </b> "
 ---
-#### Create Step Functions skeleton
-*Goal: Create a Workflow skeleton (Mock data) to test the ability to call from Lambda to Step Functions before integrating real AI logic.*
-1. Open Step Functions: Search **Step Functions** → **State machines** → Click **Create state machine**.
+#### Tạo Step Functions skeleton
+*Mục đích: Tạo một Workflow khung xương (Mock data) để test khả năng gọi từ Lambda sang Step Functions trước khi tích hợp logic AI thật.*
+1. Mở Step Functions: Gõ **Step Functions** → **State machines** → Bấm **Create state machine**.
 ![image52.png](/images/5-Workshop/5.6-document-ingestion-pipeline/image52.png)
 ![image53.png](/images/5-Workshop/5.6-document-ingestion-pipeline/image53.png)
 
-2. Select option: **Create from blank**, **State machine type: Standard** (Architecture uses Standard Workflow).
+2. Chọn option: **Create from blank**, **State machine type: Standard** (Kiến trúc dùng Standard Workflow).
 ![image54.png](/images/5-Workshop/5.6-document-ingestion-pipeline/image54.png)
-3. Enter State machine name: `docuflow-dev-workflow-processing-state-machine` → click **Continue**.
+3. Điền State machine name: `docuflow-dev-workflow-processing-state-machine` → bấm **Continue**.
 ![image55.png](/images/5-Workshop/5.6-document-ingestion-pipeline/image55.png)
 ![image56.png](/images/5-Workshop/5.6-document-ingestion-pipeline/image56.png)
-4. After entering the Workflow Studio screen, find the **Code** tab. In the **Definition** section, delete the old content and paste this ASL skeleton:
+4. Sau khi vào màn hình Workflow Studio, tìm tab **Code**. Ở phần **Definition**, xóa nội dung cũ rồi dán ASL skeleton này vào:
 ![image57.png](/images/5-Workshop/5.6-document-ingestion-pipeline/image57.png)
    ```json
    {
@@ -172,30 +172,30 @@ pre: " <b> 5.6.4. </b> "
    ```
    ![image58.png](/images/5-Workshop/5.6-document-ingestion-pipeline/image58.png)
 
-5. Switch to the **Config** tab to configure:
+5. Chuyển sang tab **Config** để kiểm tra:
 ![image59.png](/images/5-Workshop/5.6-document-ingestion-pipeline/image59.png)
-   | Item | Value |
+   | Mục | Giá trị |
    | --- | --- |
    | Name | docuflow-dev-workflow-processing-state-machine |
    | Type | Standard |
    | Permissions | Create new role |
    | Role name | docuflow-dev-workflow-stepfunctions-role |
-   | Logging | Off for skeleton |
-   | Tracing/X-Ray | Off for skeleton |
+   | Logging | Off cho skeleton |
+   | Tracing/X-Ray | Off cho skeleton |
    
-   Tags section:
+   Phần Tags:
    | Key | Value |
    | --- | --- |
    | Project | DocuFlowAI |
    | Environment | dev |
    | Module | workflow |
-6. Click **Create** in the upper right corner (Click Confirm if a popup appears).
+6. Bấm **Create** ở góc trên bên phải (Nhấn Confirm nếu có popup).
 ![image60.png](/images/5-Workshop/5.6-document-ingestion-pipeline/image60.png)
 ![image61.png](/images/5-Workshop/5.6-document-ingestion-pipeline/image61.png)
 
-#### Test Happy Path and Failure Path for Skeleton
+#### Test Happy Path và Failure Path cho Skeleton
 **Test happy path:**
-- Go to the state machine you just created, click **Start execution**.
+- Vào state machine vừa tạo, bấm **Start execution**.
 ![image62.png](/images/5-Workshop/5.6-document-ingestion-pipeline/image62.png)
 ![image63.png](/images/5-Workshop/5.6-document-ingestion-pipeline/image63.png)
 - Execution name: `docuflow-dev-doc-manual-001-v2`
@@ -217,7 +217,7 @@ pre: " <b> 5.6.4. </b> "
 ![image67.png](/images/5-Workshop/5.6-document-ingestion-pipeline/image67.png)
 
 **Test failure path:**
-- Click **New execution**.
+- Bấm **New execution**.
 - Execution name: `docuflow-dev-doc-manual-001-fail`
 - Input JSON:
   ```json
@@ -233,5 +233,5 @@ pre: " <b> 5.6.4. </b> "
   }
   ```
   ![image68.png](/images/5-Workshop/5.6-document-ingestion-pipeline/image68.png)
-- The graph will flow: `ValidateInput -> CheckForceFailure -> UpdateStatusFailed -> MockPublishFailureAlert -> WorkflowFailed`.
+- Graph sẽ đi theo luồng: `ValidateInput -> CheckForceFailure -> UpdateStatusFailed -> MockPublishFailureAlert -> WorkflowFailed`.
 ![image69.png](/images/5-Workshop/5.6-document-ingestion-pipeline/image69.png)

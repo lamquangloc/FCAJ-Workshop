@@ -5,28 +5,28 @@ weight: 1
 chapter: false
 pre: " <b> 5.8.1. </b> "
 ---
-**PART 1: SET UP LOG RETENTION SETTING**
+**PHẦN 1: THIẾT LẬP THỜI GIAN LƯU TRỮ LOG (RETENTION SETTING)**
 
-- Create CloudWatch log groups, metric filters/custom metrics if needed.
+- Tạo CloudWatch log groups, metric filters/custom metrics nếu cần.
 
-Financial safety note (Cost Guardrails): AWS defaults to storing logs indefinitely (Never Expire), which will increase the Account's storage costs. The documentation requires you to bring it down to 7 days.
+Lưu ý an toàn tài chính (Cost Guardrails): AWS mặc định lưu log vô thời hạn (Never Expire), điều này sẽ làm tăng chi phí lưu trữ của Account. Tài liệu yêu cầu bạn phải đưa về 7 ngày.
 
-Execute the following steps sequentially for all 6 group names:
-1. In the AWS Console search bar at the top, type CloudWatch ➔ Select the CloudWatch service.
+Bạn thực hiện các bước sau lần lượt cho cả 6 tên nhóm:
+1. Tại ô tìm kiếm trên cùng của AWS Console, gõ CloudWatch ➔ Chọn dịch vụ CloudWatch.
    ![image111.png](/images/5-Workshop/5.8-observability-alerting-governance/5.8.1-logging/image111.png)
 
-2. On the left sidebar menu, find the Logs section ➔ Click Log groups.
-3. Looking at the right corner of the screen, click the Create log group button.
-4. Detailed configuration:
-   * **Log group name**: Copy exactly the first name: `/aws/lambda/docuflow-dev-ai-proxy-lambda`
-   * **Retention setting**: Click the dropdown menu, select 1 week (7 days).
-   * **KMS key ARN**: Leave blank (or paste the ARN of the `alias/docuflow-dev-main-key` if you want to encrypt logs according to the highest security standards).
+2. Ở menu thanh bên trái, tìm đến mục Logs ➔ Bấm chọn Log groups.
+3. Nhìn sang góc phải màn hình, bấm nút Create log group.
+4. Cấu hình chi tiết:
+   * **Log group name**: Copy chính xác tên đầu tiên: `/aws/lambda/docuflow-dev-ai-proxy-lambda`
+   * **Retention setting**: Bấm vào menu thả xuống, chọn 1 week (7 days).
+   * **KMS key ARN**: Để trống (hoặc dán ARN của khóa `alias/docuflow-dev-main-key` nếu bạn muốn mã hóa log theo chuẩn an ninh cao nhất).
       ![image112.png](/images/5-Workshop/5.8-observability-alerting-governance/5.8.1-logging/image112.png)
 
-5. Click the Create button at the bottom.
+5. Bấm nút Create ở dưới cùng.
    ![image113.png](/images/5-Workshop/5.8-observability-alerting-governance/5.8.1-logging/image113.png)
 
-Repeat the exact steps above for the remaining 5 names:
+Lặp lại chính xác các bước trên cho 5 cái tên còn lại:
 * `/aws/lambda/docuflow-dev-ingestion-job-starter-lambda`
 * `/aws/lambda/docuflow-dev-api-generate-upload-url-lambda`
 * `/aws/lambda/docuflow-dev-ai-textract-lambda`
@@ -34,54 +34,54 @@ Repeat the exact steps above for the remaining 5 names:
 * `/aws/lambda/docuflow-dev-data-lambda`
 
 
-**PART 2: CREATE METRIC FILTERS TO MONITOR IMPORTANT METRICS (CUSTOM METRICS)**
+**PHẦN 2: TẠO METRIC FILTERS ĐỂ THEO DÕI CÁC CHỈ SỐ QUAN TRỌNG (CUSTOM METRICS)**
 
-To serve the Workshop/Demo for displaying visual charts, you need to extract metrics from Logs into Metrics. We will make 2 core filter sets:
+Để phục vụ cho buổi Workshop/Demo hiển thị biểu đồ trực quan, bạn cần trích xuất các chỉ số từ Log ra thành Metric. Chúng ta sẽ làm 2 bộ filter cốt lõi:
 
-**Filter Set 1: Catch system errors errorType (Configured on Tai's AI Proxy function)**
+**Bộ Filter 1: Bắt lỗi hệ thống errorType (Cấu hình trên hàm AI Proxy của Tài)**
 
-This filter helps count the number of times the AI Proxy function fails when calling an external LLM or due to a code error.
-1. In the Log groups list, click directly on the group name: `/aws/lambda/docuflow-dev-ai-proxy-lambda`.
-2. Select the Metric filters tab (next to the Log streams tab) ➔ Click the Create metric filter button.
+Filter này giúp đếm số lần hàm AI Proxy lỗi khi gọi LLM bên ngoài hoặc lỗi code.
+1. Tại danh sách Log groups, bấm thẳng vào tên nhóm: `/aws/lambda/docuflow-dev-ai-proxy-lambda`.
+2. Chọn tab Metric filters (nằm cạnh tab Log streams) ➔ Bấm nút Create metric filter.
    ![image114.png](/images/5-Workshop/5.8-observability-alerting-governance/5.8.1-logging/image114.png)
 
-**Step 1: Define pattern (Define search keyword):**
-* In the Filter pattern box, enter the exact string: `"errorType"` (including the 2 quotes to correctly scan standard JSON error log structures).
-* You can click the Test pattern button to see if the current log contains this word. Then click Next.
+**Bước 1: Define pattern (Định nghĩa từ khóa tìm kiếm):**
+* Tại ô Filter pattern, bạn nhập chính xác chuỗi: `"errorType"` (có cả 2 dấu ngoặc kép để quét đúng cấu trúc log lỗi chuẩn JSON).
+* Bạn có thể bấm nút Test pattern để xem thử log hiện tại có dính chữ này không. Sau đó bấm Next.
    ![image115.png](/images/5-Workshop/5.8-observability-alerting-governance/5.8.1-logging/image115.png)
 
-**Step 2: Assign metric (Assign system metric):**
-* **Filter name**: Enter `docuflow-dev-proxy-error-filter`
-* **Metric namespace**: Enter `DocuFlowAI/Metrics` (Written together, this is the master box to contain all custom metrics of the project).
-* **Metric name**: Enter `ProxyExecutionErrors`
-* **Metric value**: Enter the number `1` (Meaning every time a log line appears with the word `"errorType"`, the system automatically increments the count by 1).
-* Leave the remaining boxes blank. Click Next.
+**Bước 2: Assign metric (Gán chỉ số hệ thống):**
+* **Filter name**: Điền `docuflow-dev-proxy-error-filter`
+* **Metric namespace**: Điền `DocuFlowAI/Metrics` (Viết liền, đây là cái hộp tổng để chứa tất cả các chỉ số tự chế của dự án).
+* **Metric name**: Điền `ProxyExecutionErrors`
+* **Metric value**: Điền số `1` (Nghĩa là cứ mỗi dòng log xuất hiện chữ `"errorType"`, hệ thống tự động đếm tăng lên 1).
+* Các ô còn lại để trống. Bấm Next.
    ![image116.png](/images/5-Workshop/5.8-observability-alerting-governance/5.8.1-logging/image116.png)
 
-**Step 3: Review and create:**
-* Review once and then click Create metric filter.
+**Bước 3: Review and create:**
+* Xem lại một lượt rồi bấm Create metric filter.
    ![image117.png](/images/5-Workshop/5.8-observability-alerting-governance/5.8.1-logging/image117.png)
    ![image118.png](/images/5-Workshop/5.8-observability-alerting-governance/5.8.1-logging/image118.png)
 
-**Filter Set 2: Monitor the number of invoices requiring manual review REVIEW_REQUIRED (Configured on Tra's function)**
+**Bộ Filter 2: Theo dõi số hóa đơn cần kiểm duyệt thủ công REVIEW_REQUIRED (Cấu hình trên hàm của Trà)**
 
-This filter helps count how many invoices have a low confidence score and need human intervention to review.
-1. Return to the Log groups list, click on the group name: `/aws/lambda/docuflow-dev-ai-confidence-status-lambda`.
-2. Select the Metric filters tab ➔ Click the Create metric filter button.
+Filter này giúp đếm xem có bao nhiêu hóa đơn có điểm tin cậy thấp cần con người nhảy vào duyệt lại.
+1. Quay lại danh sách Log groups, bấm vào tên nhóm: `/aws/lambda/docuflow-dev-ai-confidence-status-lambda`.
+2. Chọn tab Metric filters ➔ Bấm nút Create metric filter.
 
-**Step 1: Define pattern:**
-* In the Filter pattern box, enter the exact string: `"REVIEW_REQUIRED"`. Click Next.
+**Bước 1: Define pattern:**
+* Tại ô Filter pattern, bạn nhập chính xác chuỗi: `"REVIEW_REQUIRED"`. Bấm Next.
    ![image119.png](/images/5-Workshop/5.8-observability-alerting-governance/5.8.1-logging/image119.png)
 
-**Step 2: Assign metric:**
-* **Filter name**: Enter `docuflow-dev-review-required-filter`
-* **Metric namespace**: Enter exactly the same as above to group: `DocuFlowAI/Metrics`
-* **Metric name**: Enter `InvoicesRequiringHumanReview`
-* **Metric value**: Enter the number `1`. Click Next.
+**Bước 2: Assign metric:**
+* **Filter name**: Điền `docuflow-dev-review-required-filter`
+* **Metric namespace**: Điền giống hệt cái trên để gom nhóm: `DocuFlowAI/Metrics`
+* **Metric name**: Điền `InvoicesRequiringHumanReview`
+* **Metric value**: Điền số `1`. Bấm Next.
    ![image120.png](/images/5-Workshop/5.8-observability-alerting-governance/5.8.1-logging/image120.png)
 
-**Step 3: Review and create:**
-* Click Create metric filter to finish.
+**Bước 3: Review and create:**
+* Bấm Create metric filter để hoàn tất.
    ![image121.png](/images/5-Workshop/5.8-observability-alerting-governance/5.8.1-logging/image121.png)
 
    ![image122.png](/images/5-Workshop/5.8-observability-alerting-governance/5.8.1-logging/image122.png)

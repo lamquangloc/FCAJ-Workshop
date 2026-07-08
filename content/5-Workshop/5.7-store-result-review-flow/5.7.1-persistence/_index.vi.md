@@ -1,52 +1,51 @@
 ---
-title: "Persistence & Offloading Design"
+title: "Mô hình dữ liệu & Offloading"
 date: 2024-01-01
 weight: 1
 chapter: false
 pre: " <b> 5.7.1. </b> "
 ---
-The DocuFlow AI persistence layout combines a **Single-Table Design** pattern on Amazon DynamoDB with S3 **Offloading** (separating large attributes) to optimize retrieval performance, control database costs, and bypass physical NoSQL record size boundaries.
+Hệ thống lưu trữ và quản lý kết quả bóc tách chứng từ của DocuFlow AI áp dụng nguyên lý **Single-Table Design** trên Amazon DynamoDB kết hợp với mô hình **Offloading** (phân tách dữ liệu lớn) lưu trên S3 để tối ưu hóa hiệu năng, chi phí và vượt qua các giới hạn vật lý của cơ sở dữ liệu NoSQL.
 
 ---
 
-### 1. Hybrid Storage Pattern
+### 1. Kiến trúc lưu trữ kết hợp (Hybrid Architecture)
 
-* **DynamoDB (Summary Metadata)**:
-  * Persists short search properties that require high indexing/lookup rates (such as `status`, `vendorName`, `invoiceDate`, `totalAmount`, and the S3 file path location).
-  * This guarantees millisecond response times for dashboard lists (`GET /documents`) while reducing DynamoDB Read/Write Capacity Units (RCUs/WCUs).
+* **DynamoDB (Lưu siêu dữ liệu tóm tắt - Metadata)**: 
+  * Lưu trữ các trường dữ liệu ngắn, có tần suất truy vấn và tìm kiếm cao như: trạng thái hóa đơn (`status`), tên nhà cung cấp (`vendorName`), ngày hóa đơn (`invoiceDate`), tổng tiền (`totalAmount`), và đường dẫn lưu trữ.
+  * Việc này giúp việc hiển thị danh sách hóa đơn trên Dashboard của người dùng đạt tốc độ phản hồi tối ưu (mili-giây) và giảm tải dung lượng đọc/ghi (Read/Write Capacity Units) của DynamoDB.
 
-* **S3 (Detailed JSON Payload)**:
-  * Heavy, nested objects (like the raw OCR outputs and the normalized array of `lineItems`, which can grow to hundreds of KB) are packed into a static `result.json` file on S3 Processed bucket under the structure:
+* **S3 (Lưu trữ Payload chi tiết)**:
+  * Toàn bộ dữ liệu bóc tách thô, dữ liệu chuẩn hóa dạng JSON đầy đủ (bao gồm cả mảng danh sách mặt hàng `lineItems` nặng hàng trăm KB) được nén và đẩy trực tiếp thành tệp tin tĩnh `result.json` lưu trữ trên S3 Processed bucket theo cấu trúc thư mục:
    
 
     `processed/{userId}/{documentId}/result.json`
-  * When a user selects a specific document to inspect, the Frontend pulls this file directly from S3.
-  * **Rationale**: DynamoDB limits a single record (Item) size to **400KB**. Storing extensive invoice item lines in DynamoDB would lead to size limit exceptions or inflate read/write costs significantly.
+  * Khi người dùng click vào một hóa đơn cụ thể để xem chi tiết, Frontend mới gọi API lấy tệp tin JSON này từ S3 về hiển thị.
+  * **Lý do**: Giới hạn kích thước tối đa cho 1 bản ghi (Item) trong DynamoDB là **400KB**. Đối với các hóa đơn dài có hàng trăm dòng sản phẩm, việc lưu trữ trực tiếp vào DynamoDB sẽ làm sập hệ thống (Vượt hạn mức) hoặc tăng chi phí lưu trữ/truy vấn cơ sở dữ liệu lên rất nhiều lần.
 
 ---
 
-### 2. Single-Table Partitioning Strategy
+### 2. Thiết kế Single-Table Design trên DynamoDB
 
-We enforce a single table named `docuflow-dev-documents-table` partitioned using the following keys:
+Để phục vụ toàn bộ các nghiệp vụ chỉ sử dụng duy nhất một bảng `docuflow-dev-documents-table`, chúng ta sử dụng thiết kế phân vùng khóa như sau:
 
-* **Partition Key (`PK`)** = `USER#{userId}`
-  * Co-locates all invoice documents belonging to a single user into a unified physical database partition.
-  * Supports high-velocity queries (`GET /documents`) using the condition `PK = USER#{userId}`.
+* **Khóa chính PK (Partition Key)** = `USER#{userId}`
+  * Gom nhóm tất cả tài liệu thuộc về cùng một người dùng về một phân vùng vật lý trên hệ thống. 
+  * Hỗ trợ API xem danh sách tài liệu (`GET /documents`) bằng lệnh truy vấn `Query` theo `PK = USER#{userId}` cực kỳ nhanh.
 
-* **Sort Key (`SK`)** = `DOC#{documentId}`
-  * Ensures uniqueness for each document uploaded by the user.
-  * Enables $O(1)$ lookup complexity for Get and Update operations.
+* **Khóa chính SK (Sort Key)** = `DOC#{documentId}`
+  * Đảm bảo tính duy nhất của từng tài liệu của người dùng.
+  * Hỗ trợ lấy chi tiết chứng từ nhanh chóng bằng cách chỉ định chính xác cặp khóa `PK` và `SK` ($O(1)$ lookup).
 
-* **Global Secondary Index (GSI) for Status Filters**:
-  * **GSI Partition Key (`GSI1PK`)** = `STATUS#{status}` (e.g. `STATUS#PROCESSING`, `STATUS#REVIEW_REQUIRED`).
-  * **GSI Sort Key (`GSI1SK`)** = `createdAt` (document creation timestamp).
-  * **Index name**: `docuflow-dev-documents-status-createdAt-index`
-  * **Projection**: `All` (projects all attributes to the GSI index for instant dashboard consumption).
-  * **Rationale**: Enables queries like "Show only invoices waiting for review" sorted by latest creation dates.
+* **Global Secondary Index (GSI) để lọc theo trạng thái**:
+  * **GSI Partition Key (`GSI1PK`)** = `STATUS#{status}` (Ví dụ: `STATUS#PROCESSING`, `STATUS#REVIEW_REQUIRED`).
+  * **GSI Sort Key (`GSI1SK`)** = `createdAt` (Mốc thời gian tạo bản ghi).
+  * **Tên GSI**: `docuflow-dev-documents-status-createdAt-index`
+  * **Mục đích**: Cho phép Frontend hiển thị danh sách hóa đơn lọc theo trạng thái (ví dụ: "Chỉ hiện hóa đơn chờ duyệt") và sắp xếp theo thứ tự thời gian mới nhất.
 
 ---
 
-### 3. DynamoDB Record Schema Example
+### 3. Sơ đồ Cấu trúc bản ghi DynamoDB
 
 | PK | SK | documentId | userId | status | GSI1PK | GSI1SK |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -56,7 +55,7 @@ We enforce a single table named `docuflow-dev-documents-table` partitioned using
 
 ---
 
-### Evidence
+### Minh chứng thực hành (Evidence)
 
-- Verify that the DynamoDB item contains the expected metadata keys and status.
-- Verify that `result.json` exists under the expected S3 Processed prefix.
+- Kiểm tra bản ghi DynamoDB có đủ khóa metadata và trạng thái mong đợi.
+- Kiểm tra `result.json` tồn tại đúng prefix trong S3 Processed Bucket.

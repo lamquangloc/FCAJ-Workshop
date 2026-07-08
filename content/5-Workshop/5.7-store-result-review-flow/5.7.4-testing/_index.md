@@ -1,202 +1,77 @@
 ---
-title: "Cấu hình API Gateway"
+title: "Testing and Reporting"
 date: 2024-01-01
-weight: 3
+weight: 4
 chapter: false
-pre: " <b> 5.7.3. </b> "
+pre: " <b> 5.7.4. </b> "
 ---
-Trong phần này, chúng ta sẽ cấu hình Amazon API Gateway để làm cổng giao tiếp (API Endpoint) cho tất cả các Lambda functions đã tạo, đồng thời tích hợp xác thực người dùng bằng Cognito Authorizer.
-
----
-
-### Bước 1: Tạo Resource API Gateway
-
-1. Tìm kiếm **API Gateway** trên giao diện AWS Console.
-   
-   ![image15.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image15.png)
-
-2. Tại giao diện API Gateway chọn API được tạo trước đó.
-   
-   ![image16.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image16.png)
-   
-3. Chọn resourece `document` đã tạo trước đó.
-   
-   ![image17.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image17.png)
-   
-4. Chọn **Create resource**.
-   
-   ![image18.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image18.png)
-   
-5. Nhập vào tên resource `{documentId}`.
-   
-   ![image19.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image19.png)
-   
-6. Nhấn **Create resource**.
-   
-   ![image20.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image20.png)
-   
-7. Thực hiện tương tự với các resource theo cấu trúc sau:
-   * `/documents/{documentId}/process`
-   
-     ![image21.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image21.png)
-     ![image22.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image22.png)
-     ![image23.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image23.png)
-     ![image24.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image24.png)
-   
-   * `/documents/{documentId}/review`
-   
-     ![image25.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image25.png)
-     ![image26.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image26.png)
-   
-8. Kiểm tra kết quả cấu trúc được tạo đúng chưa.
-   
-   ![image27.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image27.png)
+We will set up Mock Data to independently test the data management API cluster, then use AWS CloudShell to run a statistical reporting script for the documents.
 
 ---
 
-### Bước 2: Tạo Methods và kết nối Lambda
-
-1. Tại resource `document` chọn **Create method**.
-   
-   ![image28.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image28.png)
-   
-2. Chọn **GET** method.
-   
-   ![image29.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image29.png)
-   
-3. Bật tích phần **Lambda proxy integration**.
-   
-   ![image30.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image30.png)
-   
-4. Ở phần Lambda function chọn lambda có đuôi `docuflow-dev-data-list-documents-lambda`.
-   
-   ![image31.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image31.png)
-   
-5. Chọn **Create method**.
-   
-   ![image32.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image32.png)
-
-6. Thực hiện tương tự lần lượt với các method và gắn với Lambda như sau. Các route được đánh dấu **mở rộng** phụ thuộc vào ba Lambda mở rộng ở mục 5.7.2 và không bắt buộc trong MVP đã duyệt:
-   
-   * **Mở rộng:** `DELETE /documents` ➔ `docuflow-dev-data-delete-lambda`
-     ![image33.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image33.png)
-     ![image34.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image34.png)
-     ![image35.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image35.png)
-     ![image36.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image36.png)
-     
-   * **Mở rộng:** `DELETE /documents/{documentId}` ➔ `docuflow-dev-data-delete-lambda`
-     ![image33.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image33.png)
-     ![image34.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image34.png)
-     ![image35.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image35.png)
-     ![image36.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image36.png)
-     
-   * `GET /documents/{documentId}` ➔ `docuflow-dev-data-get-document-lambda`
-     ![image37.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image37.png)
-     ![image38.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image38.png)
-     ![image34.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image34.png)
-     ![image39.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image39.png)
-     ![image36.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image36.png)
-     
-   * **Mở rộng:** `POST /documents/{documentId}/process` ➔ `docuflow-dev-data-process-control-lambda`
-     ![image40.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image40.png)
-     ![image34.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image34.png)
-     ![image41.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image41.png)
-     ![image36.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image36.png)
-     
-   * `PATCH /documents/{documentId}/review` ➔ `docuflow-dev-data-review-update-lambda`
-     ![image42.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image42.png)
-     ![image34.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image34.png)
-     ![image36.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image36.png)
-     ![image43.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image43.png)
-
-   * **Mở rộng:** `POST /documents/{documentId}/retry` ➔ `docuflow-dev-data-process-control-lambda`
-   * `POST /documents/upload-url` ➔ `docuflow-dev-api-generate-upload-url-lambda`
-   * **Mở rộng:** `GET /notifications` ➔ `docuflow-dev-data-dashboard-lambda`
-   * **Mở rộng:** `PATCH /notifications/{notificationId}` ➔ `docuflow-dev-data-dashboard-lambda`
-   * **Mở rộng:** `GET /activity` ➔ `docuflow-dev-data-dashboard-lambda`
-   * **Mở rộng:** `GET /reports/summary` ➔ `docuflow-dev-data-dashboard-lambda`
+### Step 1: Prepare Mock Data
+To facilitate independent testing (not depending on the AI module), mock data has been created directly on AWS:
+* **DynamoDB Item**: Create 01 simulated record (item) in the `docuflow-dev-documents-table` storing basic metadata.
+![image63.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image63.png)
+* **S3 Processed JSON**: Create 01 detailed `result.json` file (containing lineItems, workflow, extraction data) stored at the directory `processed/user-001/doc-20260628-001/` in the S3 bucket.
+![image64.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image64.png)
 
 ---
 
-### Bước 3: Cấu hình Authorizer (Cognito)
+### Step 2: Instructions for Testing the 3 Data APIs (API Testing)
+The testing process is performed using the **Test Event** feature directly on the AWS Lambda Console interface, simulating requests sent from API Gateway.
 
-1. Ở trang API hiện tại chọn **Authorizers** ở thanh bên trái.
-   
-   ![image44.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image44.png)
-   
-2. Tại trang này nhấn chọn **Create authorizer**.
-   
-   ![image45.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image45.png)
-   
-3. Tại trang này nhập name là `docuflow-dev-cognito-authorizer`.
-   
-   ![image46.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image46.png)
-   
-4. Chỉnh sang kiểu xác thực **Cognito**.
-   
-   ![image47.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image47.png)
-   
-5. Chọn Userpool của Cognito đã tạo trước đó.
-   
-   ![image48.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image48.png)
-   
-6. Thêm `Authorization` vào Token source.
-   
-   ![image49.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image49.png)
-   ![image50.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image50.png)
-   
-7. Nhấn **Create authorizer**.
-   
-   ![image51.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image51.png)
+* **2.1. Get Document API** (`GET /documents/{documentId}`)
+  * **Lambda Function**: `docuflow-dev-data-get-document-lambda`
+  * **Test Scenario**: The function receives `documentId`, queries DynamoDB to get the `processedS3Key` path, then connects to S3 to download and return the entire detailed JSON file. Ensure security keys (PK, SK, GSI) are filtered out.
+  ![image65.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image65.png)
+  * **Result**: The API returns HTTP Status 200, displaying full document details without exposing internal keys.
+![image66.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image66.png)
+* **2.2. List Documents API** (`GET /documents?status=...`)
+  * **Lambda Function**: `docuflow-dev-data-list-documents-lambda`
+  * **Test Scenario**: Pass the query string parameter `status: "EXTRACTED"`. The function executes a Query command on the Global Secondary Index (GSI) of DynamoDB to filter the list.
+  ![image67.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image67.png)
+  * **Result**: Returns HTTP Status 200 along with an array of items containing qualifying documents.
+![image68.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image68.png)
+* **2.3. Update Review Status API** (`PATCH /documents/{documentId}/review`)
+  * **Lambda Function**: `docuflow-dev-data-review-update-lambda`
+  * **Test Scenario**: Simulate a user manually editing the amount on the Frontend interface. Send a payload updating `reviewStatus` to `CORRECTED` and log the corrections array.
+  ![image69.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image69.png)
+  * **Result**: Returns HTTP Status 200, DynamoDB table successfully updates the status fields.
+  ![image70.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image70.png)
 
 ---
 
-### Bước 4: Áp dụng Authorizer vào các Method
+### Step 3: Lightweight Statistical Report
+To support data monitoring and aggregation, a lightweight Node.js script has been deployed via AWS CloudShell to quickly export a report from DynamoDB without loading the main system.
+**Execution steps:**
+1. Access the AWS CloudShell environment.
+![image71.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image71.png)
+2. Create an executable file `report.mjs` using AWS SDK v3 to Query all user records via the Partition Key (`PK = USER#{userId}`).
+![image72.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image72.png)
+3. Press `ctrl + o` to save, then press `enter` to confirm the filename.
+4. Then press `ctrl + x` to exit.
+5. Install packages before running (if necessary).
 
-1. Tại giao diện của `DELETE Method` của `/documents`. Trong phần method request setting chọn **Edit**.
-   
-   ![image52.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image52.png)
-   
-2. Chọn Authorization vừa tạo trước đó và nhấn **Save**.
-   
-   ![image53.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image53.png)
-   ![image54.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image54.png)
-   
-3. Thực hiện tương tự cho các method còn lại:
-   * `GET /documents`
-   * `DELETE /documents` *(mở rộng)*
-   * `GET /documents/{documentId}`
-   * `DELETE /documents/{documentId}` *(mở rộng)*
-   * `POST /documents/{documentId}/process` *(mở rộng)*
-   * `POST /documents/{documentId}/retry` *(mở rộng)*
-   * `PATCH /documents/{documentId}/review`
-   * `POST /documents/upload-url`
-   * `GET /notifications` *(mở rộng)*
-   * `PATCH /notifications/{notificationId}` *(mở rộng)*
-   * `GET /activity` *(mở rộng)*
-   * `GET /reports/summary` *(mở rộng)*
+![image74.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image74.png)
+6. Execute the command `node report.mjs` to proceed with counting and grouping data.
+![image73.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image73.png)
+**Actual report results:**
+* Total documents: (Quantity)
+* Classification by status: (How many EXTRACTED, REVIEW_REQUIRED, FAILED documents...)
+* Total cost by vendor: Statistics of the sum of totalAmount grouped by vendorName and month.
+![image75.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image75.png)
 
 ---
 
-### Bước 5: Deploy API và tích hợp vào Frontend
+### Step 4: Data Model Explanation
+To optimize costs and retrieval speeds on AWS according to the Serverless standard, the data model (Data Persistence) is designed based on the "Offloading" (separation) principle between DynamoDB and S3:
 
-1. Sau đó tại trang của API hiện tại ấn **Deploy API**.
-   
-   ![image55.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image55.png)
-   
-2. Tại giao diện này chọn mục **New stage** và nhập `dev` vào Stage name, nhấn **Deploy**.
-   
-   ![image56.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image56.png)
-   
-3. Sau khi tạo sẽ hiển thị trang của Stage, lưu lại **Invoke URL** để dùng vào code.
-   
-   ![image57.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image57.png)
-   ![image58.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image58.png)
-   ![image59.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image59.png)
-   ![image60.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image60.png)
-   ![image61.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image61.png)
-   ![image62.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image62.png)
-   
-4. Dán đoạn URL vừa nhận được vào phần `VITE_API_GATEWAY_URL` (hoặc `VITE_API_BASE_URL`) trong file `.env` của frontend.
-   
-   ![image63.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image63.png)
+* **Key Design in DynamoDB:**
+  * **Partition Key (PK)**: `USER#{userId}`. Helps cluster all of a user's documents into the same physical node, allowing the List Documents API to run extremely fast and saving RCU (Read Capacity Units).
+  * **Sort Key (SK)**: `DOC#{documentId}`. Combined with PK to accurately retrieve (O(1)) a single document for the Get/Update API.
+* **Global Secondary Index (GSI):**
+  * Uses `GSI1PK = STATUS#{status}` and `GSI1SK = createdAt`. This allows the system to easily query dashboard tables like: "Get the 10 most recent documents that failed (FAILED) or need review (REVIEW_REQUIRED)".
+* **Separating Metadata and Detailed Data:**
+  * DynamoDB only stores summary data fields (metadata) necessary for filtering and displaying lists (such as filename, total amount, invoice date, status).
+  * The entire heavy JSON structure (which can be up to hundreds of KB when containing details of each line item) is pushed to static storage in the S3 Bucket (`processedS3Key`). When the Client needs to view details, Lambda will pull the file from S3 to return it. This approach avoids hitting DynamoDB's 400KB/item limit and reduces expensive database storage/retrieval costs.

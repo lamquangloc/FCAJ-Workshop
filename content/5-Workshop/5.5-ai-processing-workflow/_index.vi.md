@@ -1,27 +1,27 @@
 ---
-title: "AI Processing Workflow"
+title: "Dựng Workflow xử lý AI"
 date: 2024-01-01
 weight: 5
 chapter: false
 pre: " <b> 5.5. </b> "
 ---
-### 1. Goal
-Establish an asynchronous AI processing workflow using **AWS Step Functions** to orchestrate four Lambda functions in sequence:
-1. **Input verification checks (Validate)**
-2. **Text extraction calling OCR engines (Amazon Textract)**
-3. **Prompt-engineered JSON normalization (AI Proxy)**
-4. **Confidence scoring and status routing (Confidence & Status)**
+### 1. Mục tiêu (Goal)
+Thiết lập luồng xử lý AI bất đồng bộ sử dụng **AWS Step Functions** để điều phối tuần tự 4 hàm Lambda:
+1. **Kiểm tra tệp tin hợp lệ (Validate)**
+2. **Gọi dịch vụ OCR bóc tách trường thô (Amazon Textract)**
+3. **Chuẩn hóa cấu trúc dữ liệu JSON bằng mô hình ngôn ngữ lớn (AI Proxy)**
+4. **Tự động tính toán điểm tin cậy để định tuyến trạng thái tài liệu (Confidence & Status)**
 
-The four functions above are the core AI-processing Lambdas. The workflow also invokes the official **Notification Trigger Lambda** for `REVIEW_REQUIRED` and failure alerts; its setup belongs to [Observability and Alerting](../5.8-observability-alerting-governance/5.8.2-alerting/5.8.2.1-notification-trigger-lambda/).
+Bốn hàm trên là nhóm Lambda xử lý AI cốt lõi. Workflow còn gọi **Notification Trigger Lambda** chính thức để gửi cảnh báo `REVIEW_REQUIRED` và lỗi; phần cấu hình nằm tại [Giám sát và Cảnh báo](../5.8-observability-alerting-governance/5.8.2-alerting/5.8.2.1-notification-trigger-lambda/).
 
 ---
 
-### 2. Lab Exercises
+### 2. Các nội dung thực hành chi tiết
 
-Select a sub-page below to complete the step-by-step instructions for each component:
+Vui lòng bấm chọn từng mục dưới đây để thực hiện chi tiết từng bước:
 
-* **[5.5.1 Validate Lambda](5.5.1-validate/)**: Deploy and configure the input validation checks Lambda.
-* **[5.5.2 Textract Lambda](5.5.2-textract/)**: Configure the Lambda function that invokes Amazon Textract OCR AnalyzeExpense APIs.
-* **[5.5.3 AI Proxy Lambda](5.5.3-proxy/)**: Configure the Lambda function that routes intermediate OCR outputs to an external LLM.
-* **[5.5.4 Confidence Status Lambda](5.5.4-confidence/)**: Deploy the Lambda function that rates field confidence scores and routes document statuses.
-* **[5.5.5 Step Functions Workflow](5.5.5-stepfunctions/)**: Deploy the AWS Step Functions State Machine that connects all execution steps with catch-fail transitions.
+* **[5.5.1 Validate Lambda](5.5.1-validate/)**: Khởi tạo và lập trình hàm Lambda kiểm tra định dạng và kích thước tệp tin đầu vào.
+* **[5.5.2 Textract Lambda](5.5.2-textract/)**: Cấu hình hàm Lambda gọi dịch vụ OCR bóc tách trường thô bằng Amazon Textract.
+* **[5.5.3 AI Proxy Lambda](5.5.3-proxy/)**: Cấu hình hàm Lambda chuẩn hóa dữ liệu bóc tách bằng mô hình ngôn ngữ lớn bên ngoài.
+* **[5.5.4 Confidence Status Lambda](5.5.4-confidence/)**: Cấu hình hàm Lambda phân định độ tin cậy và tự động gán trạng thái tài liệu.
+* **[5.5.5 Step Functions Workflow](5.5.5-stepfunctions/)**: Xây dựng State Machine liên kết tuần tự và xử lý lỗi cho toàn bộ 4 hàm Lambda trên.

@@ -1,228 +1,202 @@
 ---
-title: "Các hàm Lambda quản lý dữ liệu"
+title: "API Gateway Configuration"
 date: 2024-01-01
-weight: 2
+weight: 3
 chapter: false
-pre: " <b> 5.7.2. </b> "
+pre: " <b> 5.7.3. </b> "
 ---
-AWS Lambda là gì? Lambda là dịch vụ giúp bạn chạy code (mã lập trình) mà không cần phải đi thuê nguyên một máy chủ (server) rườm rà. Hệ thống module dữ liệu của chúng ta cần 4 hàm Lambda nhỏ để nhận lệnh từ người dùng và đi đọc/ghi dữ liệu vào S3 và DynamoDB.
+In this section, we will configure Amazon API Gateway to act as the primary endpoint for all deployed Lambda functions. Additionally, we will secure the API by integrating a Cognito Authorizer.
 
 ---
 
-### BƯỚC 3.1: Tạo hàm lấy chi tiết tài liệu (Get Document Lambda)
+### Step 1: Configure API Gateway Resources
 
-Hàm này có nhiệm vụ: Khi người dùng bấm xem chi tiết chứng từ (API `GET /documents/{documentId}`), hàm sẽ đi lấy dữ liệu chi tiết trả về cho họ.
-
-1. **Truy cập dịch vụ Lambda**:
-   * Tại thanh tìm kiếm trên cùng của AWS Console, nhập Lambda và chọn dịch vụ **Lambda**.
-   ![image24.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image24.png)
-2. **Khởi tạo hàm**:
-   * Nhấn nút **Create function** ở góc phải màn hình.
-   * Chọn tùy chọn **Author from scratch** (Mặc định).
-   ![image25.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image25.png)
+1. Search for **API Gateway** in the AWS Console.
    
+   ![image15.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image15.png)
 
-3. **Cấu hình thông tin cơ bản (Basic information)**:
-   * **Function name**: Nhập chính xác tên chuẩn mã nguồn: `docuflow-dev-data-get-document-lambda`. Hoặc đặt tên theo yêu cầu của bản đặt ra.
-   * **Runtime**: Chọn ngôn ngữ lập trình thống nhất của dự án (Ví dụ: `Node.js 24.x`).
-   ![image26.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image26.png)
-   * **Architecture**: Chọn `arm64`.
-4. **Cấu hình quyền hạn (Permissions)**:
-   * Kéo xuống và bấm mở rộng mục **Additional settings**.
-   ![image27.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image27.png)
-   * Tại mục **Custom execution role**, chọn **Use an existing role** và chọn role `docuflow-dev-data-lambda-role` đã được tạo ở phần IAM.
+2. Select the API Gateway that was previously created (or create a new HTTP/REST API).
    
-   ![image28.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image28.png)
-   * Nhấn **Save**.
-   ![image29.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image29.png)
-5. **Nhập tags**:
-   * Nhấn vào tags.
-   * Chọn các tags cần thiết theo thiết lập (Ví dụ: Project: DocuFlowAI).
-   ![image30.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image30.png)
-   * Nhấn **Save**.
-   ![image31.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image31.png)
-6. Nhấn nút **Create function** để tạo lambda.
-   ![image32.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image32.png)
-
-Khi hàm được tạo xong, bạn sẽ thấy giao diện quản lý. Tại mục **Code source**, bạn có thể dán code lập trình dưới đây vào và bấm nút **Deploy** (Triển khai) để lưu code.
-![image33.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image33.png)
-
----
-
-**Mã nguồn (`index.mjs`)**:
-
-{{< source-code file="services/functions/get-document/index.mjs" language="javascript" >}}
-
----
-
-### BƯỚC 3.2: TẠO HÀM LIST DOCUMENTS LAMBDA
-
-Hàm này giúp lấy danh sách toàn bộ chứng từ của người dùng hoặc lọc những chứng từ bị lỗi (API `GET /documents`).
-
-1. Quay lại giao diện chính của dịch vụ Lambda (bấm vào chữ **Functions** ở menu bên trái).
-![image34.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image34.png)
-2. Nhấn nút **Create function** và chọn **Author from scratch**.
-   ![image35.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image35.png)
-
-3. **Cấu hình thông tin cơ bản**:
-   * **Function name**: Nhập chính xác `docuflow-dev-data-list-documents-lambda`. Hoặc đặt tên theo yêu cầu của bạn đặt ra.
-   * **Runtime**: Chọn ngôn ngữ lập trình thống nhất của dự án (`Node.js 24.x`).
-   ![image36.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image36.png)
-   * **Architecture**: Chọn `arm64`.
-4. **Cấu hình quyền hạn**:
-   * Bấm mở rộng mục **Additional settings**.
-   * Tại mục **Custom execution role**, chọn **Use an existing role** và chọn role `docuflow-dev-data-lambda-role`.
-   ![image37.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image37.png)
-
-5. **Nhập tags**:
-   * Nhấn vào tags, chọn các tags cần thiết theo thiết lập.
-   ![image38.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image38.png)
-   * Nhấn **Save**.
-   ![image39.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image39.png)
-6. Nhấn nút **Create function**.
-   ![image40.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image40.png)
+   ![image16.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image16.png)
    
-Khi hàm được tạo xong, tại mục Code source, bạn có thể dán code lập trình vào và bấm nút **Deploy** (Triển khai) để lưu code.
-   ![image41.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image41.png)
-
-
-
----
-
-**Mã nguồn (`index.mjs`)**:
-
-{{< source-code file="services/functions/list-documents/index.mjs" language="javascript" >}}
-
----
-
-### BƯỚC 3.3: TẠO HÀM REVIEW UPDATE LAMBDA
-
-Hàm này dùng để lưu lại các thông tin mà người dùng sửa tay trên giao diện (ví dụ: AI nhận diện sai số tiền và người dùng sửa lại).
-
-1. Nhấn **Create function** ➔ **Author from scratch**.
-   ![image42.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image42.png)
-
-2. **Cấu hình thông tin cơ bản**:
-   * **Function name**: Nhập chính xác `docuflow-dev-data-review-update-lambda`.
-   * **Runtime**: Chọn ngôn ngữ lập trình thống nhất của dự án (`Node.js 24.x`).
-   ![image43.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image43.png)
-   * **Architecture**: Chọn `arm64`.
-3. **Cấu hình quyền hạn**:
-   * Bấm mở rộng mục **Additional settings**.
-   * Tại mục **Custom execution role**, chọn **Use an existing role** và chọn role `docuflow-dev-data-lambda-role`.
-   ![image44.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image44.png)
-
-4. **Thêm tags**:
-   * Nhấn vào tags, chọn các tags cần thiết theo thiết lập.
-   ![image45.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image45.png)
-   * Nhấn **Save**.
-   ![image46.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image46.png)
-5. Nhấn nút **Create function**.
-   ![image47.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image47.png)
-6.	Hàm này dùng để lưu lại các thông tin mà người dùng sửa tay trên giao diện (ví dụ: AI nhận diện sai số tiền và người dùng sửa lại)
-![image48.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image48.png)
----
-
-**Mã nguồn (`index.mjs`)**:
-
-{{< source-code file="services/functions/review-update/index.mjs" language="javascript" >}}
-
----
-
-## Lambda mở rộng (Phần làm thêm của dự án)
-
-Ba hàm dưới đây **không nằm trong danh sách Lambda MVP đã được duyệt**. Đây là các phần làm thêm cho chức năng xóa tài liệu, dữ liệu Dashboard và điều khiển process/retry chủ động. Chỉ triển khai khi sử dụng các route API và giao diện mở rộng tương ứng.
-
-### LAMBDA MỞ RỘNG E1: Tạo hàm Delete Document
-
-Hàm này dùng để xóa dữ liệu 1 hoặc nhiều document của user mà user muốn xóa.
-
-1. Nhấn **Create function** ➔ **Author from scratch**.
-![image49.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image49.png)
-2. **Cấu hình thông tin cơ bản**:
-   * **Function name**: Nhập chính xác `docuflow-dev-data-delete-lambda`.
-   * **Runtime**: Chọn ngôn ngữ lập trình thống nhất của dự án (`Node.js 24.x`).
-   ![image50.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image50.png)
-   * **Architecture**: Chọn `arm64`.
-3. **Cấu hình quyền hạn**:
-   * Bấm mở rộng mục **Additional settings**.
-   * Tại mục **Custom execution role**, chọn **Use an existing role** và chọn role `docuflow-dev-data-lambda-role`.
+3. Select the `document` resource.
    
-   ![image51.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image51.png)
-
-4. **Thêm tags**:
-   * Nhấn vào tags, chọn các tags cần thiết theo thiết lập.
-    ![image52.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image52.png)
-   * Nhấn **Save**.
-   ![image53.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image53.png)
-5. Nhấn nút **Create function**.
-   ![image54.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image54.png)
-
-6. Hàm này dùng để xóa dữ liệu 1 hoặc nhiều document của user mà user muốn xóa.
-   ![image55.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image55.png)
-
----
-
-**Mã nguồn (`index.mjs`)**:
-
-{{< source-code file="services/functions/delete-document/index.mjs" language="javascript" >}}
-
----
-
-### LAMBDA MỞ RỘNG E2: TẠO DASHBOARD LAMBDA
-
-Hàm `dashboard` tổng hợp KPI, hoạt động gần đây, cảnh báo và phân bố trạng thái để phục vụ Dashboard. Tạo Lambda `docuflow-dev-data-dashboard-lambda` bằng cùng runtime, kiến trúc và execution role của nhóm Data Lambda.
-
-**Mã nguồn (`index.mjs`)**:
-
-{{< source-code file="services/functions/dashboard/index.mjs" language="javascript" >}}
-
----
-
-### LAMBDA MỞ RỘNG E3: TẠO PROCESS CONTROL LAMBDA
-
-Hàm `process-control` xác thực quyền sở hữu tài liệu, kiểm tra object trong S3 Raw và khởi chạy lại Step Functions khi người dùng yêu cầu retry hoặc process. Tạo Lambda `docuflow-dev-data-process-control-lambda` bằng cùng runtime và kiến trúc của nhóm Data Lambda; execution role cần quyền đọc S3 Raw, đọc/ghi DynamoDB và `states:StartExecution`.
-
-**Mã nguồn (`index.mjs`)**:
-
-{{< source-code file="services/functions/process-control/index.mjs" language="javascript" >}}
+   ![image17.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image17.png)
+   
+4. Click **Create resource**.
+   
+   ![image18.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image18.png)
+   
+5. Enter `{documentId}` as the resource name.
+   
+   ![image19.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image19.png)
+   
+6. Click **Create resource**.
+   
+   ![image20.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image20.png)
+   
+7. Repeat the process to create the following resource paths:
+   * `/documents/{documentId}/process`
+   
+     ![image21.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image21.png)
+     ![image22.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image22.png)
+     ![image23.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image23.png)
+     ![image24.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image24.png)
+   
+   * `/documents/{documentId}/review`
+   
+     ![image25.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image25.png)
+     ![image26.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image26.png)
+   
+8. Verify the completed resource structure.
+   
+   ![image27.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image27.png)
 
 ---
 
-### CẤU HÌNH CHUNG: BIẾN MÔI TRƯỜNG & TIMEOUT
+### Step 2: Create Methods and Integrate Lambdas
 
-Code của chúng ta cần biết tên bảng và tên Bucket là gì để kết nối. Ngoài ra, việc đọc file đôi khi tốn thời gian, ta cần tăng thời gian chờ mặc định lên để hàm không bị ngắt ngang.
+1. Select the `document` resource and click **Create method**.
+   
+   ![image28.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image28.png)
+   
+2. Select **GET** as the method type.
+   
+   ![image29.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image29.png)
+   
+3. Enable **Lambda proxy integration**.
+   
+   ![image30.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image30.png)
+   
+4. Choose the lambda function ending with `docuflow-dev-data-list-documents-lambda`.
+   
+   ![image31.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image31.png)
+   
+5. Click **Create method**.
+   
+   ![image32.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image32.png)
 
-Thực hiện các bước sau cho **ba Data Lambda cốt lõi và các Lambda mở rộng mà bạn chọn triển khai**:
+6. Repeat the process to create the following methods and map them to their respective Lambda functions. Routes marked **optional extension** depend on the three extended Lambdas from section 5.7.2 and are not required for the approved MVP:
+   
+   * **Optional extension:** `DELETE /documents` ➔ `docuflow-dev-data-delete-lambda`
+     ![image33.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image33.png)
+     ![image34.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image34.png)
+     ![image35.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image35.png)
+     ![image36.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image36.png)
+     
+   * **Optional extension:** `DELETE /documents/{documentId}` ➔ `docuflow-dev-data-delete-lambda`
+     ![image33.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image33.png)
+     ![image34.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image34.png)
+     ![image35.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image35.png)
+     ![image36.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image36.png)
+     
+   * `GET /documents/{documentId}` ➔ `docuflow-dev-data-get-document-lambda`
+     ![image37.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image37.png)
+     ![image38.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image38.png)
+     ![image34.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image34.png)
+     ![image39.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image39.png)
+     ![image36.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image36.png)
+     
+   * **Optional extension:** `POST /documents/{documentId}/process` ➔ `docuflow-dev-data-process-control-lambda`
+     ![image40.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image40.png)
+     ![image34.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image34.png)
+     ![image41.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image41.png)
+     ![image36.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image36.png)
+     
+   * `PATCH /documents/{documentId}/review` ➔ `docuflow-dev-data-review-update-lambda`
+     ![image42.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image42.png)
+     ![image34.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image34.png)
+     ![image36.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image36.png)
+     ![image43.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image43.png)
 
-1. Tại giao diện chi tiết của từng hàm Lambda đã tạo, chuyển sang tab **Configuration**.
- ![image56.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image56.png)
-2. Chọn mục **General configuration** ở menu dọc bên trái, nhấn nút **Edit**.
-![image57.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image57.png)
-3. Thay đổi **Timeout** từ 3 sec (Mặc định) lên **10 seconds** (hoặc 15 giây) để đảm bảo hàm không bị ngắt giữa chừng khi truy vấn dữ liệu lớn hoặc đọc file từ S3.
-![image58.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image58.png)
-Nhấn **Save**.
-![image59.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image59.png)
-4. Chọn mục **Environment variables** ở menu dọc bên trái:
-![image60.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image60.png)
-   * Nhấn nút **Edit**, sau đó chọn **Add environment variable**.
-   * **Cặp biến thứ nhất**:
-     * **Key**: `DOCUFLOW_DEV_TABLE_NAME`
-     * **Value**: `docuflow-dev-documents-table`
-   * **Cặp biến thứ hai**:
-     * **Key**: `DOCUFLOW_DEV_PROCESSED_BUCKET`
-     * **Value**: Nhập đúng tên bucket S3 Processed (ví dụ: `docuflow-dev-processed-<MÃ_ACCOUNT_AWS>-ap-southeast-1`)
-   * **Cặp biến thứ ba**:
-     * **Key**: `DOCUFLOW_DEV_RAW_BUCKET`
-     * **Value**: Nhập đúng tên bucket S3 Raw (ví dụ: `docuflow-dev-raw-<MÃ_ACCOUNT_AWS>-ap-southeast-1`)
-   * Riêng **Process Control**, thêm `DOCUFLOW_DEV_STATE_MACHINE_ARN` với ARN của processing State Machine đã triển khai.
-   * Riêng **Dashboard**, có thể thêm `DOCUFLOW_DEV_VND_EXCHANGE_RATES` dưới dạng JSON khi cần quy đổi tổng báo cáo sang VND.
-
-![image61.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image61.png)
-
-5. Nhấn **Save** để áp dụng.
-![image62.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.2-lambdas/image62.png)
-
-Sau khi cấu hình xong các hàm đã chọn, các Lambda đã sẵn sàng tích hợp với API Gateway và Step Functions của hệ thống.
+   * **Optional extension:** `POST /documents/{documentId}/retry` ➔ `docuflow-dev-data-process-control-lambda`
+   * `POST /documents/upload-url` ➔ `docuflow-dev-api-generate-upload-url-lambda`
+   * **Optional extension:** `GET /notifications` ➔ `docuflow-dev-data-dashboard-lambda`
+   * **Optional extension:** `PATCH /notifications/{notificationId}` ➔ `docuflow-dev-data-dashboard-lambda`
+   * **Optional extension:** `GET /activity` ➔ `docuflow-dev-data-dashboard-lambda`
+   * **Optional extension:** `GET /reports/summary` ➔ `docuflow-dev-data-dashboard-lambda`
 
 ---
+
+### Step 3: Configure Cognito Authorizer
+
+1. In the API Gateway console, select **Authorizers** from the left navigation pane.
+   
+   ![image44.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image44.png)
+   
+2. Click **Create authorizer**.
+   
+   ![image45.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image45.png)
+   
+3. Enter `docuflow-dev-cognito-authorizer` as the name.
+   
+   ![image46.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image46.png)
+   
+4. Set the Authorizer type to **Cognito**.
+   
+   ![image47.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image47.png)
+   
+5. Select the Cognito User Pool created earlier.
+   
+   ![image48.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image48.png)
+   
+6. Enter `Authorization` into the Token source field.
+   
+   ![image49.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image49.png)
+   ![image50.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image50.png)
+   
+7. Click **Create authorizer**.
+   
+   ![image51.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image51.png)
+
+---
+
+### Step 4: Secure Methods using the Authorizer
+
+1. Navigate to the `DELETE` method of `/documents` and click **Edit** in the Method request settings.
+   
+   ![image52.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image52.png)
+   
+2. Under Authorization, select the Cognito Authorizer created previously and click **Save**.
+   
+   ![image53.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image53.png)
+   ![image54.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image54.png)
+   
+3. Repeat this process for all other methods:
+   * `GET /documents`
+   * `DELETE /documents` *(optional extension)*
+   * `GET /documents/{documentId}`
+   * `DELETE /documents/{documentId}` *(optional extension)*
+   * `POST /documents/{documentId}/process` *(optional extension)*
+   * `POST /documents/{documentId}/retry` *(optional extension)*
+   * `PATCH /documents/{documentId}/review`
+   * `POST /documents/upload-url`
+   * `GET /notifications` *(optional extension)*
+   * `PATCH /notifications/{notificationId}` *(optional extension)*
+   * `GET /activity` *(optional extension)*
+   * `GET /reports/summary` *(optional extension)*
+
+---
+
+### Step 5: Deploy API and Update Frontend
+
+1. On the main API page, click **Deploy API**.
+   
+   ![image55.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image55.png)
+   
+2. Select **New stage**, enter `dev` for the Stage name, and click **Deploy**.
+   
+   ![image56.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image56.png)
+   
+3. Once deployed, the Stage details page will appear. Copy the **Invoke URL**.
+   
+   ![image57.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image57.png)
+   ![image58.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image58.png)
+   ![image59.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image59.png)
+   ![image60.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image60.png)
+   ![image61.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image61.png)
+   ![image62.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image62.png)
+   
+4. Paste the Invoke URL into the `VITE_API_GATEWAY_URL` (or `VITE_API_BASE_URL`) variable in your frontend's `.env` file.
+   
+   ![image63.png](/images/5-Workshop/5.7-store-result-review-flow/5.7.3-api-gateway/image63.png)
