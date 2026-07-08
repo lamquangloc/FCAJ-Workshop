@@ -1,0 +1,9 @@
+{
+  "name": "@docuflow/function-notification-trigger",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@aws-sdk/client-sns": "^3.1079.0"
+  }
+}

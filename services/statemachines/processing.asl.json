@@ -1,0 +1,808 @@
+{
+    "Comment": "DocuFlow AI - Real processing workflow for invoice and receipt documents with standardized data contract",
+    "StartAt": "ValidateInput",
+    "States": {
+        "ValidateInput": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::lambda:invoke",
+            "Parameters": {
+                "FunctionName": "${WorkflowValidateFunctionArn}",
+                "Payload.$": "$"
+            },
+            "ResultSelector": {
+                "payload.$": "$.Payload"
+            },
+            "ResultPath": "$.validation",
+            "Retry": [
+                {
+                    "ErrorEquals": [
+                        "Lambda.ServiceException",
+                        "Lambda.AWSLambdaException",
+                        "Lambda.SdkClientException",
+                        "Lambda.TooManyRequestsException"
+                    ],
+                    "IntervalSeconds": 2,
+                    "MaxAttempts": 3,
+                    "BackoffRate": 2
+                }
+            ],
+            "Catch": [
+                {
+                    "ErrorEquals": [
+                        "States.ALL"
+                    ],
+                    "ResultPath": "$.workflowError",
+                    "Next": "BuildFailureResult"
+                }
+            ],
+            "Next": "NormalizeWorkflowInput"
+        },
+        "NormalizeWorkflowInput": {
+            "Type": "Pass",
+            "Parameters": {
+                "documentId.$": "$.validation.payload.documentId",
+                "userId.$": "$.validation.payload.userId",
+                "documentType.$": "$.validation.payload.documentType",
+                "bucket.$": "$.validation.payload.bucket",
+                "key.$": "$.validation.payload.key",
+                "rawS3Bucket.$": "$.validation.payload.rawS3Bucket",
+                "rawS3Key.$": "$.validation.payload.rawS3Key",
+                "s3RawPath.$": "$.validation.payload.s3RawPath",
+                "fileName.$": "$.validation.payload.originalFileName",
+                "originalFileName.$": "$.validation.payload.originalFileName",
+                "fileExtension.$": "$.validation.payload.fileExtension",
+                "contentType.$": "$.validation.payload.contentType",
+                "mimeType.$": "$.validation.payload.mimeType",
+                "pageCount.$": "$.validation.payload.pageCount",
+                "fileSizeBytes.$": "$.validation.payload.fileSizeBytes",
+                "validation": {
+                    "payload.$": "$.validation.payload"
+                }
+            },
+            "ResultPath": "$",
+            "Next": "UpdateStatusProcessing"
+        },
+        "UpdateStatusProcessing": {
+            "Type": "Pass",
+            "Parameters": {
+                "status": "PROCESSING",
+                "state": "UpdateStatusProcessing",
+                "message": "Document processing started",
+                "updatedAt.$": "$$.State.EnteredTime"
+            },
+            "ResultPath": "$.workflowStatus",
+            "Next": "SaveProcessingStatusToDynamoDB"
+        },
+        "SaveProcessingStatusToDynamoDB": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::dynamodb:updateItem",
+            "Parameters": {
+                "TableName": "${DocumentsTableName}",
+                "Key": {
+                    "PK": {
+                        "S.$": "States.Format('USER#{}', $.userId)"
+                    },
+                    "SK": {
+                        "S.$": "States.Format('DOC#{}', $.documentId)"
+                    }
+                },
+                "UpdateExpression": "SET schemaVersion = :schemaVersion, documentId = :documentId, userId = :userId, documentType = :documentType, originalFileName = :originalFileName, fileExtension = :fileExtension, pageCount = :pageCount, #status = :status, rawS3Key = :rawS3Key, createdAt = if_not_exists(createdAt, :createdAt), updatedAt = :updatedAt, GSI1PK = :gsi1pk, GSI1SK = :gsi1sk",
+                "ExpressionAttributeNames": {
+                    "#status": "status"
+                },
+                "ExpressionAttributeValues": {
+                    ":schemaVersion": {
+                        "S": "1.0.0"
+                    },
+                    ":documentId": {
+                        "S.$": "$.documentId"
+                    },
+                    ":userId": {
+                        "S.$": "$.userId"
+                    },
+                    ":documentType": {
+                        "S.$": "$.documentType"
+                    },
+                    ":originalFileName": {
+                        "S.$": "$.fileName"
+                    },
+                    ":fileExtension": {
+                        "S.$": "$.fileExtension"
+                    },
+                    ":pageCount": {
+                        "N.$": "States.Format('{}', $.pageCount)"
+                    },
+                    ":status": {
+                        "S": "PROCESSING"
+                    },
+                    ":rawS3Key": {
+                        "S.$": "$.key"
+                    },
+                    ":createdAt": {
+                        "S.$": "$$.Execution.StartTime"
+                    },
+                    ":updatedAt": {
+                        "S.$": "$$.State.EnteredTime"
+                    },
+                    ":gsi1pk": {
+                        "S": "STATUS#PROCESSING"
+                    },
+                    ":gsi1sk": {
+                        "S.$": "$$.Execution.StartTime"
+                    }
+                }
+            },
+            "ResultPath": "$.processingStatusSave",
+            "Retry": [
+                {
+                    "ErrorEquals": [
+                        "DynamoDB.ProvisionedThroughputExceededException",
+                        "DynamoDB.RequestLimitExceeded",
+                        "DynamoDB.InternalServerError"
+                    ],
+                    "IntervalSeconds": 1,
+                    "MaxAttempts": 4,
+                    "BackoffRate": 2
+                }
+            ],
+            "Catch": [
+                {
+                    "ErrorEquals": [
+                        "States.ALL"
+                    ],
+                    "ResultPath": "$.workflowError",
+                    "Next": "BuildFailureResult"
+                }
+            ],
+            "Next": "RunTextractAnalyzeExpense"
+        },
+        "RunTextractAnalyzeExpense": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::lambda:invoke",
+            "Parameters": {
+                "FunctionName": "${TextractFunctionArn}",
+                "Payload": {
+                    "documentId.$": "$.documentId",
+                    "userId.$": "$.userId",
+                    "rawS3Bucket.$": "$.bucket",
+                    "rawS3Key.$": "$.key",
+                    "bucket.$": "$.bucket",
+                    "key.$": "$.key",
+                    "originalFileName.$": "$.fileName",
+                    "mimeType.$": "$.contentType",
+                    "fileName.$": "$.fileName",
+                    "contentType.$": "$.contentType",
+                    "documentType.$": "$.documentType",
+                    "pageCount.$": "$.pageCount",
+                    "fileSizeBytes.$": "$.fileSizeBytes",
+                    "validation.$": "$.validation.payload"
+                }
+            },
+            "ResultSelector": {
+                "payload.$": "$.Payload"
+            },
+            "ResultPath": "$.textractResult",
+            "Retry": [
+                {
+                    "ErrorEquals": [
+                        "Lambda.ServiceException",
+                        "Lambda.AWSLambdaException",
+                        "Lambda.SdkClientException",
+                        "Lambda.TooManyRequestsException"
+                    ],
+                    "IntervalSeconds": 2,
+                    "MaxAttempts": 3,
+                    "BackoffRate": 2
+                }
+            ],
+            "Catch": [
+                {
+                    "ErrorEquals": [
+                        "States.ALL"
+                    ],
+                    "ResultPath": "$.workflowError",
+                    "Next": "BuildFailureResult"
+                }
+            ],
+            "Next": "SaveTextractRawToS3"
+        },
+        "SaveTextractRawToS3": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::aws-sdk:s3:putObject",
+            "Parameters": {
+                "Bucket": "${ProcessedBucketName}",
+                "Key.$": "States.Format('processed/{}/{}/textract-raw.json', $.userId, $.documentId)",
+                "Body.$": "States.JsonToString($.textractResult.payload)",
+                "ContentType": "application/json"
+            },
+            "ResultPath": "$.textractRawSave",
+            "Retry": [
+                {
+                    "ErrorEquals": [
+                        "S3.InternalError",
+                        "S3.SlowDown",
+                        "S3.ServiceUnavailable"
+                    ],
+                    "IntervalSeconds": 1,
+                    "MaxAttempts": 4,
+                    "BackoffRate": 2
+                }
+            ],
+            "Catch": [
+                {
+                    "ErrorEquals": [
+                        "States.ALL"
+                    ],
+                    "ResultPath": "$.workflowError",
+                    "Next": "BuildFailureResult"
+                }
+            ],
+            "Next": "CallAIProxyLambda"
+        },
+        "CallAIProxyLambda": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::lambda:invoke",
+            "Parameters": {
+                "FunctionName": "${AiProxyFunctionArn}",
+                "Payload": {
+                    "documentId.$": "$.documentId",
+                    "userId.$": "$.userId",
+                    "rawS3Bucket.$": "$.bucket",
+                    "rawS3Key.$": "$.key",
+                    "originalFileName.$": "$.fileName",
+                    "mimeType.$": "$.contentType",
+                    "extractedData.$": "$.textractResult.payload.extractedData",
+                    "textractResult.$": "$.textractResult.payload",
+                    "bucket.$": "$.bucket",
+                    "key.$": "$.key",
+                    "fileName.$": "$.fileName",
+                    "contentType.$": "$.contentType",
+                    "documentType.$": "$.documentType",
+                    "pageCount.$": "$.pageCount"
+                }
+            },
+            "ResultSelector": {
+                "payload.$": "$.Payload"
+            },
+            "ResultPath": "$.normalizedResult",
+            "Retry": [
+                {
+                    "ErrorEquals": [
+                        "Lambda.ServiceException",
+                        "Lambda.AWSLambdaException",
+                        "Lambda.SdkClientException",
+                        "Lambda.TooManyRequestsException"
+                    ],
+                    "IntervalSeconds": 2,
+                    "MaxAttempts": 3,
+                    "BackoffRate": 2
+                }
+            ],
+            "Catch": [
+                {
+                    "ErrorEquals": [
+                        "States.ALL"
+                    ],
+                    "ResultPath": "$.workflowError",
+                    "Next": "BuildFailureResult"
+                }
+            ],
+            "Next": "SaveNormalizedJsonToS3"
+        },
+        "SaveNormalizedJsonToS3": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::aws-sdk:s3:putObject",
+            "Parameters": {
+                "Bucket": "${ProcessedBucketName}",
+                "Key.$": "States.Format('processed/{}/{}/normalized.json', $.userId, $.documentId)",
+                "Body.$": "States.JsonToString($.normalizedResult.payload)",
+                "ContentType": "application/json"
+            },
+            "ResultPath": "$.normalizedSave",
+            "Retry": [
+                {
+                    "ErrorEquals": [
+                        "S3.InternalError",
+                        "S3.SlowDown",
+                        "S3.ServiceUnavailable"
+                    ],
+                    "IntervalSeconds": 1,
+                    "MaxAttempts": 4,
+                    "BackoffRate": 2
+                }
+            ],
+            "Catch": [
+                {
+                    "ErrorEquals": [
+                        "States.ALL"
+                    ],
+                    "ResultPath": "$.workflowError",
+                    "Next": "BuildFailureResult"
+                }
+            ],
+            "Next": "CalculateConfidenceAndStatus"
+        },
+        "CalculateConfidenceAndStatus": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::lambda:invoke",
+            "Parameters": {
+                "FunctionName": "${ConfidenceStatusFunctionArn}",
+                "Payload": {
+                    "documentId.$": "$.documentId",
+                    "userId.$": "$.userId",
+                    "textractResult.$": "$.textractResult.payload",
+                    "normalizedResult.$": "$.normalizedResult.payload"
+                }
+            },
+            "ResultSelector": {
+                "payload.$": "$.Payload"
+            },
+            "ResultPath": "$.statusDecision",
+            "Retry": [
+                {
+                    "ErrorEquals": [
+                        "Lambda.ServiceException",
+                        "Lambda.AWSLambdaException",
+                        "Lambda.SdkClientException",
+                        "Lambda.TooManyRequestsException"
+                    ],
+                    "IntervalSeconds": 2,
+                    "MaxAttempts": 3,
+                    "BackoffRate": 2
+                }
+            ],
+            "Catch": [
+                {
+                    "ErrorEquals": [
+                        "States.ALL"
+                    ],
+                    "ResultPath": "$.workflowError",
+                    "Next": "BuildFailureResult"
+                }
+            ],
+            "Next": "BuildDocumentResult"
+        },
+        "BuildDocumentResult": {
+            "Type": "Pass",
+            "Parameters": {
+                "schemaVersion": "1.0.0",
+                "documentId.$": "$.documentId",
+                "userId.$": "$.userId",
+                "documentType.$": "$.normalizedResult.payload.documentType",
+                "status.$": "$.statusDecision.payload.status",
+                "file": {
+                    "originalFileName.$": "$.fileName",
+                    "fileExtension.$": "$.fileExtension",
+                    "mimeType.$": "$.contentType",
+                    "fileSizeBytes.$": "$.validation.payload.objectSize",
+                    "pageCount.$": "$.pageCount"
+                },
+                "storage": {
+                    "rawS3Bucket.$": "$.bucket",
+                    "rawS3Key.$": "$.key",
+                    "processedS3Bucket": "${ProcessedBucketName}",
+                    "processedS3Key.$": "States.Format('processed/{}/{}/result.json', $.userId, $.documentId)",
+                    "textractRawS3Key.$": "States.Format('processed/{}/{}/textract-raw.json', $.userId, $.documentId)",
+                    "normalizedS3Key.$": "States.Format('processed/{}/{}/normalized.json', $.userId, $.documentId)"
+                },
+                "workflow": {
+                    "executionId.$": "$$.Execution.Id",
+                    "queueMessageId": "",
+                    "retryCount": 0,
+                    "startedAt.$": "$$.Execution.StartTime",
+                    "completedAt.$": "$$.State.EnteredTime"
+                },
+                "extraction": {
+                    "textractApi": "AnalyzeExpense",
+                    "textractConfidenceScore": 0,
+                    "aiProvider": "external-ai",
+                    "aiModel": "configured-model-name",
+                    "aiRequestId": "",
+                    "normalizationVersion": "1.0.0",
+                    "normalizedAt.$": "$$.State.EnteredTime"
+                },
+                "invoice": {
+                    "vendorName.$": "$.normalizedResult.payload.invoice.vendorName",
+                    "vendorTaxId": "",
+                    "invoiceNumber.$": "$.normalizedResult.payload.invoice.invoiceNumber",
+                    "invoiceDate.$": "$.normalizedResult.payload.invoice.invoiceDate",
+                    "dueDate.$": "$.normalizedResult.payload.invoice.dueDate",
+                    "currency.$": "$.normalizedResult.payload.invoice.currency",
+                    "subtotalAmount.$": "$.normalizedResult.payload.invoice.subtotalAmount",
+                    "taxAmount.$": "$.normalizedResult.payload.invoice.taxAmount",
+                    "discountAmount": 0,
+                    "shippingAmount": 0,
+                    "totalAmount.$": "$.normalizedResult.payload.invoice.totalAmount",
+                    "paymentMethod": ""
+                },
+                "lineItems.$": "$.normalizedResult.payload.lineItems",
+                "confidence": {
+                    "confidenceScore.$": "$.statusDecision.payload.confidence.confidenceScore",
+                    "hasLowConfidence.$": "$.statusDecision.payload.confidence.hasLowConfidence",
+                    "fieldConfidence.$": "$.statusDecision.payload.confidence.fieldConfidence"
+                },
+                "review": {
+                    "reviewStatus.$": "$.statusDecision.payload.review.reviewStatus",
+                    "reviewReasonCodes.$": "$.statusDecision.payload.review.reviewReasonCodes",
+                    "reviewedBy.$": "$.statusDecision.payload.review.reviewedBy",
+                    "reviewedAt.$": "$.statusDecision.payload.review.reviewedAt",
+                    "corrections.$": "$.statusDecision.payload.review.corrections"
+                },
+                "error": {
+                    "errorCode": null,
+                    "errorMessage": null,
+                    "errorStage": null,
+                    "lastErrorAt": null
+                },
+                "audit": {
+                    "createdAt.$": "$$.Execution.StartTime",
+                    "updatedAt.$": "$$.State.EnteredTime",
+                    "createdBy.$": "$.userId",
+                    "updatedBy": "system"
+                }
+            },
+            "ResultPath": "$.finalDocument",
+            "Next": "SaveProcessedJsonToS3"
+        },
+        "SaveProcessedJsonToS3": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::aws-sdk:s3:putObject",
+            "Parameters": {
+                "Bucket": "${ProcessedBucketName}",
+                "Key.$": "States.Format('processed/{}/{}/result.json', $.userId, $.documentId)",
+                "Body.$": "States.JsonToString($.finalDocument)",
+                "ContentType": "application/json"
+            },
+            "ResultPath": "$.processedResultSave",
+            "Catch": [
+                {
+                    "ErrorEquals": [
+                        "States.ALL"
+                    ],
+                    "ResultPath": "$.workflowError",
+                    "Next": "BuildFailureResult"
+                }
+            ],
+            "Next": "SaveMetadataToDynamoDB"
+        },
+        "SaveMetadataToDynamoDB": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::dynamodb:putItem",
+            "Parameters": {
+                "TableName": "${DocumentsTableName}",
+                "Item": {
+                    "PK": {
+                        "S.$": "States.Format('USER#{}', $.userId)"
+                    },
+                    "SK": {
+                        "S.$": "States.Format('DOC#{}', $.documentId)"
+                    },
+                    "GSI1PK": {
+                        "S.$": "States.Format('STATUS#{}', $.finalDocument.status)"
+                    },
+                    "GSI1SK": {
+                        "S.$": "$.finalDocument.audit.createdAt"
+                    },
+                    "schemaVersion": {
+                        "S.$": "$.finalDocument.schemaVersion"
+                    },
+                    "documentId": {
+                        "S.$": "$.finalDocument.documentId"
+                    },
+                    "userId": {
+                        "S.$": "$.finalDocument.userId"
+                    },
+                    "documentType": {
+                        "S.$": "$.finalDocument.documentType"
+                    },
+                    "status": {
+                        "S.$": "$.finalDocument.status"
+                    },
+                    "originalFileName": {
+                        "S.$": "$.finalDocument.file.originalFileName"
+                    },
+                    "rawS3Key": {
+                        "S.$": "$.finalDocument.storage.rawS3Key"
+                    },
+                    "processedS3Key": {
+                        "S.$": "$.finalDocument.storage.processedS3Key"
+                    },
+                    "vendorName": {
+                        "S.$": "$.finalDocument.invoice.vendorName"
+                    },
+                    "invoiceDate": {
+                        "S.$": "$.finalDocument.invoice.invoiceDate"
+                    },
+                    "currency": {
+                        "S.$": "$.finalDocument.invoice.currency"
+                    },
+                    "totalAmount": {
+                        "N.$": "States.Format('{}', $.finalDocument.invoice.totalAmount)"
+                    },
+                    "confidenceScore": {
+                        "N.$": "States.Format('{}', $.finalDocument.confidence.confidenceScore)"
+                    },
+                    "reviewStatus": {
+                        "S.$": "$.finalDocument.review.reviewStatus"
+                    },
+                    "reviewReasonCodes": {
+                        "S.$": "States.JsonToString($.finalDocument.review.reviewReasonCodes)"
+                    },
+                    "createdAt": {
+                        "S.$": "$.finalDocument.audit.createdAt"
+                    },
+                    "updatedAt": {
+                        "S.$": "$.finalDocument.audit.updatedAt"
+                    }
+                }
+            },
+            "ResultPath": "$.dynamoDbSave",
+            "Catch": [
+                {
+                    "ErrorEquals": [
+                        "States.ALL"
+                    ],
+                    "ResultPath": "$.workflowError",
+                    "Next": "BuildFailureResult"
+                }
+            ],
+            "Next": "CheckFinalStatus"
+        },
+        "CheckFinalStatus": {
+            "Type": "Choice",
+            "Choices": [
+                {
+                    "Variable": "$.finalDocument.status",
+                    "StringEquals": "FAILED",
+                    "Next": "PublishFailureAlert"
+                },
+                {
+                    "Variable": "$.finalDocument.status",
+                    "StringEquals": "REVIEW_REQUIRED",
+                    "Next": "PublishSNSAlert"
+                }
+            ],
+            "Default": "Done"
+        },
+        "PublishSNSAlert": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::lambda:invoke",
+            "Parameters": {
+                "FunctionName": "${NotificationTriggerFunctionArn}",
+                "Payload.$": "$.finalDocument"
+            },
+            "ResultSelector": {
+                "payload.$": "$.Payload"
+            },
+            "ResultPath": "$.notificationResult",
+            "Retry": [
+                {
+                    "ErrorEquals": [
+                        "Lambda.ServiceException",
+                        "Lambda.AWSLambdaException",
+                        "Lambda.SdkClientException",
+                        "Lambda.TooManyRequestsException"
+                    ],
+                    "IntervalSeconds": 2,
+                    "MaxAttempts": 3,
+                    "BackoffRate": 2
+                }
+            ],
+            "Catch": [
+                {
+                    "ErrorEquals": [
+                        "States.ALL"
+                    ],
+                    "ResultPath": "$.workflowError",
+                    "Next": "BuildFailureResult"
+                }
+            ],
+            "Next": "Done"
+        },
+        "BuildFailureResult": {
+            "Type": "Pass",
+            "Parameters": {
+                "schemaVersion": "1.0.0",
+                "documentId.$": "$.documentId",
+                "userId.$": "$.userId",
+                "documentType.$": "$.documentType",
+                "status": "FAILED",
+                "file": {
+                    "originalFileName.$": "$.fileName",
+                    "fileExtension.$": "$.fileExtension",
+                    "mimeType.$": "$.contentType",
+                    "fileSizeBytes": 0,
+                    "pageCount.$": "$.pageCount"
+                },
+                "storage": {
+                    "rawS3Bucket.$": "$.bucket",
+                    "rawS3Key.$": "$.key",
+                    "processedS3Bucket": "${ProcessedBucketName}",
+                    "processedS3Key.$": "States.Format('processed/{}/{}/result.json', $.userId, $.documentId)",
+                    "textractRawS3Key.$": "States.Format('processed/{}/{}/textract-raw.json', $.userId, $.documentId)",
+                    "normalizedS3Key.$": "States.Format('processed/{}/{}/normalized.json', $.userId, $.documentId)"
+                },
+                "workflow": {
+                    "executionId.$": "$$.Execution.Id",
+                    "queueMessageId": "",
+                    "retryCount": 0,
+                    "startedAt.$": "$$.Execution.StartTime",
+                    "completedAt.$": "$$.State.EnteredTime"
+                },
+                "extraction": {
+                    "textractApi": "AnalyzeExpense",
+                    "textractConfidenceScore": 0,
+                    "aiProvider": "external-ai",
+                    "aiModel": "configured-model-name",
+                    "aiRequestId": "",
+                    "normalizationVersion": "1.0.0",
+                    "normalizedAt": null
+                },
+                "invoice": {
+                    "vendorName": "",
+                    "vendorTaxId": "",
+                    "invoiceNumber": "",
+                    "invoiceDate": "",
+                    "dueDate": "",
+                    "currency": "",
+                    "subtotalAmount": 0,
+                    "taxAmount": 0,
+                    "discountAmount": 0,
+                    "shippingAmount": 0,
+                    "totalAmount": 0,
+                    "paymentMethod": ""
+                },
+                "lineItems": [],
+                "confidence": {
+                    "confidenceScore": 0,
+                    "hasLowConfidence": true,
+                    "fieldConfidence": {}
+                },
+                "review": {
+                    "reviewStatus": "PENDING",
+                    "reviewReasonCodes": [],
+                    "reviewedBy": null,
+                    "reviewedAt": null,
+                    "corrections": []
+                },
+                "error": {
+                    "errorCode": "UNKNOWN_ERROR",
+                    "errorMessage.$": "$.workflowError.Cause",
+                    "errorStage": "WORKFLOW",
+                    "lastErrorAt.$": "$$.State.EnteredTime"
+                },
+                "audit": {
+                    "createdAt.$": "$$.Execution.StartTime",
+                    "updatedAt.$": "$$.State.EnteredTime",
+                    "createdBy.$": "$.userId",
+                    "updatedBy": "system"
+                }
+            },
+            "ResultPath": "$.finalDocument",
+            "Next": "SaveFailureMetadataToDynamoDB"
+        },
+        "SaveFailureMetadataToDynamoDB": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::dynamodb:putItem",
+            "Parameters": {
+                "TableName": "${DocumentsTableName}",
+                "Item": {
+                    "PK": {
+                        "S.$": "States.Format('USER#{}', $.userId)"
+                    },
+                    "SK": {
+                        "S.$": "States.Format('DOC#{}', $.documentId)"
+                    },
+                    "GSI1PK": {
+                        "S": "STATUS#FAILED"
+                    },
+                    "GSI1SK": {
+                        "S.$": "$.finalDocument.audit.createdAt"
+                    },
+                    "schemaVersion": {
+                        "S.$": "$.finalDocument.schemaVersion"
+                    },
+                    "documentId": {
+                        "S.$": "$.finalDocument.documentId"
+                    },
+                    "userId": {
+                        "S.$": "$.finalDocument.userId"
+                    },
+                    "documentType": {
+                        "S.$": "$.finalDocument.documentType"
+                    },
+                    "status": {
+                        "S": "FAILED"
+                    },
+                    "originalFileName": {
+                        "S.$": "$.finalDocument.file.originalFileName"
+                    },
+                    "rawS3Key": {
+                        "S.$": "$.finalDocument.storage.rawS3Key"
+                    },
+                    "processedS3Key": {
+                        "S.$": "$.finalDocument.storage.processedS3Key"
+                    },
+                    "vendorName": {
+                        "S.$": "$.finalDocument.invoice.vendorName"
+                    },
+                    "invoiceDate": {
+                        "S.$": "$.finalDocument.invoice.invoiceDate"
+                    },
+                    "currency": {
+                        "S.$": "$.finalDocument.invoice.currency"
+                    },
+                    "totalAmount": {
+                        "N": "0"
+                    },
+                    "confidenceScore": {
+                        "N": "0"
+                    },
+                    "reviewStatus": {
+                        "S.$": "$.finalDocument.review.reviewStatus"
+                    },
+                    "errorCode": {
+                        "S.$": "$.finalDocument.error.errorCode"
+                    },
+                    "errorMessage": {
+                        "S.$": "$.finalDocument.error.errorMessage"
+                    },
+                    "errorStage": {
+                        "S.$": "$.finalDocument.error.errorStage"
+                    },
+                    "createdAt": {
+                        "S.$": "$.finalDocument.audit.createdAt"
+                    },
+                    "updatedAt": {
+                        "S.$": "$.finalDocument.audit.updatedAt"
+                    }
+                }
+            },
+            "ResultPath": "$.failureDynamoDbSave",
+            "Next": "PublishFailureAlert"
+        },
+        "PublishFailureAlert": {
+            "Type": "Task",
+            "Resource": "arn:aws:states:::lambda:invoke",
+            "Parameters": {
+                "FunctionName": "${NotificationTriggerFunctionArn}",
+                "Payload.$": "$.finalDocument"
+            },
+            "ResultSelector": {
+                "payload.$": "$.Payload"
+            },
+            "ResultPath": "$.failureNotificationResult",
+            "Retry": [
+                {
+                    "ErrorEquals": [
+                        "Lambda.ServiceException",
+                        "Lambda.AWSLambdaException",
+                        "Lambda.SdkClientException",
+                        "Lambda.TooManyRequestsException"
+                    ],
+                    "IntervalSeconds": 2,
+                    "MaxAttempts": 3,
+                    "BackoffRate": 2
+                }
+            ],
+            "Catch": [
+                {
+                    "ErrorEquals": [
+                        "States.ALL"
+                    ],
+                    "ResultPath": "$.notificationError",
+                    "Next": "WorkflowFailed"
+                }
+            ],
+            "Next": "WorkflowFailed"
+        },
+        "WorkflowFailed": {
+            "Type": "Fail",
+            "Error": "DocuFlowWorkflowFailed",
+            "Cause": "Workflow failed. Check execution history and CloudWatch logs."
+        },
+        "Done": {
+            "Type": "Succeed"
+        }
+    }
+}
