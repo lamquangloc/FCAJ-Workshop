@@ -6,7 +6,7 @@ chapter: false
 pre: " <b> 7. </b> "
 ---
 
-> Below are my personal reflections and feedback after completing the First Cloud AI Journey (FCAJ) bootcamp.
+Below are my personal reflections and feedback after completing the First Cloud AI Journey (FCAJ) bootcamp.
 
 ### Overall Evaluation
 

@@ -6,7 +6,7 @@ chapter: false
 pre: " <b> 7. </b> "
 ---
 
-> Dưới đây là những chia sẻ và đóng góp cá nhân của mình sau khi trải qua chương trình bootcamp First Cloud AI Journey (FCAJ).
+Dưới đây là những chia sẻ và đóng góp cá nhân của mình sau khi trải qua chương trình bootcamp First Cloud AI Journey (FCAJ).
 
 ### Đánh giá chung
 

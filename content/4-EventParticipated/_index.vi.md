@@ -5,9 +5,7 @@ weight: 4
 chapter: false
 pre: " <b> 4. </b> "
 ---
-
-> Trong phần này, liệt kê và mô tả chi tiết các sự kiện (event) mà mình đã tham gia trong suốt quá trình thực tập hoặc làm việc. 
-> 
+ 
 > Việc liệt kê này giúp thể hiện rõ sự tham gia thực tế của bạn, cũng như các kỹ năng mềm và kinh nghiệm bạn đã tích lũy qua từng sự kiện.
 
 Trong quá trình thực tập, em đã tham gia 4 events, với mỗi event là một trải nghiệm đáng nhớ mang lại những kiến thức mới bổ ích, cùng với đó là những cơ hội giao lưu học hỏi tuyệt vời.

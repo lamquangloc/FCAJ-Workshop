@@ -6,9 +6,6 @@ chapter: false
 pre: " <b> 4. </b> "
 ---
 
-> In this section, list and describe in detail the events you have participated in during your internship or work experience.  
-> 
-> This listing helps demonstrate your actual participation as well as the soft skills and experience you have gained from each event.
 
 During my internship, I participated in 4 events. Each one was a memorable experience that provided new, interesting, and useful knowledge, along with wonderful networking opportunities.
 
