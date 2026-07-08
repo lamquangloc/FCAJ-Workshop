@@ -1,70 +1,86 @@
 ---
-title: "Configure Budget Alerts"
+title: "Cấu hình Budget Alerts"
 date: 2024-01-01
 weight: 6
 chapter: false
 pre: " <b> 5.3.6. </b> "
 ---
-To manage the project budget and protect your account from unexpected bills, we will configure three distinct types of monthly cost budgets that trigger email alerts.
+Để quản lý chặt chẽ ngân sách dự án và bảo vệ tài khoản khỏi các chi phí phát sinh bất thường, chúng ta sẽ thiết lập 3 loại Budget cảnh báo chi tiêu hàng tháng qua Email.
 
 ---
 
-### Step-by-Step Budget Deployment in AWS Console
+### Các bước cấu hình 3 ngân sách trên AWS Console
 
-#### Common Steps:
-1. Search for **Budgets** in the AWS Console search bar ➔ Select **AWS Budgets**.
+#### Thao tác chung:
+1. Gõ **Budgets** trên thanh tìm kiếm AWS Console ➔ Chọn **AWS Budgets**.
    
    ![image166.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.6-budgets/image166.png)
 
-2. Click the **Create budget** button ➔ Select **Cost budget - Recommended** ➔ Click **Next**.
+   
+
+   
+
+2. Bấm nút **Create budget** ➔ Chọn **Cost budget - Recommended** ➔ Bấm **Next**.
    
    ![image167.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.6-budgets/image167.png)
 
-3. Configure period and amount:
-   * **Period**: Select `Monthly`.
-   * **Budget planning**: Select `Recurring budget`.
-   * **Budgeting method**: Select `Fixed`.
+   
+
+   
+
+3. Cấu hình chu kỳ và hạn mức:
+   * **Period**: Chọn `Monthly` (Hàng tháng).
+   * **Budget planning**: Chọn `Recurring budget`.
+   * **Budgeting method**: Chọn `Fixed`.
 ![image168.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.6-budgets/image168.png)
 
 ---
 
-#### 1. Budget 1: Actual Cost Budget (Soft Limit)
+#### 1. Ngân sách 1: Ngân sách Chi phí Thực tế (Mềm)
 * **Budget Name**: `DocuFlow-Monthly-Actual-Cost`
-* **Budget Amount**: Enter `$10` USD.
+* **Budget Amount (Hạn mức)**: Điền `$10` USD.
 ![image169.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.6-budgets/image169.png)
-* **Configure Alerts**: Click **Add alert threshold** to create 4 alert thresholds sent to your email:
-  * Threshold 1: **50% Actual** (When actual cost reaches $5 USD).
+* **Cấu hình Alerts (Ngưỡng cảnh báo)**: Bấm **Add alert threshold** để tạo 4 ngưỡng cảnh báo gửi tới email của bạn:
+  * Ngưỡng 1: **50% Actual** (Khi chi phí thực tế chạm $5 USD).
   ![image170.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.6-budgets/image170.png)
-  * Threshold 2: **80% Actual** (When actual cost reaches $8 USD).
+  * Ngưỡng 2: **80% Actual** (Khi chi phí thực tế chạm $8 USD).
   ![image171.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.6-budgets/image171.png)
-  * Threshold 3: **100% Actual** (When actual cost reaches $10 USD).
+  * Ngưỡng 3: **100% Actual** (Khi chi phí thực tế chạm $10 USD).
 
    ![image172.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.6-budgets/image172.png)
 
-  * Threshold 4: **100% Forecasted** (When the system forecasts the cost will reach or exceed $10 USD by the end of the month).
+   
+
+   
+
+  * Ngưỡng 4: **100% Forecasted** (Khi hệ thống dự báo chi phí cuối tháng sẽ chạm hoặc vượt $10 USD).
    
    ![image173.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.6-budgets/image173.png)
 
-* **Email recipients**: Enter your email address to receive alerts.
-* Click **Next** ➔ **Create budget**.
+   
+
+   
+
+* **Email recipients**: Điền email của bạn để nhận cảnh báo.
+* Bấm **Next** ➔ **Create budget**.
 ![image174.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.6-budgets/image174.png)
 
 ---
 
-#### 2. Budget 2: Credits Safety Budget
+#### 2. Ngân sách 2: Ngân sách Bảo vệ Quỹ Credits
 * **Budget Name**: `DocuFlow-Credit-Safety`
-* **Budget Amount**: Enter `$50` USD.
-* **Purpose**: Acts as an Escalation Warning to protect the project's $200 credit package.
-* **Configure Alerts**: Add thresholds for **40%**, **70%**, **90%**, and **100%** for both Actual and Forecasted costs.
+* **Budget Amount (Hạn mức)**: Điền `$50` USD.
+* **Mục đích**: Đóng vai trò là cảnh báo leo thang (Escalation Warning) để bảo vệ gói credits $200 của dự án.
+* **Cấu hình Alerts**: Thêm các ngưỡng **40%**, **70%**, **90%**, và **100%** cho cả chi phí thực tế (Actual) và dự báo (Forecasted).
    
    ![image175.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.6-budgets/image175.png)
 
 ---
 
-#### 3. Budget 3: Free Tier Monitor Budget
+#### 3. Ngân sách 3: Ngân sách Giám sát Free Tier
 * **Budget Name**: `DocuFlow-FreeTier-Watch`
-* **Budget Amount**: Enter `$1` USD.
-* **Purpose**: Closely monitor if free tier limits are exceeded.
-* **Important Note**: Use Email-only alerts, absolutely do not enable **Budget Actions** (automatically blocking/stopping resources) to avoid disrupting the system during testing or demos.
+* **Budget Amount (Hạn mức)**: Điền `$1` USD.
+* **Mục đích**: Theo dõi sát sao việc vượt quá các hạn mức miễn phí của AWS.
+* **Lưu ý quan trọng**: Chỉ sử dụng cảnh báo gửi qua email (Email-only alert), tuyệt đối không bật tính năng **Budget Actions** (tự động khóa/tắt tài nguyên) để tránh làm gián đoạn hệ thống khi đang chạy thử hoặc chạy demo.
    
    ![image176.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.6-budgets/image176.png)

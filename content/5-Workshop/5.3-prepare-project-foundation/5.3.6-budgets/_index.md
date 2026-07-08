@@ -1,120 +1,70 @@
 ---
-title: "Cấu hình Secrets Manager"
+title: "Configure Budget Alerts"
 date: 2024-01-01
-weight: 5
+weight: 6
 chapter: false
-pre: " <b> 5.3.5. </b> "
+pre: " <b> 5.3.6. </b> "
 ---
-Chúng ta sẽ lưu trữ và mã hóa an toàn khóa truy cập (API Key) của External AI sử dụng dịch vụ AWS Secrets Manager. Khóa bí mật này sẽ được mã hóa bằng KMS Key của dự án, và chỉ duy nhất hàm AI Proxy Lambda mới có quyền lấy giá trị của nó.
-
-### Chuẩn bị External AI API Key
-
-Trước khi tạo secret trong AWS, bạn cần có API key của nhà cung cấp LLM. Trong workshop này, code của AI Proxy Lambda đang gọi OpenAI API tại `/v1/chat/completions` và mặc định sử dụng model `gpt-4o`.
-
-1. Truy cập [OpenAI API keys](https://platform.openai.com/api-keys), đăng nhập hoặc tạo tài khoản OpenAI Platform nếu chưa có.
-2. Chọn đúng Project dùng cho workshop, hoặc tạo một Project riêng, ví dụ `docuflow-ai-workshop`.
-3. Tạo secret key mới, đặt tên dễ nhận diện, ví dụ `docuflow-dev-ai-proxy`.
-4. Sao chép API key ngay khi nó được tạo. OpenAI chỉ hiển thị đầy đủ secret key tại thời điểm tạo; nếu mất key, bạn cần tạo key mới và cập nhật lại secret trong AWS.
-5. Kiểm tra tài khoản OpenAI Platform đã có billing/quota phù hợp và model bạn định dùng đã được cấp quyền. Nếu không dùng `gpt-4o`, hãy ghi lại model name để cấu hình biến môi trường `OPENAI_MODEL` ở bước AI Proxy Lambda.
-
-{{% notice warning %}}
-Không đưa API key vào frontend, GitHub, file `.env` public hoặc ảnh chụp màn hình. Trong workshop này, API key chỉ được dán vào AWS Secrets Manager với key name `api_key`.
-{{% /notice %}}
+To manage the project budget and protect your account from unexpected bills, we will configure three distinct types of monthly cost budgets that trigger email alerts.
 
 ---
 
-### Các bước thực hiện chi tiết
+### Step-by-Step Budget Deployment in AWS Console
 
-1. **Khởi tạo Secret Key mới**:
-   * Tại ô tìm kiếm của AWS Console, gõ **Secrets Manager** ➔ Chọn dịch vụ tương ứng.
+#### Common Steps:
+1. Search for **Budgets** in the AWS Console search bar ➔ Select **AWS Budgets**.
    
-   ![image88.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.5-secrets-manager/image88.png)
+   ![image166.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.6-budgets/image166.png)
 
+2. Click the **Create budget** button ➔ Select **Cost budget - Recommended** ➔ Click **Next**.
    
+   ![image167.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.6-budgets/image167.png)
 
-   
-
-   * Nhấn nút **Store a new secret** (Lưu một bí mật mới).
-   * **Choose secret type**: Chọn **Other type of secret** (Loại bí mật khác).
-   
-   ![image89.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.5-secrets-manager/image89.png)
-
-   
-
-   
-
-
-
-2. **Cấu hình Cặp khóa/giá trị (Key/value pairs)**:
-   * Ô bên trái (**Key**): Điền chữ `api_key` (viết thường, viết liền chuẩn theo code dự án).
-   * Ô bên phải (**Value**): Dán mã Token / API Key của External AI của bạn.
-   * **Encryption key** (Khóa mã hóa): Nhấp vào menu thả xuống và chọn đúng khóa KMS của dự án: `alias/docuflow-dev-main-key` (Không sử dụng khóa mặc định `aws/secretsmanager` để đảm bảo tiêu chuẩn an toàn thông tin tối đa).
-   
-![image90.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.5-secrets-manager/image90.png)
-
-   
-
-   
-
-   
-
-   * Nhấn **Next**.
-
-
-3. **Đặt tên và mô tả bí mật**:
-   * **Secret name**: Điền chính xác `docuflow-dev-external-ai-api-key`.
-   
-   ![image91.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.5-secrets-manager/image91.png)
-
-   
-
-   
-
-   * **Description**: `Stores API Key for External AI normalization integration used exclusively by AI Proxy Lambda.`
-   
-   ![image91.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.5-secrets-manager/image91.png)
-
-   
-
-   
-
-   * Các phần khác giữ nguyên mặc định, nhấn **Next** ➔ Bỏ qua cấu hình xoay vòng (Rotation) nhấn **Next** ➔ Nhấp **Store** ở dưới cùng để hoàn tất.
-      ![image92.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.5-secrets-manager/image92.png)
-
-   ![image93.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.5-secrets-manager/image93.png)
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-   
-
-
-4. **Ghi lại ARN của Secret**:
-   * Sau khi lưu xong, nhấp vào tên Secret vừa tạo.
-   * Sao chép lại chuỗi **Secret ARN** của nó (Ví dụ: `arn:aws:secretsmanager:ap-southeast-1:<AWS_ACCOUNT_ID>:secret:docuflow-dev-external-ai-api-key-XXXXXX`).
-
-5. **Cấp quyền chuyên biệt cho duy nhất AI Proxy Lambda (Chốt chặn bảo mật)**:
-   * Để cấu hình chính xác con Lambda của bạn được đọc bí mật này, bạn thực hiện cấu hình IAM Policy như sau:
-     1. Vào dịch vụ **IAM** ➔ **Policies** ➔ `docuflow-dev-ai-secret-read-policy` ➔ Chọn tab **JSON** ➔ **Edit**.
-     2. Xóa hết code cũ và dán đoạn JSON "quyền tối thiểu" sau vào (Hãy thay chuỗi ARN bí mật của bạn vào phần Resource nếu muốn bảo mật tuyệt đối, hoặc giữ dấu `*` ở đuôi như dưới):
-     
-     ![image94.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.5-secrets-manager/image94.png)
-     
-     3. Bấm **Next** rồi chọn **Save changes**.
-     
-     ![image95.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.5-secrets-manager/image95.png)
+3. Configure period and amount:
+   * **Period**: Select `Monthly`.
+   * **Budget planning**: Select `Recurring budget`.
+   * **Budgeting method**: Select `Fixed`.
+![image168.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.6-budgets/image168.png)
 
 ---
+
+#### 1. Budget 1: Actual Cost Budget (Soft Limit)
+* **Budget Name**: `DocuFlow-Monthly-Actual-Cost`
+* **Budget Amount**: Enter `$10` USD.
+![image169.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.6-budgets/image169.png)
+* **Configure Alerts**: Click **Add alert threshold** to create 4 alert thresholds sent to your email:
+  * Threshold 1: **50% Actual** (When actual cost reaches $5 USD).
+  ![image170.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.6-budgets/image170.png)
+  * Threshold 2: **80% Actual** (When actual cost reaches $8 USD).
+  ![image171.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.6-budgets/image171.png)
+  * Threshold 3: **100% Actual** (When actual cost reaches $10 USD).
+
+   ![image172.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.6-budgets/image172.png)
+
+  * Threshold 4: **100% Forecasted** (When the system forecasts the cost will reach or exceed $10 USD by the end of the month).
+   
+   ![image173.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.6-budgets/image173.png)
+
+* **Email recipients**: Enter your email address to receive alerts.
+* Click **Next** ➔ **Create budget**.
+![image174.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.6-budgets/image174.png)
+
+---
+
+#### 2. Budget 2: Credits Safety Budget
+* **Budget Name**: `DocuFlow-Credit-Safety`
+* **Budget Amount**: Enter `$50` USD.
+* **Purpose**: Acts as an Escalation Warning to protect the project's $200 credit package.
+* **Configure Alerts**: Add thresholds for **40%**, **70%**, **90%**, and **100%** for both Actual and Forecasted costs.
+   
+   ![image175.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.6-budgets/image175.png)
+
+---
+
+#### 3. Budget 3: Free Tier Monitor Budget
+* **Budget Name**: `DocuFlow-FreeTier-Watch`
+* **Budget Amount**: Enter `$1` USD.
+* **Purpose**: Closely monitor if free tier limits are exceeded.
+* **Important Note**: Use Email-only alerts, absolutely do not enable **Budget Actions** (automatically blocking/stopping resources) to avoid disrupting the system during testing or demos.
+   
+   ![image176.png](/images/5-Workshop/5.3-prepare-project-foundation/5.3.6-budgets/image176.png)

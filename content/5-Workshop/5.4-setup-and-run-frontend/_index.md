@@ -1,160 +1,138 @@
 ---
-title: "Deploy Frontend with AWS Amplify Hosting"
+title: "Setup and Run Frontend"
 date: 2024-01-01
-weight: 1
+weight: 4
 chapter: false
-pre: " <b> 5.4.1. </b> "
+pre: " <b> 5.4. </b> "
 ---
-Use AWS Amplify Hosting to publish the React/Vite frontend as a production web application. This step should be completed after the Cognito User Pool is created and after the API Gateway Invoke URL is available from section **5.7.3**.
-
----
-
 ### 1. Goal
+Download the Frontend source code (React/Vite), configure the environment variables to connect with AWS resources created in step 3, start the local development server, and verify user signup/login using Amazon Cognito, along with raw document uploads using S3 Presigned URLs.
 
-Deploy the DocuFlow AI frontend from GitHub, configure production environment variables, verify the Amplify domain, and confirm the hosted application can call the backend API.
+### 2. Steps
 
----
+This section first prepares the frontend for local development. After the backend API is available, continue with **[5.4.1 Deploy Frontend with AWS Amplify Hosting](5.4.1-deploy-amplify/)** to publish the production frontend URL.
 
-### 2. Prerequisites
+#### Step 1: Initialize Amazon Cognito User Pool 
+To secure user access using standard JWT tokens before uploading files:
 
-Before starting, prepare these values:
+1. Search for **Cognito** in the AWS Console search bar.
+   
+   ![image1.png](/images/5-Workshop/5.4-setup-and-run-frontend/image1.png)
 
-| Variable | Source |
-| --- | --- |
-| `VITE_COGNITO_REGION` | AWS Region, for example `ap-southeast-1` |
-| `VITE_COGNITO_USER_POOL_ID` | Cognito User Pool details page |
-| `VITE_COGNITO_CLIENT_ID` | Cognito App client details page |
-| `VITE_API_BASE_URL` | API Gateway stage Invoke URL from section 5.7.3 |
+2. In the User pools interface, click **Create user pool**.
+   
+   ![image2.png](/images/5-Workshop/5.4-setup-and-run-frontend/image2.png)
 
-> Do not put server-side secrets in Vite variables. Any variable prefixed with `VITE_` is bundled into the browser application.
+3. Under Application type, select **Single-page application (SPA)**.
+   
+   ![image3.png](/images/5-Workshop/5.4-setup-and-run-frontend/image3.png)
 
----
+4. Enter `docuflow-dev-auth-user-pool` as the application name.
+   
+   ![image4.png](/images/5-Workshop/5.4-setup-and-run-frontend/image4.png)
 
-### 3. Deploy with Amplify Hosting
+5. For Options for sign-in identifier, check **Email**.
+   
+   ![image5.png](/images/5-Workshop/5.4-setup-and-run-frontend/image5.png)
 
-1. Open the **AWS Amplify** console.
-2. Choose **New app** -> **Host web app** or **Deploy an app**.
-![Open AWS Amplify and create a new app](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image1.png)
-3. Select your Git provider, for example **GitHub**, then authorize the AWS Amplify GitHub App if prompted.
-![Select GitHub as the source repository provider](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image2.png)
-4. Select the repository that contains the frontend source code.
-5. Select the branch to deploy, for example `main`.
-![Select repository and deployment branch](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image3.png)
-6. If the repository is a monorepo, set the application root to:
+6. For Required attributes for sign-up, select `email`, `family_name`, and `given_name`.
+   
+   ![image6.png](/images/5-Workshop/5.4-setup-and-run-frontend/image6.png)
 
-```text
-apps/web
-```
+7. Click **Create user directory** (or Create user pool).
+   
+   ![image7.png](/images/5-Workshop/5.4-setup-and-run-frontend/image7.png)
 
-7. On the build settings page, confirm or replace the build specification with:
-![Update the build specification](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image4.png)
+8. Save the `UserPoolID` and `ClientID` for your `.env` configuration file.
+   
+   ![image8.png](/images/5-Workshop/5.4-setup-and-run-frontend/image8.png)
+   ![image9.png](/images/5-Workshop/5.4-setup-and-run-frontend/image9.png)
 
-```yaml
-version: 1
-applications:
-  - appRoot: apps/web
-    frontend:
-      phases:
-        preBuild:
-          commands:
-            - corepack enable
-            - pnpm install --frozen-lockfile
-        build:
-          commands:
-            - pnpm run build
-      artifacts:
-        baseDirectory: dist
-        files:
-          - '**/*'
-      cache:
-        paths:
-          - node_modules/**/*
-          - apps/web/node_modules/**/*
-```
+9. (Optional) You can assign these values to your `.env` file now (we'll configure it fully in Step 3).
+   
+   ![image10.png](/images/5-Workshop/5.4-setup-and-run-frontend/image10.png)
 
-8. Add the production environment variables:
-![Add production environment variables](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image5.png)
+10. In the newly created User pool, select the **Groups** tab to create user groups.
+    
+    ![image11.png](/images/5-Workshop/5.4-setup-and-run-frontend/image11.png)
 
-```env
-VITE_COGNITO_REGION=ap-southeast-1
-VITE_COGNITO_USER_POOL_ID=ap-southeast-1_xxxxxxxxx
-VITE_COGNITO_CLIENT_ID=xxxxxxxxxxxxxxxxxxxxxxxxxx
-VITE_API_BASE_URL=https://xxxxxxxxxx.execute-api.ap-southeast-1.amazonaws.com/dev
-```
+11. Create a group named `docuflow-dev-admin`.
+    
+    ![image12.png](/images/5-Workshop/5.4-setup-and-run-frontend/image12.png)
 
-9. Review the configuration and choose **Save and deploy**.
-![Review configuration and choose Save and deploy](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image6.png)
-10. Wait for the build pipeline to finish. The stages should complete successfully: **Provision**, **Build**, **Deploy**, and **Verify**.
-11. Open the Amplify domain, for example:
-![Amplify deployment succeeded with a deployed URL](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image7.png)
+12. Click **Create group**.
+    
+    ![image13.png](/images/5-Workshop/5.4-setup-and-run-frontend/image13.png)
 
-```text
-https://main.xxxxx.amplifyapp.com
-```
+13. Repeat the process to create another group named `docuflow-dev-users` to achieve the following result:
+    
+    ![image14.png](/images/5-Workshop/5.4-setup-and-run-frontend/image14.png)
 
----
+#### Step 2: Clone & Install Dependencies
+1. Open your terminal in the workspace directory and clone the project repository:
+   ```bash
+   git clone https://github.com/AeroOps-AWS-FCAJ/aws-serverless-document-processing-workshop.git
+   cd aws-serverless-document-processing-workshop/apps/web
+   pnpm install
+   pnpm run lint
+   pnpm run typecheck
+   ```
 
-### 4. Configure SPA Routing
+#### Step 3: Configure Environment Variables (`.env`)
+1. Create a `.env` file in the `apps/web/` directory based on `.env.example`:
+   ```env
+   VITE_COGNITO_REGION=ap-southeast-1
+   VITE_COGNITO_USER_POOL_ID=ap-southeast-1_xxxxxxxxx
+   VITE_COGNITO_CLIENT_ID=xxxxxxxxxxxxxxxxxxxxxxxxxx
+   VITE_API_BASE_URL=https://xxxxxxxxx.execute-api.ap-southeast-1.amazonaws.com/dev
+   ```
+   *Note: If the API Gateway is not yet available, you can leave `VITE_API_BASE_URL` blank. The frontend will automatically fall back to using Mock data for UI exploration.*
+2. Save the file.
 
-If refreshing a frontend route returns a 404 page, add a rewrite rule in Amplify:
+#### Step 4: Run Application & Explore (Local Demo Roles)
+1. Start the local development server:
+   ```bash
+   pnpm --filter docuflow-ai-web dev
+   ```
+2. Open your browser and navigate to the provided URL (e.g., `http://localhost:5173`).
+3. If Cognito is not yet fully wired, the frontend provides Mock Authentication stored in LocalStorage for authorization testing:
+   * **Finance User:** `finance@docuflow.ai` / `password` (Uploads and views their own invoices, performs reviews)
+   * **Administrator:** `admin@docuflow.ai` / `password` (Inspects all records, accesses Operations)
 
-| Source address | Target address | Type |
-| --- | --- | --- |
-| `</^[^.]+$|\.(?!(css|gif|ico|jpg|jpeg|js|png|txt|svg|woff|woff2|ttf|map|json)$)([^.]+$)/>` | `/index.html` | `200 (Rewrite)` |
+#### Step 5: Deploy the Presigned URL Lambda Function (`docuflow-dev-api-generate-upload-url-lambda`)
+This Lambda function receives frontend requests, generates S3 Presigned URLs, and initializes metadata inside the DynamoDB documents table.
+1. Go to **Lambda** -> click **Create function** -> **Author from scratch**.
+2. **Function name**: `docuflow-dev-api-generate-upload-url-lambda`.
+3. **Runtime**: Select `Node.js 18.x` or higher.
+4. **Role**: Select **Use an existing role** -> choose `docuflow-dev-security-upload-url-role`.
+5. Click **Create function**.
+6. Under **Configuration** tab -> **General configuration**: Edit the Timeout to **10 seconds**.
+7. Under **Configuration** tab -> **Environment variables**: Add the following environment variables:
+   * `DOCUFLOW_DEV_TABLE_NAME` = `docuflow-dev-documents-table`
+   * `DOCUFLOW_DEV_RAW_BUCKET` = `docuflow-dev-raw-<AWS_ACCOUNT_ID>-ap-southeast-1`
+8. In the **Code** tab, copy and paste the code below into `index.mjs` and click **Deploy**:
+{{< source-code file="services/functions/generate-upload-url/index.mjs" language="javascript" >}}
 
-Save the rule and redeploy the app if Amplify prompts you to do so.
+#### Step 5: Run the Dev Server & Test Uploads
+1. Start the React/Vite local dev server:
+   ```bash
+   npm run dev
+   ```
+2. Open `http://localhost:5173` on your browser.
+3. Sign up a test user account -> confirm the account using the verification code sent to your email.
+4. Log in -> upload a test PDF invoice or receipt.
+5. In the S3 console, check your S3 Raw Bucket to verify the file was uploaded directly to `raw/user-xxxx/doc-xxxx/original.pdf`.
 
----
+### 3. Expected Result
+* React Frontend runs successfully in development mode.
+* Cognito JWT Authentication works perfectly.
+* Frontend uploads PDF documents directly to the S3 Raw Bucket using Presigned URLs.
 
-### 5. Verify the Hosted Frontend
+### 4. Evidence
 
-1. Open the Amplify app URL.
-![Frontend running on the Amplify domain](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image8.png)
-2. Register or sign in with a Cognito test user.
-![Register an account on the hosted frontend](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image9.png)
-3. Enter the verification code sent by email to confirm the account.
-![Enter the Cognito verification code](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image10.png)
-![Verification email with the code](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image11.png)
-![Account confirmation succeeds](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image12.png)
-4. Confirm the user is created and confirmed in the Cognito User Pool.
-![Confirmed Cognito user](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image14.png)
-5. Sign in to the application dashboard.
-![Frontend dashboard after sign-in](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image13.png)
-6. Choose **Upload document** to open the document upload flow.
-![Open the Upload document flow](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image15.png)
-7. Select a sample invoice or document to upload.
-![Select a file to upload](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image16.png)
-![Preview the document before upload](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image17.png)
-8. Click **Upload and process** and wait for the frontend to submit the file to the backend.
-![Start document upload and processing](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image18.png)
-![Upload completes and processing starts](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image19.png)
-9. Open the document detail page to inspect extracted data and review status.
-![Document detail after processing](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image20.png)
-10. Review and approve the result to confirm the frontend calls API Gateway successfully.
-![Review and approve the processing result](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image21.png)
-11. Open the S3 Raw bucket and verify the uploaded file appears under the expected prefix:
-![File appears in the S3 Raw bucket](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image22.png)
+Before continuing, verify that:
 
-```text
-raw/{userId}/{documentId}/original.pdf
-```
-
-If the browser reports a CORS error, update the API Gateway CORS configuration to allow the Amplify domain, then redeploy the API stage.
-
----
-
-### 6. Expected Result
-
-* Amplify serves the React/Vite frontend from a public HTTPS URL.
-* Cognito login works from the hosted domain.
-* The frontend calls API Gateway using the production `VITE_API_BASE_URL`.
-* Document upload succeeds and the raw object appears in S3.
-
----
-
-### 7. References
-
-* [Getting started with deploying an app to Amplify Hosting](https://docs.aws.amazon.com/amplify/latest/userguide/getting-started.html)
-* [Setting up Amplify access to GitHub repositories](https://docs.aws.amazon.com/amplify/latest/userguide/setting-up-GitHub-access.html)
-* [Configuring the build settings for an Amplify application](https://docs.aws.amazon.com/amplify/latest/userguide/build-settings.html)
-* [Setting environment variables](https://docs.aws.amazon.com/amplify/latest/userguide/setting-env-vars.html)
+- The React application runs locally without console errors.
+- Cognito registration and sign-in succeed.
+- The upload flow reports success.
+- The uploaded object appears at the expected key in the S3 Raw bucket.
