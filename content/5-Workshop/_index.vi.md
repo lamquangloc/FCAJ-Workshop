@@ -1,7 +1,9 @@
 ---
-title: "Workshop DocuFlow AI"
+title: "Workshop"
 date: 2024-01-01
+weight: 5
 chapter: false
+pre: " <b> 5. </b> "
 ---
 ## Tổng quan
 
@@ -13,5 +15,3 @@ Workshop hướng dẫn toàn bộ quá trình triển khai:
 - Cấu hình xác thực, frontend và chức năng tải tài liệu.
 - Xây dựng luồng xử lý AI và pipeline thu thập tài liệu bất đồng bộ.
 - Lưu kết quả, xây dựng API phê duyệt, giám sát, quản trị và kiểm thử End-to-End.
-
-[Bắt đầu workshop](5-Workshop/)

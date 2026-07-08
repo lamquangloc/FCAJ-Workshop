@@ -1,0 +1,9 @@
+{{- $file := .Get "file" -}}
+{{- $language := .Get "language" | default "text" -}}
+{{- if not $file -}}
+{{- errorf "source-code shortcode requires a file parameter: %s" .Position -}}
+{{- end -}}
+{{- if not (fileExists $file) -}}
+{{- errorf "source-code file does not exist: %s (%s)" $file .Position -}}
+{{- end -}}
+{{- transform.Highlight (readFile $file) $language "lineNos=false" -}}

@@ -1,7 +1,9 @@
 ---
-title: "DocuFlow AI Workshop"
+title: "Workshop"
 date: 2024-01-01
+weight: 5
 chapter: false
+pre: " <b> 5. </b> "
 ---
 ## Overview
 
@@ -14,4 +16,3 @@ The workshop covers the complete implementation path:
 - AI processing and asynchronous document ingestion.
 - Result storage, review APIs, observability, governance, and end-to-end testing.
 
-[Start the workshop](5-Workshop/)
