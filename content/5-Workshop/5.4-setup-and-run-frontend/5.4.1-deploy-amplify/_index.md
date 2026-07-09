@@ -143,16 +143,7 @@ If the browser reports a CORS error, update the API Gateway CORS configuration t
 
 ---
 
-### 6. Expected Result
-
-* Amplify serves the React/Vite frontend from a public HTTPS URL.
-* Cognito login works from the hosted domain.
-* The frontend calls API Gateway using the production `VITE_API_BASE_URL`.
-* Document upload succeeds and the raw object appears in S3.
-
----
-
-### 7. References
+### 6. References
 
 * [Getting started with deploying an app to Amplify Hosting](https://docs.aws.amazon.com/amplify/latest/userguide/getting-started.html)
 * [Setting up Amplify access to GitHub repositories](https://docs.aws.amazon.com/amplify/latest/userguide/setting-up-GitHub-access.html)

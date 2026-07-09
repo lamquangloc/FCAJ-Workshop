@@ -13,13 +13,9 @@ Trong thời đại chuyển đổi số, việc nhập liệu thủ công các 
 ### 2. Sơ đồ kiến trúc đã được duyệt (Approved Architecture)
 Kiến trúc của hệ thống DocuFlow AI đã được admin trong group duyệt bao gồm các khối: Edge/Frontend, Authentication & API, Document Ingestion, AI Processing Pipeline, Data Persistence, Observability, Alerting và Cross-cutting Security & Governance.
 
-**Hình 1 - Kiến trúc tổng quan DocuFlow AI**
+**Hình 1 - Kiến trúc và luồng xử lý DocuFlow AI**
 
-![Kiến trúc tổng quan DocuFlow AI](/images/5-Workshop/architecture/DocuFlowAI-architecture.png)
-
-**Hình 2 - Kiến trúc chi tiết và luồng xử lý DocuFlow AI**
-
-![Kiến trúc chi tiết và luồng xử lý DocuFlow AI](/images/5-Workshop/architecture/DocuFlowAI-architecture-2.png)
+![Kiến trúc và luồng xử lý DocuFlow AI](/images/5-Workshop/architecture/DocuFlowAI-architecture-2.png)
 
 Luồng xử lý tổng thể của hệ thống:
 

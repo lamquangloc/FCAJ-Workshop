@@ -1,9 +1,9 @@
 ---
 title: "Notification Trigger Lambda"
 date: 2024-01-01
-weight: 1
+weight: 5
 chapter: false
-pre: " <b> 5.8.2.1. </b> "
+pre: " <b> 5.8.5. </b> "
 ---
 The official DocuFlow AI architecture uses `docuflow-dev-notification-trigger-lambda` to publish workflow failure and `REVIEW_REQUIRED` notifications to the system SNS topic. SNS then distributes the message to confirmed email subscriptions or other configured consumers.
 

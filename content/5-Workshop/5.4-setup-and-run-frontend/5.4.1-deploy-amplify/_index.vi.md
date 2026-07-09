@@ -5,49 +5,49 @@ weight: 1
 chapter: false
 pre: " <b> 5.4.1. </b> "
 ---
-Use AWS Amplify Hosting to publish the React/Vite frontend as a production web application. This step should be completed after the Cognito User Pool is created and after the API Gateway Invoke URL is available from section **5.7.3**.
+Sử dụng AWS Amplify Hosting để publish frontend React/Vite thành ứng dụng web production. Thực hiện mục này sau khi đã tạo Cognito User Pool và đã có API Gateway Invoke URL ở phần **5.7.3**.
 
 ---
 
-### 1. Goal
+### 1. Mục tiêu
 
-Deploy the DocuFlow AI frontend from GitHub, configure production environment variables, verify the Amplify domain, and confirm the hosted application can call the backend API.
+Deploy frontend DocuFlow AI từ GitHub, cấu hình biến môi trường production, kiểm tra domain Amplify và xác nhận ứng dụng hosted gọi được backend API.
 
 ---
 
-### 2. Prerequisites
+### 2. Điều kiện cần có
 
-Before starting, prepare these values:
+Chuẩn bị trước các giá trị sau:
 
-| Variable | Source |
+| Variable | Lấy từ đâu |
 | --- | --- |
-| `VITE_COGNITO_REGION` | AWS Region, for example `ap-southeast-1` |
-| `VITE_COGNITO_USER_POOL_ID` | Cognito User Pool details page |
-| `VITE_COGNITO_CLIENT_ID` | Cognito App client details page |
-| `VITE_API_BASE_URL` | API Gateway stage Invoke URL from section 5.7.3 |
+| `VITE_COGNITO_REGION` | AWS Region, ví dụ `ap-southeast-1` |
+| `VITE_COGNITO_USER_POOL_ID` | Trang chi tiết Cognito User Pool |
+| `VITE_COGNITO_CLIENT_ID` | Trang chi tiết Cognito App client |
+| `VITE_API_BASE_URL` | API Gateway stage Invoke URL từ phần 5.7.3 |
 
-> Do not put server-side secrets in Vite variables. Any variable prefixed with `VITE_` is bundled into the browser application.
+> Không đưa server-side secret vào biến Vite. Mọi biến có tiền tố `VITE_` sẽ được bundle vào ứng dụng chạy trên trình duyệt.
 
 ---
 
-### 3. Deploy with Amplify Hosting
+### 3. Deploy bằng Amplify Hosting
 
-1. Open the **AWS Amplify** console.
-2. Choose **New app** -> **Host web app** or **Deploy an app**.
-![Open AWS Amplify and create a new app](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image1.png)
-3. Select your Git provider, for example **GitHub**, then authorize the AWS Amplify GitHub App if prompted.
-![Select GitHub as the source repository provider](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image2.png)
-4. Select the repository that contains the frontend source code.
-5. Select the branch to deploy, for example `main`.
-![Select repository and deployment branch](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image3.png)
-6. If the repository is a monorepo, set the application root to:
+1. Mở console **AWS Amplify**.
+2. Chọn **New app** -> **Host web app** hoặc **Deploy an app**.
+![Mở AWS Amplify và chọn tạo app mới](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image1.png)
+3. Chọn Git provider, ví dụ **GitHub**, rồi authorize AWS Amplify GitHub App nếu được yêu cầu.
+![Chọn GitHub làm source repository](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image2.png)
+4. Chọn repository chứa mã nguồn frontend.
+5. Chọn branch cần deploy, ví dụ `main`.
+![Chọn repository và branch deploy](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image3.png)
+6. Nếu repository là monorepo, đặt application root là:
 
 ```text
 apps/web
 ```
 
-7. On the build settings page, confirm or replace the build specification with:
-![Update the build specification](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image4.png)
+7. Ở trang build settings, kiểm tra hoặc thay build specification bằng nội dung sau:
+![Cập nhật build specification](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image4.png)
 
 ```yaml
 version: 1
@@ -72,8 +72,8 @@ applications:
           - apps/web/node_modules/**/*
 ```
 
-8. Add the production environment variables:
-![Add production environment variables](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image5.png)
+8. Thêm các biến môi trường production:
+![Thêm biến môi trường production](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image5.png)
 
 ```env
 VITE_COGNITO_REGION=ap-southeast-1
@@ -82,11 +82,11 @@ VITE_COGNITO_CLIENT_ID=xxxxxxxxxxxxxxxxxxxxxxxxxx
 VITE_API_BASE_URL=https://xxxxxxxxxx.execute-api.ap-southeast-1.amazonaws.com/dev
 ```
 
-9. Review the configuration and choose **Save and deploy**.
-![Review configuration and choose Save and deploy](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image6.png)
-10. Wait for the build pipeline to finish. The stages should complete successfully: **Provision**, **Build**, **Deploy**, and **Verify**.
-11. Open the Amplify domain, for example:
-![Amplify deployment succeeded with a deployed URL](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image7.png)
+9. Kiểm tra lại cấu hình và chọn **Save and deploy**.
+![Review cấu hình và Save and deploy](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image6.png)
+10. Chờ build pipeline hoàn tất. Các stage cần chạy thành công: **Provision**, **Build**, **Deploy** và **Verify**.
+11. Mở domain Amplify, ví dụ:
+![Amplify deploy thành công và có deployed URL](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image7.png)
 
 ```text
 https://main.xxxxx.amplifyapp.com
@@ -94,65 +94,56 @@ https://main.xxxxx.amplifyapp.com
 
 ---
 
-### 4. Configure SPA Routing
+### 4. Cấu hình SPA Routing
 
-If refreshing a frontend route returns a 404 page, add a rewrite rule in Amplify:
+Nếu refresh một route trong frontend bị lỗi 404, thêm rewrite rule trong Amplify:
 
 | Source address | Target address | Type |
 | --- | --- | --- |
 | `</^[^.]+$|\.(?!(css|gif|ico|jpg|jpeg|js|png|txt|svg|woff|woff2|ttf|map|json)$)([^.]+$)/>` | `/index.html` | `200 (Rewrite)` |
 
-Save the rule and redeploy the app if Amplify prompts you to do so.
+Lưu rule và redeploy app nếu Amplify yêu cầu.
 
 ---
 
-### 5. Verify the Hosted Frontend
+### 5. Kiểm tra frontend đã deploy
 
-1. Open the Amplify app URL.
-![Frontend running on the Amplify domain](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image8.png)
-2. Register or sign in with a Cognito test user.
-![Register an account on the hosted frontend](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image9.png)
-3. Enter the verification code sent by email to confirm the account.
-![Enter the Cognito verification code](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image10.png)
-![Verification email with the code](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image11.png)
-![Account confirmation succeeds](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image12.png)
-4. Confirm the user is created and confirmed in the Cognito User Pool.
-![Confirmed Cognito user](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image14.png)
-5. Sign in to the application dashboard.
-![Frontend dashboard after sign-in](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image13.png)
-6. Choose **Upload document** to open the document upload flow.
-![Open the Upload document flow](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image15.png)
-7. Select a sample invoice or document to upload.
-![Select a file to upload](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image16.png)
-![Preview the document before upload](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image17.png)
-8. Click **Upload and process** and wait for the frontend to submit the file to the backend.
-![Start document upload and processing](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image18.png)
-![Upload completes and processing starts](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image19.png)
-9. Open the document detail page to inspect extracted data and review status.
-![Document detail after processing](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image20.png)
-10. Review and approve the result to confirm the frontend calls API Gateway successfully.
-![Review and approve the processing result](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image21.png)
-11. Open the S3 Raw bucket and verify the uploaded file appears under the expected prefix:
-![File appears in the S3 Raw bucket](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image22.png)
+1. Mở URL của Amplify app.
+![Frontend chạy trên domain Amplify](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image8.png)
+2. Đăng ký hoặc đăng nhập bằng Cognito test user.
+![Đăng ký tài khoản trên frontend hosted](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image9.png)
+3. Nhập mã xác thực được gửi về email để confirm tài khoản.
+![Nhập mã xác thực Cognito](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image10.png)
+![Email chứa mã xác thực](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image11.png)
+![Confirm tài khoản thành công](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image12.png)
+4. Kiểm tra user đã được tạo và confirm trong Cognito User Pool.
+![User Cognito đã được confirm](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image14.png)
+5. Đăng nhập vào dashboard của ứng dụng.
+![Dashboard frontend sau khi đăng nhập](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image13.png)
+6. Chọn **Upload document** để mở màn hình tải tài liệu.
+![Mở chức năng Upload document](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image15.png)
+7. Chọn một invoice hoặc document mẫu để upload.
+![Chọn file để upload](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image16.png)
+![Xem preview tài liệu trước khi upload](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image17.png)
+8. Bấm **Upload and process** và chờ frontend gửi file lên backend.
+![Bắt đầu upload và xử lý tài liệu](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image18.png)
+![Upload hoàn tất và hệ thống bắt đầu xử lý](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image19.png)
+9. Mở chi tiết tài liệu để kiểm tra dữ liệu trích xuất và trạng thái review.
+![Chi tiết tài liệu sau khi xử lý](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image20.png)
+10. Thực hiện review và approve để xác nhận luồng frontend gọi API Gateway thành công.
+![Review và approve kết quả xử lý](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image21.png)
+11. Mở S3 Raw bucket và kiểm tra file đã xuất hiện đúng prefix:
+![File đã xuất hiện trong S3 Raw bucket](/images/5-Workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/image22.png)
 
 ```text
 raw/{userId}/{documentId}/original.pdf
 ```
 
-If the browser reports a CORS error, update the API Gateway CORS configuration to allow the Amplify domain, then redeploy the API stage.
+Nếu trình duyệt báo lỗi CORS, cập nhật cấu hình CORS của API Gateway để allow domain Amplify, sau đó redeploy API stage.
 
 ---
 
-### 6. Expected Result
-
-* Amplify serves the React/Vite frontend from a public HTTPS URL.
-* Cognito login works from the hosted domain.
-* The frontend calls API Gateway using the production `VITE_API_BASE_URL`.
-* Document upload succeeds and the raw object appears in S3.
-
----
-
-### 7. References
+### 6. Tài liệu tham khảo
 
 * [Getting started with deploying an app to Amplify Hosting](https://docs.aws.amazon.com/amplify/latest/userguide/getting-started.html)
 * [Setting up Amplify access to GitHub repositories](https://docs.aws.amazon.com/amplify/latest/userguide/setting-up-GitHub-access.html)

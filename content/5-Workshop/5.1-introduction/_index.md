@@ -13,13 +13,9 @@ In the era of digital transformation, manually entering data from invoices and r
 ### 2. Approved Architecture Diagram
 The approved architecture consists of several core blocks: Edge/Frontend, Authentication & API, Document Ingestion, AI Processing Pipeline, Data Persistence, Observability, Alerting, and Cross-cutting Security & Governance.
 
-**Figure 1 - DocuFlow AI high-level architecture**
+**Figure 1 - DocuFlow AI architecture and processing flow**
 
-![DocuFlow AI high-level architecture](/images/5-Workshop/architecture/DocuFlowAI-architecture.png)
-
-**Figure 2 - DocuFlow AI detailed architecture and processing flow**
-
-![DocuFlow AI detailed architecture and processing flow](/images/5-Workshop/architecture/DocuFlowAI-architecture-2.png)
+![DocuFlow AI architecture and processing flow](/images/5-Workshop/architecture/DocuFlowAI-architecture-2.png)
 
 The high-level processing path is:
 

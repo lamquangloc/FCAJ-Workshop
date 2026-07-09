@@ -1,9 +1,9 @@
 ---
 title: "Notification Trigger Lambda"
 date: 2024-01-01
-weight: 1
+weight: 5
 chapter: false
-pre: " <b> 5.8.2.1. </b> "
+pre: " <b> 5.8.5. </b> "
 ---
 Kiến trúc DocuFlow AI được duyệt sử dụng `docuflow-dev-notification-trigger-lambda` để gửi cảnh báo khi workflow thất bại hoặc tài liệu chuyển sang `REVIEW_REQUIRED`. Lambda publish message vào SNS Topic của hệ thống; SNS tiếp tục phân phối đến email subscription hoặc consumer đã cấu hình.
 
