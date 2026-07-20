@@ -35,6 +35,6 @@ Quan sát trực tiếp không khí thi đấu sôi nổi của 8 đội tuyển
 
 ### Một Số Hình Ảnh Sự Kiện
 
-![Event 3 - Image 1](/images/4-EventParticipated/4.3-Event3/event3image1.jpg)
-![Event 3 - Image 2](/images/4-EventParticipated/4.3-Event3/event3image2.jpg)
-![Event 3 - Image 3](/images/4-EventParticipated/4.3-Event3/event3image3.jpg)
+![Event 3 - Image 1](/images/4-EventParticipated/4.3-Event3/event3image1.JPG)
+![Event 3 - Image 2](/images/4-EventParticipated/4.3-Event3/event3image2.JPG)
+![Event 3 - Image 3](/images/4-EventParticipated/4.3-Event3/event3image3.JPG)
