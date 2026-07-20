@@ -7,7 +7,7 @@ pre: " <b> 6. </b> "
 ---
 
 
-During my internship at **Amazon Web Services Viet Nam Company Limited** from **May 1, 2026** to **July 24, 2026**, I had the opportunity to learn, practice, and apply the knowledge acquired in school to a real-world working environment.  
+During my internship at **Amazon Web Services Viet Nam Company Limited** from **May 5, 2026** to **July 30, 2026**, I had the opportunity to learn, practice, and apply the knowledge acquired in school to a real-world working environment.  
 I participated in **the DocuFlow AI project - a Serverless Invoice & Receipt Processing Platform on AWS. As the Data Owner, I was responsible for the Data Persistence & Result Management module**, through which I improved my skills in **NoSQL database design (DynamoDB), storage management with Amazon S3, building RESTful APIs, and teamwork through coordinating data contracts**.  
 
 In terms of work ethic, I always strived to complete tasks well, complied with workplace regulations, and actively engaged with colleagues to improve work efficiency.

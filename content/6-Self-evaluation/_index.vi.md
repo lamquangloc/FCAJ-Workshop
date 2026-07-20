@@ -8,7 +8,7 @@ pre: " <b> 6. </b> "
 
  
 
-Trong suốt thời gian thực tập tại **Công ty TNHH Amazon Web Services Viet Nam** từ **01/05/2026** đến **24/07/2026**, tôi đã có cơ hội học hỏi, rèn luyện và áp dụng kiến thức đã được trang bị tại trường vào môi trường làm việc thực tế.  
+Trong suốt thời gian thực tập tại **Công ty TNHH Amazon Web Services Viet Nam** từ **05/05/2026** đến **30/07/2026**, tôi đã có cơ hội học hỏi, rèn luyện và áp dụng kiến thức đã được trang bị tại trường vào môi trường làm việc thực tế.  
 Tôi đã tham gia **dự án DocuFlow AI - Nền tảng xử lý hóa đơn và biên nhận tự động bằng kiến trúc Serverless trên AWS. Với vai trò là Data Owner, tôi phụ trách module Data Persistence & Result Management**, qua đó cải thiện kỹ năng **thiết kế cơ sở dữ liệu NoSQL (DynamoDB), quản lý lưu trữ kết quả với Amazon S3, xây dựng RESTful API và kỹ năng làm việc nhóm thông qua việc chốt chuẩn Data Contract**.  
 
 Về tác phong, tôi luôn cố gắng hoàn thành tốt nhiệm vụ, tuân thủ nội quy, và tích cực trao đổi với đồng nghiệp để nâng cao hiệu quả công việc.
