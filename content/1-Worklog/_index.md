@@ -29,6 +29,6 @@ Typically, and as a standard, a worklog is carried out over about 3 months (thro
 
 **Week 10:** [Write project documentation and publish to workshop website](1.10-week10/)
 
-**Week 11:** [(To be updated)](1.11-week11/)
+**Week 11:** [Workflow Orchestration, Cost Data Analysis, and CI/CD Automation](1.11-week11/)
 
 **Week 12:** [(To be updated)](1.12-week12/)
