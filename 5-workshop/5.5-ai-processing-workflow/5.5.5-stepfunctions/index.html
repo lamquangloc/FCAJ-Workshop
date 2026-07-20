@@ -1,0 +1,901 @@
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.134.3"><meta name=description content><meta name=author content="thienlh@thienlu.com"><link rel=icon href=https://lamquangloc.github.io/FCAJ-Workshop/images/favicon.png type=image/png><title>Step Functions Workflow :: Internship Report</title>
+<link href=https://lamquangloc.github.io/FCAJ-Workshop/css/nucleus.css?1784519745 rel=stylesheet><link href=https://lamquangloc.github.io/FCAJ-Workshop/css/fontawesome-all.min.css?1784519745 rel=stylesheet><link href=https://lamquangloc.github.io/FCAJ-Workshop/css/hybrid.css?1784519745 rel=stylesheet><link href=https://lamquangloc.github.io/FCAJ-Workshop/css/featherlight.min.css?1784519745 rel=stylesheet><link href=https://lamquangloc.github.io/FCAJ-Workshop/css/perfect-scrollbar.min.css?1784519745 rel=stylesheet><link href=https://lamquangloc.github.io/FCAJ-Workshop/css/auto-complete.css?1784519745 rel=stylesheet><link href=https://lamquangloc.github.io/FCAJ-Workshop/css/atom-one-dark-reasonable.css?1784519745 rel=stylesheet><link href=https://lamquangloc.github.io/FCAJ-Workshop/css/theme.css?1784519745 rel=stylesheet><link href=https://lamquangloc.github.io/FCAJ-Workshop/css/hugo-theme.css?1784519745 rel=stylesheet><link href=https://lamquangloc.github.io/FCAJ-Workshop/css/theme-workshop.css?1784519745 rel=stylesheet><script src=https://lamquangloc.github.io/FCAJ-Workshop/js/jquery-3.3.1.min.js?1784519745></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style></head><body data-url=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.5-ai-processing-workflow/5.5.5-stepfunctions/><nav id=sidebar class=showVisitedLinks><div id=header-wrapper><div id=header><a id=logo href=https://lamquangloc.github.io/FCAJ-Workshop/><svg id="Layer_1" data-name="Layer 1" viewBox="0 0 60 30" width="30%"><defs><style>.cls-1{fill:#fff}.cls-2{fill:#fff;fill-rule:evenodd}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09 10.85a4.7 4.7.0 00.19 1.48 7.73 7.73.0 00.54 1.19.77.77.0 01.12.38.64.64.0 01-.32.49l-1 .7a.83.83.0 01-.44.15.69.69.0 01-.49-.23 3.8 3.8.0 01-.6-.77q-.25-.42-.51-1a6.14 6.14.0 01-4.89 2.3 4.54 4.54.0 01-3.32-1.19 4.27 4.27.0 01-1.22-3.2 4.28 4.28.0 011.46-3.4A6.06 6.06.0 017.69 6.46a12.47 12.47.0 011.76.13q.92.13 1.91.36V5.73a3.65 3.65.0 00-.79-2.66A3.81 3.81.0 007.86 2.3a7.71 7.71.0 00-1.79.22 12.78 12.78.0 00-1.79.57 4.55 4.55.0 01-.58.22h-.26q-.35.0-.35-.52V2a1.09 1.09.0 01.12-.58 1.2 1.2.0 01.47-.35A10.88 10.88.0 015.77.32 10.19 10.19.0 018.36.0a6 6 0 014.35 1.35 5.49 5.49.0 011.38 4.09zM7.34 13.38a5.36 5.36.0 001.72-.31A3.63 3.63.0 0010.63 12 2.62 2.62.0 0011.19 11a5.63 5.63.0 00.16-1.44v-.7a14.35 14.35.0 00-1.53-.28 12.37 12.37.0 00-1.56-.1 3.84 3.84.0 00-2.47.67A2.34 2.34.0 005 11a2.35 2.35.0 00.61 1.76A2.4 2.4.0 007.34 13.38zm13.35 1.8a1 1 0 01-.64-.16 1.3 1.3.0 01-.35-.65L15.81 1.51a3 3 0 01-.15-.67.36.36.0 01.41-.41H17.7a1 1 0 01.65.16 1.4 1.4.0 01.33.65l2.79 11 2.59-11A1.17 1.17.0 0124.39.6a1.1 1.1.0 01.67-.16H26.4a1.1 1.1.0 01.67.16 1.17 1.17.0 01.32.65L30 12.39 32.88 1.25A1.39 1.39.0 0133.22.6a1 1 0 01.65-.16h1.54a.36.36.0 01.41.41 1.36 1.36.0 010 .26 3.64 3.64.0 01-.12.41l-4 12.86a1.3 1.3.0 01-.35.65 1 1 0 01-.64.16H29.25a1 1 0 01-.67-.17 1.26 1.26.0 01-.32-.67L25.67 3.64l-2.56 10.7a1.26 1.26.0 01-.32.67 1 1 0 01-.67.17zm21.36.44a11.28 11.28.0 01-2.56-.29 7.44 7.44.0 01-1.92-.67 1 1 0 01-.61-.93v-.84q0-.52.38-.52a.9.9.0 01.31.06l.42.17a8.77 8.77.0 001.83.58 9.78 9.78.0 002 .2 4.48 4.48.0 002.43-.55 1.76 1.76.0 00.86-1.57 1.61 1.61.0 00-.45-1.16A4.29 4.29.0 0043 9.22l-2.41-.76A5.15 5.15.0 0138 6.78a3.94 3.94.0 01-.83-2.41 3.7 3.7.0 01.45-1.85 4.47 4.47.0 011.19-1.37 5.27 5.27.0 011.7-.86A7.4 7.4.0 0142.6.0a8.87 8.87.0 011.12.07q.57.07 1.08.19t.95.26a4.27 4.27.0 01.7.29 1.59 1.59.0 01.49.41.94.94.0 01.15.55v.79q0 .52-.38.52a1.76 1.76.0 01-.64-.2 7.74 7.74.0 00-3.2-.64 4.37 4.37.0 00-2.21.47 1.6 1.6.0 00-.79 1.48 1.58 1.58.0 00.49 1.18 4.94 4.94.0 001.83.92L44.55 7a5.08 5.08.0 012.57 1.6A3.76 3.76.0 0147.9 11a4.21 4.21.0 01-.44 1.93 4.4 4.4.0 01-1.21 1.47 5.43 5.43.0 01-1.85.93A8.25 8.25.0 0142.05 15.62z"/><path class="cls-2" d="M45.19 23.81C39.72 27.85 31.78 30 25 30A36.64 36.64.0 01.22 20.57c-.51-.46-.06-1.09.56-.74A49.78 49.78.0 0025.53 26.4 49.23 49.23.0 0044.4 22.53C45.32 22.14 46.1 23.14 45.19 23.81z"/><path class="cls-2" d="M47.47 21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74 3.13-2.2 8.27-1.57 8.86-.83s-.16 5.89-3.09 8.35c-.45.38-.88.18-.68-.32C46.69 25.8 48.17 22.11 47.47 21.21z"/></svg></a></div><div class=searchbox><label for=search-by><i class="fas fa-search"></i></label>
+<input data-search-input id=search-by type=search placeholder=Search...>
+<span data-search-clear><i class="fas fa-times"></i></span></div><script type=text/javascript src=https://lamquangloc.github.io/FCAJ-Workshop/js/lunr.min.js?1784519745></script><script type=text/javascript src=https://lamquangloc.github.io/FCAJ-Workshop/js/auto-complete.js?1784519745></script><script type=text/javascript>var baseurl="https://lamquangloc.github.io/FCAJ-Workshop/"</script><script type=text/javascript src=https://lamquangloc.github.io/FCAJ-Workshop/js/search.js?1784519745></script></div><div class=highlightable><ul class=topics><li data-nav-id=/1-worklog/ title=Worklog class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/1-worklog/><b>1. </b>Worklog
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/1-worklog/1.1-week1/ title="Week 1 Worklog" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/1-worklog/1.1-week1/><b>1.1. </b>Week 1 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.2-week2/ title="Week 2 Worklog" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/1-worklog/1.2-week2/><b>1.2. </b>Week 2 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.3-week3/ title="Week 3 Worklog" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/1-worklog/1.3-week3/><b>1.3. </b>Week 3 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.4-week4/ title="Week 4 Worklog" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/1-worklog/1.4-week4/><b>1.4. </b>Week 4 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.5-week5/ title="Week 5 Worklog" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/1-worklog/1.5-week5/><b>1.5. </b>Week 5 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.6-week6/ title="Week 6 Worklog" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/1-worklog/1.6-week6/><b>1.6. </b>Week 6 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.7-week7/ title="Week 7 Worklog" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/1-worklog/1.7-week7/><b>1.7. </b>Week 7 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.8-week8/ title="Week 8 Worklog" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/1-worklog/1.8-week8/><b>1.8. </b>Week 8 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.9-week9/ title="Week 9 Worklog" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/1-worklog/1.9-week9/><b>1.9. </b>Week 9 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.10-week10/ title="Week 10 Worklog" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/1-worklog/1.10-week10/><b>1.10. </b>Week 10 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.11-week11/ title="Week 11 Worklog" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/1-worklog/1.11-week11/><b>1.11. </b>Week 11 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.12-week12/ title="Week 12 Worklog" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/1-worklog/1.12-week12/><b>1.12. </b>Week 12 Worklog
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/2-proposal/ title=Proposal class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/2-proposal/><b>2. </b>Proposal
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/3-blogsposted/ title="Blogs Posted" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/3-blogsposted/><b>3. </b>Blogs Posted
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/3-blogsposted/3.1-blog1/ title="Blog 1" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/3-blogsposted/3.1-blog1/><b>3.1. </b>Blog 1
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/3-blogsposted/3.2-blog2/ title="Blog 2" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/3-blogsposted/3.2-blog2/><b>3.2. </b>Blog 2
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/3-blogsposted/3.3-blog3/ title="Blog 3" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/3-blogsposted/3.3-blog3/><b>3.3. </b>Blog 3
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/3-blogsposted/3.4-blog4/ title="Blog 4" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/3-blogsposted/3.4-blog4/><b>3.4. </b>Blog 4
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/3-blogsposted/3.5-blog5/ title="Blog 5" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/3-blogsposted/3.5-blog5/><b>3.5. </b>Blog 5
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/4-eventparticipated/ title="Events Participated" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/4-eventparticipated/><b>4. </b>Events Participated
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/4-eventparticipated/4.1-event1/ title="Event 1" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/4-eventparticipated/4.1-event1/><b>4.1. </b>Event 1
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/4-eventparticipated/4.2-event2/ title="Event 2" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/4-eventparticipated/4.2-event2/><b>4.2. </b>Event 2
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/4-eventparticipated/4.3-event3/ title="Event 3" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/4-eventparticipated/4.3-event3/><b>4.3. </b>Event 3
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/4-eventparticipated/4.4-event4/ title="Event 4" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/4-eventparticipated/4.4-event4/><b>4.4. </b>Event 4
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/5-workshop/ title=Workshop class="dd-item
+parent"><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/><b>5. </b>Workshop
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/5-workshop/5.1-introduction/ title=Introduction class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.1-introduction/><b>5.1. </b>Introduction
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.2-prerequisite/ title=Prerequisite class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.2-prerequisite/><b>5.2. </b>Prerequisite
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.3-prepare-project-foundation/ title="Prepare Project Foundation" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.3-prepare-project-foundation/><b>5.3. </b>Prepare Project Foundation
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/5-workshop/5.3-prepare-project-foundation/5.3.1-iam/ title="Configure IAM Groups and Roles" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.3-prepare-project-foundation/5.3.1-iam/><b>5.3.1. </b>Configure IAM Groups and Roles
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.3-prepare-project-foundation/5.3.2-kms/ title="Initialize AWS KMS CMK" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.3-prepare-project-foundation/5.3.2-kms/><b>5.3.2. </b>Initialize AWS KMS CMK
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.3-prepare-project-foundation/5.3.3-s3/ title="Configure S3 Buckets" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.3-prepare-project-foundation/5.3.3-s3/><b>5.3.3. </b>Configure S3 Buckets
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.3-prepare-project-foundation/5.3.4-dynamodb/ title="Configure DynamoDB Table" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.3-prepare-project-foundation/5.3.4-dynamodb/><b>5.3.4. </b>Configure DynamoDB Table
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.3-prepare-project-foundation/5.3.5-secrets-manager/ title="Configure Secrets Manager" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.3-prepare-project-foundation/5.3.5-secrets-manager/><b>5.3.5. </b>Configure Secrets Manager
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.3-prepare-project-foundation/5.3.6-budgets/ title="Configure Budget Alerts" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.3-prepare-project-foundation/5.3.6-budgets/><b>5.3.6. </b>Configure Budget Alerts
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/5-workshop/5.4-setup-and-run-frontend/ title="Setup and Run Frontend" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.4-setup-and-run-frontend/><b>5.4. </b>Setup and Run Frontend
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/5-workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/ title="Deploy Frontend with AWS Amplify Hosting" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/><b>5.4.1. </b>Deploy Frontend with AWS Amplify Hosting
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.4-setup-and-run-frontend/5.4.2-expected-result-evidence/ title="Expected Result & Evidence" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.4-setup-and-run-frontend/5.4.2-expected-result-evidence/><b>5.4.2. </b>Expected Result & Evidence
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/5-workshop/5.5-ai-processing-workflow/ title="AI Processing Workflow" class="dd-item
+parent"><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.5-ai-processing-workflow/><b>5.5. </b>AI Processing Workflow
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/5-workshop/5.5-ai-processing-workflow/5.5.1-validate/ title="Validate Lambda" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.5-ai-processing-workflow/5.5.1-validate/><b>5.5.1. </b>Validate Lambda
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.5-ai-processing-workflow/5.5.2-textract/ title="Textract Lambda" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.5-ai-processing-workflow/5.5.2-textract/><b>5.5.2. </b>Textract Lambda
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.5-ai-processing-workflow/5.5.3-proxy/ title="AI Proxy Lambda" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.5-ai-processing-workflow/5.5.3-proxy/><b>5.5.3. </b>AI Proxy Lambda
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.5-ai-processing-workflow/5.5.4-confidence/ title="Confidence Status Lambda" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.5-ai-processing-workflow/5.5.4-confidence/><b>5.5.4. </b>Confidence Status Lambda
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.5-ai-processing-workflow/5.5.5-stepfunctions/ title="Step Functions Workflow" class="dd-item
+active"><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.5-ai-processing-workflow/5.5.5-stepfunctions/><b>5.5.5. </b>Step Functions Workflow
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/5-workshop/5.6-document-ingestion-pipeline/ title="Build Asynchronous Document Ingestion Pipeline" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.6-document-ingestion-pipeline/><b>5.6. </b>Build Asynchronous Document Ingestion Pipeline
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/5-workshop/5.6-document-ingestion-pipeline/5.6.1-s3-raw-bucket/ title="Configure EventBridge for S3 Raw Bucket" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.6-document-ingestion-pipeline/5.6.1-s3-raw-bucket/><b>5.6.1. </b>Configure EventBridge for S3 Raw Bucket
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.6-document-ingestion-pipeline/5.6.2-sqs-queues/ title="Create SQS Queues" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.6-document-ingestion-pipeline/5.6.2-sqs-queues/><b>5.6.2. </b>Create SQS Queues
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.6-document-ingestion-pipeline/5.6.3-eventbridge-rules/ title="Create EventBridge rule and Test" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.6-document-ingestion-pipeline/5.6.3-eventbridge-rules/><b>5.6.3. </b>Create EventBridge rule and Test
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.6-document-ingestion-pipeline/5.6.4-step-functions-skeleton/ title="Create and Test Step Functions Skeleton" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.6-document-ingestion-pipeline/5.6.4-step-functions-skeleton/><b>5.6.4. </b>Create and Test Step Functions Skeleton
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.6-document-ingestion-pipeline/5.6.5-job-starter-lambda/ title="Initialize Job Starter Lambda Function" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.6-document-ingestion-pipeline/5.6.5-job-starter-lambda/><b>5.6.5. </b>Initialize Job Starter Lambda Function
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/5-workshop/5.7-store-result-review-flow/ title="Store Result and Build Review Flow" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.7-store-result-review-flow/><b>5.7. </b>Store Result and Build Review Flow
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/5-workshop/5.7-store-result-review-flow/5.7.1-persistence/ title="Persistence & Offloading Design" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.7-store-result-review-flow/5.7.1-persistence/><b>5.7.1. </b>Persistence & Offloading Design
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.7-store-result-review-flow/5.7.2-lambdas/ title="Data Management Lambdas" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.7-store-result-review-flow/5.7.2-lambdas/><b>5.7.2. </b>Data Management Lambdas
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.7-store-result-review-flow/5.7.3-api-gateway/ title="API Gateway Configuration" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.7-store-result-review-flow/5.7.3-api-gateway/><b>5.7.3. </b>API Gateway Configuration
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.7-store-result-review-flow/5.7.4-testing/ title="Testing and Reporting" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.7-store-result-review-flow/5.7.4-testing/><b>5.7.4. </b>Testing and Reporting
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/5-workshop/5.8-observability-alerting-governance/ title="Observability, Alerting and Governance" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.8-observability-alerting-governance/><b>5.8. </b>Observability, Alerting and Governance
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/5-workshop/5.8-observability-alerting-governance/5.8.1-logging/ title="CloudWatch Logs & Filters" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.8-observability-alerting-governance/5.8.1-logging/><b>5.8.1. </b>CloudWatch Logs & Filters
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.8-observability-alerting-governance/5.8.2-alerting/ title="SES, SNS & CloudWatch Alarms" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.8-observability-alerting-governance/5.8.2-alerting/><b>5.8.2. </b>SES, SNS & CloudWatch Alarms
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.8-observability-alerting-governance/5.8.3-tracing/ title="Distributed Tracing" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.8-observability-alerting-governance/5.8.3-tracing/><b>5.8.3. </b>Distributed Tracing
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.8-observability-alerting-governance/5.8.4-governance/ title="Governance & Audit Logs" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.8-observability-alerting-governance/5.8.4-governance/><b>5.8.4. </b>Governance & Audit Logs
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.8-observability-alerting-governance/5.8.5-notification-trigger-lambda/ title="Notification Trigger Lambda" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.8-observability-alerting-governance/5.8.5-notification-trigger-lambda/><b>5.8.5. </b>Notification Trigger Lambda
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/5-workshop/5.9-end-to-end-testing/ title="End-to-End Testing" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.9-end-to-end-testing/><b>5.9. </b>End-to-End Testing
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.10-clean-up/ title="Clean Up" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.10-clean-up/><b>5.10. </b>Clean Up
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/6-self-evaluation/ title=Self-Assessment class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/6-self-evaluation/><b>6. </b>Self-Assessment
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/7-feedback/ title="Sharing and Feedback" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/7-feedback/><b>7. </b>Sharing and Feedback
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/8-references/ title=References class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/8-references/><b>8. </b>References
+<i class="fas fa-check read-icon"></i></a></li></ul><section id=shortcuts><h3>More</h3><ul><li><a class=padding href=https://awsstudygroup.com><i class='fab fa-aws'></i> AWS Study Group - Blog</a></li><li><a class=padding href=https://www.facebook.com/groups/awsstudygroupfcj><i class='fab fa-facebook'></i> AWS Study Group - FB Group</a></li></ul></section><section id=prefooter><hr><ul><li><a class=padding><i class="fas fa-language fa-fw"></i><div class=select-style><select id=select-language onchange="location=this.value"><option id=en value=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.5-ai-processing-workflow/5.5.5-stepfunctions/ selected>English</option><option id=vi value=https://lamquangloc.github.io/FCAJ-Workshop/vi/5-workshop/5.5-ai-processing-workflow/5.5.5-stepfunctions/>Tiếng Việt</option></select><svg id="Capa_1" xmlns:xlink="http://www.w3.org/1999/xlink" width="255" height="255" viewBox="0 0 255 255" style="enable-background:new 0 0 255 255"><g><g id="arrow-drop-down"><polygon points="0,63.75 127.5,191.25 255,63.75"/></g></g></svg></div></a></li><li><a class=padding href=# data-clear-history-toggle><i class="fas fa-history fa-fw"></i> Clear History</a></li></ul></section><section id=footer><left><br><br><b>Last Updated</b><br><i><font color=orange>20-07-2026</font>
+</i></left><left><br><br><b>Team</b><br><i><a href=https://www.facebook.com/groups/660548818043427 style=color:orange>First Cloud AI Journey</a>
+</i></left><script async defer src=https://buttons.github.io/buttons.js></script></section></div></nav><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i>
+</a></span><span id=toc-menu><i class="fas fa-list-alt"></i></span>
+<span class=links><a href=https://lamquangloc.github.io/FCAJ-Workshop/>Internship Report</a> > <a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/>Workshop</a> > <a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.5-ai-processing-workflow/>AI Processing Workflow</a> > Step Functions Workflow</span></div><div class=progress><div class=wrapper><nav id=TableOfContents><ul><li><ul><li><a href=#step-by-step-console-configuration>Step-by-Step Console Configuration</a></li><li><a href=#evidence>Evidence</a></li></ul></li></ul></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Step Functions Workflow</h1><p>We will use AWS Step Functions to orchestrate the four core AI-processing Lambdas, persist results, and invoke Notification Trigger Lambda for review and failure alerts.</p><hr><h3 id=step-by-step-console-configuration>Step-by-Step Console Configuration</h3><ol><li><p><strong>Access the Step Functions Dashboard</strong>:</p><ul><li>Search for <strong>Step Functions</strong> in the AWS Console search bar ➔ Select <strong>Step Functions</strong>.
+<img alt="Search for Step Functions" src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.5-ai-processing-workflow/5.5.5-stepfunctions/image52.png></li><li>In the left menu, choose <strong>State machines</strong> ➔ click <strong>Create state machine</strong>.
+<img alt="State machines list" src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.5-ai-processing-workflow/5.5.5-stepfunctions/image53.png>
+<img alt="Create a new State Machine" src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.5-ai-processing-workflow/5.5.5-stepfunctions/image54.png>
+<img alt="Choose a blank State Machine" src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.5-ai-processing-workflow/5.5.5-stepfunctions/image55.png></li></ul></li><li><p><strong>Configure Definition Code</strong>:</p><ul><li>Select <strong>Write in JSON</strong> (ASL Editor - Amazon States Language) to paste the workflow structure.
+<img alt="Open the workflow editor" src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.5-ai-processing-workflow/5.5.5-stepfunctions/image56.png>
+<img alt="Switch to the ASL JSON editor" src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.5-ai-processing-workflow/5.5.5-stepfunctions/image57.png></li><li>Clear the default JSON and paste the ASL definition below.</li><li>With AWS SAM, the <code>${...}</code> values are populated through <code>DefinitionSubstitutions</code>.</li><li>When creating the State Machine manually in the Console, replace <code>${WorkflowValidateFunctionArn}</code>, <code>${TextractFunctionArn}</code>, <code>${AiProxyFunctionArn}</code>, <code>${ConfidenceStatusFunctionArn}</code>, <code>${NotificationTriggerFunctionArn}</code>, <code>${DocumentsTableName}</code>, and <code>${ProcessedBucketName}</code> with deployed values before saving.</li></ul></li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-json data-lang=json><span style=display:flex><span>{
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;Comment&#34;</span>: <span style=color:#e6db74>&#34;DocuFlow AI - Real processing workflow for invoice and receipt documents with standardized data contract&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;StartAt&#34;</span>: <span style=color:#e6db74>&#34;ValidateInput&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#f92672>&#34;States&#34;</span>: {
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;ValidateInput&#34;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;Task&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:states:::lambda:invoke&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Parameters&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;FunctionName&#34;</span>: <span style=color:#e6db74>&#34;${WorkflowValidateFunctionArn}&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;Payload.$&#34;</span>: <span style=color:#e6db74>&#34;$&#34;</span>
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;ResultSelector&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;payload.$&#34;</span>: <span style=color:#e6db74>&#34;$.Payload&#34;</span>
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.validation&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Retry&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ErrorEquals&#34;</span>: [
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Lambda.ServiceException&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Lambda.AWSLambdaException&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Lambda.SdkClientException&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Lambda.TooManyRequestsException&#34;</span>
+</span></span><span style=display:flex><span>                    ],
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;IntervalSeconds&#34;</span>: <span style=color:#ae81ff>2</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;MaxAttempts&#34;</span>: <span style=color:#ae81ff>3</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;BackoffRate&#34;</span>: <span style=color:#ae81ff>2</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Catch&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ErrorEquals&#34;</span>: [
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;States.ALL&#34;</span>
+</span></span><span style=display:flex><span>                    ],
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.workflowError&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;BuildFailureResult&#34;</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;NormalizeWorkflowInput&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;NormalizeWorkflowInput&#34;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;Pass&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Parameters&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;documentId.$&#34;</span>: <span style=color:#e6db74>&#34;$.validation.payload.documentId&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;userId.$&#34;</span>: <span style=color:#e6db74>&#34;$.validation.payload.userId&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;documentType.$&#34;</span>: <span style=color:#e6db74>&#34;$.validation.payload.documentType&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;bucket.$&#34;</span>: <span style=color:#e6db74>&#34;$.validation.payload.bucket&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;key.$&#34;</span>: <span style=color:#e6db74>&#34;$.validation.payload.key&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;rawS3Bucket.$&#34;</span>: <span style=color:#e6db74>&#34;$.validation.payload.rawS3Bucket&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;rawS3Key.$&#34;</span>: <span style=color:#e6db74>&#34;$.validation.payload.rawS3Key&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;s3RawPath.$&#34;</span>: <span style=color:#e6db74>&#34;$.validation.payload.s3RawPath&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;fileName.$&#34;</span>: <span style=color:#e6db74>&#34;$.validation.payload.originalFileName&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;originalFileName.$&#34;</span>: <span style=color:#e6db74>&#34;$.validation.payload.originalFileName&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;fileExtension.$&#34;</span>: <span style=color:#e6db74>&#34;$.validation.payload.fileExtension&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;contentType.$&#34;</span>: <span style=color:#e6db74>&#34;$.validation.payload.contentType&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;mimeType.$&#34;</span>: <span style=color:#e6db74>&#34;$.validation.payload.mimeType&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;pageCount.$&#34;</span>: <span style=color:#e6db74>&#34;$.validation.payload.pageCount&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;fileSizeBytes.$&#34;</span>: <span style=color:#e6db74>&#34;$.validation.payload.fileSizeBytes&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;validation&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;payload.$&#34;</span>: <span style=color:#e6db74>&#34;$.validation.payload&#34;</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;UpdateStatusProcessing&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;UpdateStatusProcessing&#34;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;Pass&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Parameters&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;status&#34;</span>: <span style=color:#e6db74>&#34;PROCESSING&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;state&#34;</span>: <span style=color:#e6db74>&#34;UpdateStatusProcessing&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;message&#34;</span>: <span style=color:#e6db74>&#34;Document processing started&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;updatedAt.$&#34;</span>: <span style=color:#e6db74>&#34;$$.State.EnteredTime&#34;</span>
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.workflowStatus&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;SaveProcessingStatusToDynamoDB&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;SaveProcessingStatusToDynamoDB&#34;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;Task&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:states:::dynamodb:updateItem&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Parameters&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;TableName&#34;</span>: <span style=color:#e6db74>&#34;${DocumentsTableName}&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;Key&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;PK&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;States.Format(&#39;USER#{}&#39;, $.userId)&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;SK&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;States.Format(&#39;DOC#{}&#39;, $.documentId)&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;UpdateExpression&#34;</span>: <span style=color:#e6db74>&#34;SET schemaVersion = :schemaVersion, documentId = :documentId, userId = :userId, documentType = :documentType, originalFileName = :originalFileName, fileExtension = :fileExtension, pageCount = :pageCount, #status = :status, rawS3Key = :rawS3Key, createdAt = if_not_exists(createdAt, :createdAt), updatedAt = :updatedAt, GSI1PK = :gsi1pk, GSI1SK = :gsi1sk&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;ExpressionAttributeNames&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;#status&#34;</span>: <span style=color:#e6db74>&#34;status&#34;</span>
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;ExpressionAttributeValues&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;:schemaVersion&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S&#34;</span>: <span style=color:#e6db74>&#34;1.0.0&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;:documentId&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.documentId&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;:userId&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.userId&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;:documentType&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.documentType&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;:originalFileName&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.fileName&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;:fileExtension&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.fileExtension&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;:pageCount&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;N.$&#34;</span>: <span style=color:#e6db74>&#34;States.Format(&#39;{}&#39;, $.pageCount)&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;:status&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S&#34;</span>: <span style=color:#e6db74>&#34;PROCESSING&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;:rawS3Key&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.key&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;:createdAt&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$$.Execution.StartTime&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;:updatedAt&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$$.State.EnteredTime&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;:gsi1pk&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S&#34;</span>: <span style=color:#e6db74>&#34;STATUS#PROCESSING&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;:gsi1sk&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$$.Execution.StartTime&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.processingStatusSave&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Retry&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ErrorEquals&#34;</span>: [
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;DynamoDB.ProvisionedThroughputExceededException&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;DynamoDB.RequestLimitExceeded&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;DynamoDB.InternalServerError&#34;</span>
+</span></span><span style=display:flex><span>                    ],
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;IntervalSeconds&#34;</span>: <span style=color:#ae81ff>1</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;MaxAttempts&#34;</span>: <span style=color:#ae81ff>4</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;BackoffRate&#34;</span>: <span style=color:#ae81ff>2</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Catch&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ErrorEquals&#34;</span>: [
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;States.ALL&#34;</span>
+</span></span><span style=display:flex><span>                    ],
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.workflowError&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;BuildFailureResult&#34;</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;RunTextractAnalyzeExpense&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;RunTextractAnalyzeExpense&#34;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;Task&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:states:::lambda:invoke&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Parameters&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;FunctionName&#34;</span>: <span style=color:#e6db74>&#34;${TextractFunctionArn}&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;Payload&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;documentId.$&#34;</span>: <span style=color:#e6db74>&#34;$.documentId&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;userId.$&#34;</span>: <span style=color:#e6db74>&#34;$.userId&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;rawS3Bucket.$&#34;</span>: <span style=color:#e6db74>&#34;$.bucket&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;rawS3Key.$&#34;</span>: <span style=color:#e6db74>&#34;$.key&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;bucket.$&#34;</span>: <span style=color:#e6db74>&#34;$.bucket&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;key.$&#34;</span>: <span style=color:#e6db74>&#34;$.key&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;originalFileName.$&#34;</span>: <span style=color:#e6db74>&#34;$.fileName&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;mimeType.$&#34;</span>: <span style=color:#e6db74>&#34;$.contentType&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;fileName.$&#34;</span>: <span style=color:#e6db74>&#34;$.fileName&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;contentType.$&#34;</span>: <span style=color:#e6db74>&#34;$.contentType&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;documentType.$&#34;</span>: <span style=color:#e6db74>&#34;$.documentType&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;pageCount.$&#34;</span>: <span style=color:#e6db74>&#34;$.pageCount&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;fileSizeBytes.$&#34;</span>: <span style=color:#e6db74>&#34;$.fileSizeBytes&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;validation.$&#34;</span>: <span style=color:#e6db74>&#34;$.validation.payload&#34;</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;ResultSelector&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;payload.$&#34;</span>: <span style=color:#e6db74>&#34;$.Payload&#34;</span>
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.textractResult&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Retry&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ErrorEquals&#34;</span>: [
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Lambda.ServiceException&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Lambda.AWSLambdaException&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Lambda.SdkClientException&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Lambda.TooManyRequestsException&#34;</span>
+</span></span><span style=display:flex><span>                    ],
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;IntervalSeconds&#34;</span>: <span style=color:#ae81ff>2</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;MaxAttempts&#34;</span>: <span style=color:#ae81ff>3</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;BackoffRate&#34;</span>: <span style=color:#ae81ff>2</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Catch&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ErrorEquals&#34;</span>: [
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;States.ALL&#34;</span>
+</span></span><span style=display:flex><span>                    ],
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.workflowError&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;BuildFailureResult&#34;</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;SaveTextractRawToS3&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;SaveTextractRawToS3&#34;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;Task&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:states:::aws-sdk:s3:putObject&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Parameters&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;Bucket&#34;</span>: <span style=color:#e6db74>&#34;${ProcessedBucketName}&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;Key.$&#34;</span>: <span style=color:#e6db74>&#34;States.Format(&#39;processed/{}/{}/textract-raw.json&#39;, $.userId, $.documentId)&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;Body.$&#34;</span>: <span style=color:#e6db74>&#34;States.JsonToString($.textractResult.payload)&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;ContentType&#34;</span>: <span style=color:#e6db74>&#34;application/json&#34;</span>
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.textractRawSave&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Retry&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ErrorEquals&#34;</span>: [
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;S3.InternalError&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;S3.SlowDown&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;S3.ServiceUnavailable&#34;</span>
+</span></span><span style=display:flex><span>                    ],
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;IntervalSeconds&#34;</span>: <span style=color:#ae81ff>1</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;MaxAttempts&#34;</span>: <span style=color:#ae81ff>4</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;BackoffRate&#34;</span>: <span style=color:#ae81ff>2</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Catch&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ErrorEquals&#34;</span>: [
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;States.ALL&#34;</span>
+</span></span><span style=display:flex><span>                    ],
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.workflowError&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;BuildFailureResult&#34;</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;CallAIProxyLambda&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;CallAIProxyLambda&#34;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;Task&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:states:::lambda:invoke&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Parameters&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;FunctionName&#34;</span>: <span style=color:#e6db74>&#34;${AiProxyFunctionArn}&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;Payload&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;documentId.$&#34;</span>: <span style=color:#e6db74>&#34;$.documentId&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;userId.$&#34;</span>: <span style=color:#e6db74>&#34;$.userId&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;rawS3Bucket.$&#34;</span>: <span style=color:#e6db74>&#34;$.bucket&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;rawS3Key.$&#34;</span>: <span style=color:#e6db74>&#34;$.key&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;originalFileName.$&#34;</span>: <span style=color:#e6db74>&#34;$.fileName&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;mimeType.$&#34;</span>: <span style=color:#e6db74>&#34;$.contentType&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;extractedData.$&#34;</span>: <span style=color:#e6db74>&#34;$.textractResult.payload.extractedData&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;textractResult.$&#34;</span>: <span style=color:#e6db74>&#34;$.textractResult.payload&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;bucket.$&#34;</span>: <span style=color:#e6db74>&#34;$.bucket&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;key.$&#34;</span>: <span style=color:#e6db74>&#34;$.key&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;fileName.$&#34;</span>: <span style=color:#e6db74>&#34;$.fileName&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;contentType.$&#34;</span>: <span style=color:#e6db74>&#34;$.contentType&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;documentType.$&#34;</span>: <span style=color:#e6db74>&#34;$.documentType&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;pageCount.$&#34;</span>: <span style=color:#e6db74>&#34;$.pageCount&#34;</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;ResultSelector&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;payload.$&#34;</span>: <span style=color:#e6db74>&#34;$.Payload&#34;</span>
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.normalizedResult&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Retry&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ErrorEquals&#34;</span>: [
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Lambda.ServiceException&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Lambda.AWSLambdaException&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Lambda.SdkClientException&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Lambda.TooManyRequestsException&#34;</span>
+</span></span><span style=display:flex><span>                    ],
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;IntervalSeconds&#34;</span>: <span style=color:#ae81ff>2</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;MaxAttempts&#34;</span>: <span style=color:#ae81ff>3</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;BackoffRate&#34;</span>: <span style=color:#ae81ff>2</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Catch&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ErrorEquals&#34;</span>: [
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;States.ALL&#34;</span>
+</span></span><span style=display:flex><span>                    ],
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.workflowError&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;BuildFailureResult&#34;</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;SaveNormalizedJsonToS3&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;SaveNormalizedJsonToS3&#34;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;Task&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:states:::aws-sdk:s3:putObject&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Parameters&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;Bucket&#34;</span>: <span style=color:#e6db74>&#34;${ProcessedBucketName}&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;Key.$&#34;</span>: <span style=color:#e6db74>&#34;States.Format(&#39;processed/{}/{}/normalized.json&#39;, $.userId, $.documentId)&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;Body.$&#34;</span>: <span style=color:#e6db74>&#34;States.JsonToString($.normalizedResult.payload)&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;ContentType&#34;</span>: <span style=color:#e6db74>&#34;application/json&#34;</span>
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.normalizedSave&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Retry&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ErrorEquals&#34;</span>: [
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;S3.InternalError&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;S3.SlowDown&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;S3.ServiceUnavailable&#34;</span>
+</span></span><span style=display:flex><span>                    ],
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;IntervalSeconds&#34;</span>: <span style=color:#ae81ff>1</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;MaxAttempts&#34;</span>: <span style=color:#ae81ff>4</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;BackoffRate&#34;</span>: <span style=color:#ae81ff>2</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Catch&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ErrorEquals&#34;</span>: [
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;States.ALL&#34;</span>
+</span></span><span style=display:flex><span>                    ],
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.workflowError&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;BuildFailureResult&#34;</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;CalculateConfidenceAndStatus&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;CalculateConfidenceAndStatus&#34;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;Task&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:states:::lambda:invoke&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Parameters&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;FunctionName&#34;</span>: <span style=color:#e6db74>&#34;${ConfidenceStatusFunctionArn}&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;Payload&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;documentId.$&#34;</span>: <span style=color:#e6db74>&#34;$.documentId&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;userId.$&#34;</span>: <span style=color:#e6db74>&#34;$.userId&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;textractResult.$&#34;</span>: <span style=color:#e6db74>&#34;$.textractResult.payload&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;normalizedResult.$&#34;</span>: <span style=color:#e6db74>&#34;$.normalizedResult.payload&#34;</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;ResultSelector&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;payload.$&#34;</span>: <span style=color:#e6db74>&#34;$.Payload&#34;</span>
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.statusDecision&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Retry&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ErrorEquals&#34;</span>: [
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Lambda.ServiceException&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Lambda.AWSLambdaException&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Lambda.SdkClientException&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Lambda.TooManyRequestsException&#34;</span>
+</span></span><span style=display:flex><span>                    ],
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;IntervalSeconds&#34;</span>: <span style=color:#ae81ff>2</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;MaxAttempts&#34;</span>: <span style=color:#ae81ff>3</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;BackoffRate&#34;</span>: <span style=color:#ae81ff>2</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Catch&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ErrorEquals&#34;</span>: [
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;States.ALL&#34;</span>
+</span></span><span style=display:flex><span>                    ],
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.workflowError&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;BuildFailureResult&#34;</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;BuildDocumentResult&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;BuildDocumentResult&#34;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;Pass&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Parameters&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;schemaVersion&#34;</span>: <span style=color:#e6db74>&#34;1.0.0&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;documentId.$&#34;</span>: <span style=color:#e6db74>&#34;$.documentId&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;userId.$&#34;</span>: <span style=color:#e6db74>&#34;$.userId&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;documentType.$&#34;</span>: <span style=color:#e6db74>&#34;$.normalizedResult.payload.documentType&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;status.$&#34;</span>: <span style=color:#e6db74>&#34;$.statusDecision.payload.status&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;file&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;originalFileName.$&#34;</span>: <span style=color:#e6db74>&#34;$.fileName&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;fileExtension.$&#34;</span>: <span style=color:#e6db74>&#34;$.fileExtension&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;mimeType.$&#34;</span>: <span style=color:#e6db74>&#34;$.contentType&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;fileSizeBytes.$&#34;</span>: <span style=color:#e6db74>&#34;$.validation.payload.objectSize&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;pageCount.$&#34;</span>: <span style=color:#e6db74>&#34;$.pageCount&#34;</span>
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;storage&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;rawS3Bucket.$&#34;</span>: <span style=color:#e6db74>&#34;$.bucket&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;rawS3Key.$&#34;</span>: <span style=color:#e6db74>&#34;$.key&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;processedS3Bucket&#34;</span>: <span style=color:#e6db74>&#34;${ProcessedBucketName}&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;processedS3Key.$&#34;</span>: <span style=color:#e6db74>&#34;States.Format(&#39;processed/{}/{}/result.json&#39;, $.userId, $.documentId)&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;textractRawS3Key.$&#34;</span>: <span style=color:#e6db74>&#34;States.Format(&#39;processed/{}/{}/textract-raw.json&#39;, $.userId, $.documentId)&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;normalizedS3Key.$&#34;</span>: <span style=color:#e6db74>&#34;States.Format(&#39;processed/{}/{}/normalized.json&#39;, $.userId, $.documentId)&#34;</span>
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;workflow&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;executionId.$&#34;</span>: <span style=color:#e6db74>&#34;$$.Execution.Id&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;queueMessageId&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;retryCount&#34;</span>: <span style=color:#ae81ff>0</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;startedAt.$&#34;</span>: <span style=color:#e6db74>&#34;$$.Execution.StartTime&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;completedAt.$&#34;</span>: <span style=color:#e6db74>&#34;$$.State.EnteredTime&#34;</span>
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;extraction&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;textractApi&#34;</span>: <span style=color:#e6db74>&#34;AnalyzeExpense&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;textractConfidenceScore&#34;</span>: <span style=color:#ae81ff>0</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;aiProvider&#34;</span>: <span style=color:#e6db74>&#34;external-ai&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;aiModel&#34;</span>: <span style=color:#e6db74>&#34;configured-model-name&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;aiRequestId&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;normalizationVersion&#34;</span>: <span style=color:#e6db74>&#34;1.0.0&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;normalizedAt.$&#34;</span>: <span style=color:#e6db74>&#34;$$.State.EnteredTime&#34;</span>
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;invoice&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;vendorName.$&#34;</span>: <span style=color:#e6db74>&#34;$.normalizedResult.payload.invoice.vendorName&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;vendorTaxId&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;invoiceNumber.$&#34;</span>: <span style=color:#e6db74>&#34;$.normalizedResult.payload.invoice.invoiceNumber&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;invoiceDate.$&#34;</span>: <span style=color:#e6db74>&#34;$.normalizedResult.payload.invoice.invoiceDate&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;dueDate.$&#34;</span>: <span style=color:#e6db74>&#34;$.normalizedResult.payload.invoice.dueDate&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;currency.$&#34;</span>: <span style=color:#e6db74>&#34;$.normalizedResult.payload.invoice.currency&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;subtotalAmount.$&#34;</span>: <span style=color:#e6db74>&#34;$.normalizedResult.payload.invoice.subtotalAmount&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;taxAmount.$&#34;</span>: <span style=color:#e6db74>&#34;$.normalizedResult.payload.invoice.taxAmount&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;discountAmount&#34;</span>: <span style=color:#ae81ff>0</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;shippingAmount&#34;</span>: <span style=color:#ae81ff>0</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;totalAmount.$&#34;</span>: <span style=color:#e6db74>&#34;$.normalizedResult.payload.invoice.totalAmount&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;paymentMethod&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;lineItems.$&#34;</span>: <span style=color:#e6db74>&#34;$.normalizedResult.payload.lineItems&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;confidence&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;confidenceScore.$&#34;</span>: <span style=color:#e6db74>&#34;$.statusDecision.payload.confidence.confidenceScore&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;hasLowConfidence.$&#34;</span>: <span style=color:#e6db74>&#34;$.statusDecision.payload.confidence.hasLowConfidence&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;fieldConfidence.$&#34;</span>: <span style=color:#e6db74>&#34;$.statusDecision.payload.confidence.fieldConfidence&#34;</span>
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;review&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;reviewStatus.$&#34;</span>: <span style=color:#e6db74>&#34;$.statusDecision.payload.review.reviewStatus&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;reviewReasonCodes.$&#34;</span>: <span style=color:#e6db74>&#34;$.statusDecision.payload.review.reviewReasonCodes&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;reviewedBy.$&#34;</span>: <span style=color:#e6db74>&#34;$.statusDecision.payload.review.reviewedBy&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;reviewedAt.$&#34;</span>: <span style=color:#e6db74>&#34;$.statusDecision.payload.review.reviewedAt&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;corrections.$&#34;</span>: <span style=color:#e6db74>&#34;$.statusDecision.payload.review.corrections&#34;</span>
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;error&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;errorCode&#34;</span>: <span style=color:#66d9ef>null</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;errorMessage&#34;</span>: <span style=color:#66d9ef>null</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;errorStage&#34;</span>: <span style=color:#66d9ef>null</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;lastErrorAt&#34;</span>: <span style=color:#66d9ef>null</span>
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;audit&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;createdAt.$&#34;</span>: <span style=color:#e6db74>&#34;$$.Execution.StartTime&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;updatedAt.$&#34;</span>: <span style=color:#e6db74>&#34;$$.State.EnteredTime&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;createdBy.$&#34;</span>: <span style=color:#e6db74>&#34;$.userId&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;updatedBy&#34;</span>: <span style=color:#e6db74>&#34;system&#34;</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;SaveProcessedJsonToS3&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;SaveProcessedJsonToS3&#34;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;Task&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:states:::aws-sdk:s3:putObject&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Parameters&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;Bucket&#34;</span>: <span style=color:#e6db74>&#34;${ProcessedBucketName}&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;Key.$&#34;</span>: <span style=color:#e6db74>&#34;States.Format(&#39;processed/{}/{}/result.json&#39;, $.userId, $.documentId)&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;Body.$&#34;</span>: <span style=color:#e6db74>&#34;States.JsonToString($.finalDocument)&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;ContentType&#34;</span>: <span style=color:#e6db74>&#34;application/json&#34;</span>
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.processedResultSave&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Catch&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ErrorEquals&#34;</span>: [
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;States.ALL&#34;</span>
+</span></span><span style=display:flex><span>                    ],
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.workflowError&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;BuildFailureResult&#34;</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;SaveMetadataToDynamoDB&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;SaveMetadataToDynamoDB&#34;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;Task&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:states:::dynamodb:putItem&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Parameters&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;TableName&#34;</span>: <span style=color:#e6db74>&#34;${DocumentsTableName}&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;Item&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;PK&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;States.Format(&#39;USER#{}&#39;, $.userId)&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;SK&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;States.Format(&#39;DOC#{}&#39;, $.documentId)&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;GSI1PK&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;States.Format(&#39;STATUS#{}&#39;, $.finalDocument.status)&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;GSI1SK&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.audit.createdAt&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;schemaVersion&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.schemaVersion&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;documentId&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.documentId&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;userId&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.userId&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;documentType&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.documentType&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;status&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.status&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;originalFileName&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.file.originalFileName&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;rawS3Key&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.storage.rawS3Key&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;processedS3Key&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.storage.processedS3Key&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;vendorName&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.invoice.vendorName&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;invoiceDate&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.invoice.invoiceDate&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;currency&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.invoice.currency&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;totalAmount&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;N.$&#34;</span>: <span style=color:#e6db74>&#34;States.Format(&#39;{}&#39;, $.finalDocument.invoice.totalAmount)&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;confidenceScore&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;N.$&#34;</span>: <span style=color:#e6db74>&#34;States.Format(&#39;{}&#39;, $.finalDocument.confidence.confidenceScore)&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;reviewStatus&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.review.reviewStatus&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;reviewReasonCodes&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;States.JsonToString($.finalDocument.review.reviewReasonCodes)&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;createdAt&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.audit.createdAt&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;updatedAt&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.audit.updatedAt&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.dynamoDbSave&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Catch&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ErrorEquals&#34;</span>: [
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;States.ALL&#34;</span>
+</span></span><span style=display:flex><span>                    ],
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.workflowError&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;BuildFailureResult&#34;</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;CheckFinalStatus&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;CheckFinalStatus&#34;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;Choice&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Choices&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;Variable&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.status&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;StringEquals&#34;</span>: <span style=color:#e6db74>&#34;FAILED&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;PublishFailureAlert&#34;</span>
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;Variable&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.status&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;StringEquals&#34;</span>: <span style=color:#e6db74>&#34;REVIEW_REQUIRED&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;PublishSNSAlert&#34;</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Default&#34;</span>: <span style=color:#e6db74>&#34;Done&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;PublishSNSAlert&#34;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;Task&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:states:::lambda:invoke&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Parameters&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;FunctionName&#34;</span>: <span style=color:#e6db74>&#34;${NotificationTriggerFunctionArn}&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;Payload.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument&#34;</span>
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;ResultSelector&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;payload.$&#34;</span>: <span style=color:#e6db74>&#34;$.Payload&#34;</span>
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.notificationResult&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Retry&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ErrorEquals&#34;</span>: [
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Lambda.ServiceException&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Lambda.AWSLambdaException&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Lambda.SdkClientException&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Lambda.TooManyRequestsException&#34;</span>
+</span></span><span style=display:flex><span>                    ],
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;IntervalSeconds&#34;</span>: <span style=color:#ae81ff>2</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;MaxAttempts&#34;</span>: <span style=color:#ae81ff>3</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;BackoffRate&#34;</span>: <span style=color:#ae81ff>2</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Catch&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ErrorEquals&#34;</span>: [
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;States.ALL&#34;</span>
+</span></span><span style=display:flex><span>                    ],
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.workflowError&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;BuildFailureResult&#34;</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;Done&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;BuildFailureResult&#34;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;Pass&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Parameters&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;schemaVersion&#34;</span>: <span style=color:#e6db74>&#34;1.0.0&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;documentId.$&#34;</span>: <span style=color:#e6db74>&#34;$.documentId&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;userId.$&#34;</span>: <span style=color:#e6db74>&#34;$.userId&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;documentType.$&#34;</span>: <span style=color:#e6db74>&#34;$.documentType&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;status&#34;</span>: <span style=color:#e6db74>&#34;FAILED&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;file&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;originalFileName.$&#34;</span>: <span style=color:#e6db74>&#34;$.fileName&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;fileExtension.$&#34;</span>: <span style=color:#e6db74>&#34;$.fileExtension&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;mimeType.$&#34;</span>: <span style=color:#e6db74>&#34;$.contentType&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;fileSizeBytes&#34;</span>: <span style=color:#ae81ff>0</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;pageCount.$&#34;</span>: <span style=color:#e6db74>&#34;$.pageCount&#34;</span>
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;storage&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;rawS3Bucket.$&#34;</span>: <span style=color:#e6db74>&#34;$.bucket&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;rawS3Key.$&#34;</span>: <span style=color:#e6db74>&#34;$.key&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;processedS3Bucket&#34;</span>: <span style=color:#e6db74>&#34;${ProcessedBucketName}&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;processedS3Key.$&#34;</span>: <span style=color:#e6db74>&#34;States.Format(&#39;processed/{}/{}/result.json&#39;, $.userId, $.documentId)&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;textractRawS3Key.$&#34;</span>: <span style=color:#e6db74>&#34;States.Format(&#39;processed/{}/{}/textract-raw.json&#39;, $.userId, $.documentId)&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;normalizedS3Key.$&#34;</span>: <span style=color:#e6db74>&#34;States.Format(&#39;processed/{}/{}/normalized.json&#39;, $.userId, $.documentId)&#34;</span>
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;workflow&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;executionId.$&#34;</span>: <span style=color:#e6db74>&#34;$$.Execution.Id&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;queueMessageId&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;retryCount&#34;</span>: <span style=color:#ae81ff>0</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;startedAt.$&#34;</span>: <span style=color:#e6db74>&#34;$$.Execution.StartTime&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;completedAt.$&#34;</span>: <span style=color:#e6db74>&#34;$$.State.EnteredTime&#34;</span>
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;extraction&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;textractApi&#34;</span>: <span style=color:#e6db74>&#34;AnalyzeExpense&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;textractConfidenceScore&#34;</span>: <span style=color:#ae81ff>0</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;aiProvider&#34;</span>: <span style=color:#e6db74>&#34;external-ai&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;aiModel&#34;</span>: <span style=color:#e6db74>&#34;configured-model-name&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;aiRequestId&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;normalizationVersion&#34;</span>: <span style=color:#e6db74>&#34;1.0.0&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;normalizedAt&#34;</span>: <span style=color:#66d9ef>null</span>
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;invoice&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;vendorName&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;vendorTaxId&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;invoiceNumber&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;invoiceDate&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;dueDate&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;currency&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;subtotalAmount&#34;</span>: <span style=color:#ae81ff>0</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;taxAmount&#34;</span>: <span style=color:#ae81ff>0</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;discountAmount&#34;</span>: <span style=color:#ae81ff>0</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;shippingAmount&#34;</span>: <span style=color:#ae81ff>0</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;totalAmount&#34;</span>: <span style=color:#ae81ff>0</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;paymentMethod&#34;</span>: <span style=color:#e6db74>&#34;&#34;</span>
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;lineItems&#34;</span>: [],
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;confidence&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;confidenceScore&#34;</span>: <span style=color:#ae81ff>0</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;hasLowConfidence&#34;</span>: <span style=color:#66d9ef>true</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;fieldConfidence&#34;</span>: {}
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;review&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;reviewStatus&#34;</span>: <span style=color:#e6db74>&#34;PENDING&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;reviewReasonCodes&#34;</span>: [],
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;reviewedBy&#34;</span>: <span style=color:#66d9ef>null</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;reviewedAt&#34;</span>: <span style=color:#66d9ef>null</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;corrections&#34;</span>: []
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;error&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;errorCode&#34;</span>: <span style=color:#e6db74>&#34;UNKNOWN_ERROR&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;errorMessage.$&#34;</span>: <span style=color:#e6db74>&#34;$.workflowError.Cause&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;errorStage&#34;</span>: <span style=color:#e6db74>&#34;WORKFLOW&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;lastErrorAt.$&#34;</span>: <span style=color:#e6db74>&#34;$$.State.EnteredTime&#34;</span>
+</span></span><span style=display:flex><span>                },
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;audit&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;createdAt.$&#34;</span>: <span style=color:#e6db74>&#34;$$.Execution.StartTime&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;updatedAt.$&#34;</span>: <span style=color:#e6db74>&#34;$$.State.EnteredTime&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;createdBy.$&#34;</span>: <span style=color:#e6db74>&#34;$.userId&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;updatedBy&#34;</span>: <span style=color:#e6db74>&#34;system&#34;</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;SaveFailureMetadataToDynamoDB&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;SaveFailureMetadataToDynamoDB&#34;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;Task&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:states:::dynamodb:putItem&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Parameters&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;TableName&#34;</span>: <span style=color:#e6db74>&#34;${DocumentsTableName}&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;Item&#34;</span>: {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;PK&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;States.Format(&#39;USER#{}&#39;, $.userId)&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;SK&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;States.Format(&#39;DOC#{}&#39;, $.documentId)&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;GSI1PK&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S&#34;</span>: <span style=color:#e6db74>&#34;STATUS#FAILED&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;GSI1SK&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.audit.createdAt&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;schemaVersion&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.schemaVersion&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;documentId&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.documentId&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;userId&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.userId&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;documentType&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.documentType&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;status&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S&#34;</span>: <span style=color:#e6db74>&#34;FAILED&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;originalFileName&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.file.originalFileName&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;rawS3Key&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.storage.rawS3Key&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;processedS3Key&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.storage.processedS3Key&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;vendorName&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.invoice.vendorName&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;invoiceDate&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.invoice.invoiceDate&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;currency&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.invoice.currency&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;totalAmount&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;N&#34;</span>: <span style=color:#e6db74>&#34;0&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;confidenceScore&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;N&#34;</span>: <span style=color:#e6db74>&#34;0&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;reviewStatus&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.review.reviewStatus&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;errorCode&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.error.errorCode&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;errorMessage&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.error.errorMessage&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;errorStage&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.error.errorStage&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;createdAt&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.audit.createdAt&#34;</span>
+</span></span><span style=display:flex><span>                    },
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;updatedAt&#34;</span>: {
+</span></span><span style=display:flex><span>                        <span style=color:#f92672>&#34;S.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument.audit.updatedAt&#34;</span>
+</span></span><span style=display:flex><span>                    }
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.failureDynamoDbSave&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;PublishFailureAlert&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;PublishFailureAlert&#34;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;Task&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Resource&#34;</span>: <span style=color:#e6db74>&#34;arn:aws:states:::lambda:invoke&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Parameters&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;FunctionName&#34;</span>: <span style=color:#e6db74>&#34;${NotificationTriggerFunctionArn}&#34;</span>,
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;Payload.$&#34;</span>: <span style=color:#e6db74>&#34;$.finalDocument&#34;</span>
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;ResultSelector&#34;</span>: {
+</span></span><span style=display:flex><span>                <span style=color:#f92672>&#34;payload.$&#34;</span>: <span style=color:#e6db74>&#34;$.Payload&#34;</span>
+</span></span><span style=display:flex><span>            },
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.failureNotificationResult&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Retry&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ErrorEquals&#34;</span>: [
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Lambda.ServiceException&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Lambda.AWSLambdaException&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Lambda.SdkClientException&#34;</span>,
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;Lambda.TooManyRequestsException&#34;</span>
+</span></span><span style=display:flex><span>                    ],
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;IntervalSeconds&#34;</span>: <span style=color:#ae81ff>2</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;MaxAttempts&#34;</span>: <span style=color:#ae81ff>3</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;BackoffRate&#34;</span>: <span style=color:#ae81ff>2</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Catch&#34;</span>: [
+</span></span><span style=display:flex><span>                {
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ErrorEquals&#34;</span>: [
+</span></span><span style=display:flex><span>                        <span style=color:#e6db74>&#34;States.ALL&#34;</span>
+</span></span><span style=display:flex><span>                    ],
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;ResultPath&#34;</span>: <span style=color:#e6db74>&#34;$.notificationError&#34;</span>,
+</span></span><span style=display:flex><span>                    <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;WorkflowFailed&#34;</span>
+</span></span><span style=display:flex><span>                }
+</span></span><span style=display:flex><span>            ],
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Next&#34;</span>: <span style=color:#e6db74>&#34;WorkflowFailed&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;WorkflowFailed&#34;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;Fail&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Error&#34;</span>: <span style=color:#e6db74>&#34;DocuFlowWorkflowFailed&#34;</span>,
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Cause&#34;</span>: <span style=color:#e6db74>&#34;Workflow failed. Check execution history and CloudWatch logs.&#34;</span>
+</span></span><span style=display:flex><span>        },
+</span></span><span style=display:flex><span>        <span style=color:#f92672>&#34;Done&#34;</span>: {
+</span></span><span style=display:flex><span>            <span style=color:#f92672>&#34;Type&#34;</span>: <span style=color:#e6db74>&#34;Succeed&#34;</span>
+</span></span><span style=display:flex><span>        }
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>}</span></span></code></pre></div><p><img alt="Paste the ASL definition into the JSON editor" src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.5-ai-processing-workflow/5.5.5-stepfunctions/image58.png></p><ol start=3><li><p><strong>Configure Permissions and Complete Deployment</strong>:</p><ul><li>Click <strong>Next</strong>.</li><li><strong>State machine name</strong>: Enter <code>docuflow-dev-workflow-processing-state-machine</code>.</li><li><strong>Permissions</strong>: Choose <strong>Choose an existing role</strong> ➔ select <code>docuflow-dev-workflow-stepfunctions-role</code> created in IAM steps.
+<img alt="Configure State Machine name and permissions" src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.5-ai-processing-workflow/5.5.5-stepfunctions/image59.png>
+<img alt="Confirm the IAM role" src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.5-ai-processing-workflow/5.5.5-stepfunctions/image60.png></li><li>Click <strong>Create state machine</strong>.
+<img alt="State Machine created successfully" src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.5-ai-processing-workflow/5.5.5-stepfunctions/image61.png>
+<img alt="State Machine appears in the list" src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.5-ai-processing-workflow/5.5.5-stepfunctions/image62.png>
+<img alt="State Machine details" src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.5-ai-processing-workflow/5.5.5-stepfunctions/image63.png></li></ul></li><li><p><strong>Sync the State Machine ARN with your Job Starter Lambda</strong>:</p><ul><li>Copy the <strong>ARN</strong> of your new State Machine (e.g. <code>arn:aws:states:ap-southeast-1:&lt;AWS_ACCOUNT_ID>:stateMachine:docuflow-dev-workflow-processing-state-machine</code>).</li><li>Return to your <code>docuflow-dev-ingestion-job-starter-lambda</code> configuration.</li><li>Open <strong>Configuration</strong> ➔ <strong>Environment variables</strong> ➔ Click <strong>Edit</strong> ➔ update <code>STATE_MACHINE_ARN</code> with your copied State Machine ARN. Click <strong>Save</strong>.</li></ul></li></ol><hr><h3 id=evidence>Evidence</h3><p>Confirm that the State Machine graph contains the four Lambda tasks in the expected order and both success and failure terminal states.</p><p><img alt="Start the State Machine with sample input" src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.5-ai-processing-workflow/5.5.5-stepfunctions/image64.png>
+<img alt="Successful execution" src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.5-ai-processing-workflow/5.5.5-stepfunctions/image65.png>
+<img alt="Successful execution graph" src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.5-ai-processing-workflow/5.5.5-stepfunctions/image66.png>
+<img alt="Execution input and output" src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.5-ai-processing-workflow/5.5.5-stepfunctions/image67.png>
+<img alt="Run the failure branch test" src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.5-ai-processing-workflow/5.5.5-stepfunctions/image68.png>
+<img alt="Failed execution recorded" src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.5-ai-processing-workflow/5.5.5-stepfunctions/image69.png></p><footer class=footline></footer></div></div><div id=navigation><a class="nav nav-prev" href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.5-ai-processing-workflow/5.5.4-confidence/ title="Confidence Status Lambda"><i class="fa fa-chevron-left"></i></a>
+<a class="nav nav-next" href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.6-document-ingestion-pipeline/ title="Build Asynchronous Document Ingestion Pipeline" style=margin-right:0><i class="fa fa-chevron-right"></i></a></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=https://lamquangloc.github.io/FCAJ-Workshop/js/clipboard.min.js?1784519745></script><script src=https://lamquangloc.github.io/FCAJ-Workshop/js/perfect-scrollbar.min.js?1784519745></script><script src=https://lamquangloc.github.io/FCAJ-Workshop/js/perfect-scrollbar.jquery.min.js?1784519745></script><script src=https://lamquangloc.github.io/FCAJ-Workshop/js/jquery.sticky.js?1784519745></script><script src=https://lamquangloc.github.io/FCAJ-Workshop/js/featherlight.min.js?1784519745></script><script src=https://lamquangloc.github.io/FCAJ-Workshop/js/highlight.pack.js?1784519745></script><script>hljs.initHighlightingOnLoad()</script><script src=https://lamquangloc.github.io/FCAJ-Workshop/js/modernizr.custom-3.6.0.js?1784519745></script><script src=https://lamquangloc.github.io/FCAJ-Workshop/js/learn.js?1784519745></script><script src=https://lamquangloc.github.io/FCAJ-Workshop/js/hugo-learn.js?1784519745></script><link href=https://lamquangloc.github.io/FCAJ-Workshop/mermaid/mermaid.css?1784519745 rel=stylesheet><script src=https://lamquangloc.github.io/FCAJ-Workshop/mermaid/mermaid.js?1784519745></script><script>mermaid.initialize({startOnLoad:!0})</script><script>(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,(e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date),(i=t.createElement(n),a=t.getElementsByTagName(n)[0]),i.async=1,i.src=s,a.parentNode.insertBefore(i,a)})(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-158079754-2","auto"),ga("send","pageview")</script></body></html>

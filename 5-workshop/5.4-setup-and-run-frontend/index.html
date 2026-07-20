@@ -1,0 +1,525 @@
+<!doctype html><html lang=en class="js csstransforms3d"><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=generator content="Hugo 0.134.3"><meta name=description content><meta name=author content="thienlh@thienlu.com"><link rel=icon href=https://lamquangloc.github.io/FCAJ-Workshop/images/favicon.png type=image/png><title>Setup and Run Frontend :: Internship Report</title>
+<link href=https://lamquangloc.github.io/FCAJ-Workshop/css/nucleus.css?1784519745 rel=stylesheet><link href=https://lamquangloc.github.io/FCAJ-Workshop/css/fontawesome-all.min.css?1784519745 rel=stylesheet><link href=https://lamquangloc.github.io/FCAJ-Workshop/css/hybrid.css?1784519745 rel=stylesheet><link href=https://lamquangloc.github.io/FCAJ-Workshop/css/featherlight.min.css?1784519745 rel=stylesheet><link href=https://lamquangloc.github.io/FCAJ-Workshop/css/perfect-scrollbar.min.css?1784519745 rel=stylesheet><link href=https://lamquangloc.github.io/FCAJ-Workshop/css/auto-complete.css?1784519745 rel=stylesheet><link href=https://lamquangloc.github.io/FCAJ-Workshop/css/atom-one-dark-reasonable.css?1784519745 rel=stylesheet><link href=https://lamquangloc.github.io/FCAJ-Workshop/css/theme.css?1784519745 rel=stylesheet><link href=https://lamquangloc.github.io/FCAJ-Workshop/css/hugo-theme.css?1784519745 rel=stylesheet><link href=https://lamquangloc.github.io/FCAJ-Workshop/css/theme-workshop.css?1784519745 rel=stylesheet><script src=https://lamquangloc.github.io/FCAJ-Workshop/js/jquery-3.3.1.min.js?1784519745></script><style>:root #header+#content>#left>#rlblock_left{display:none!important}</style></head><body data-url=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.4-setup-and-run-frontend/><nav id=sidebar class=showVisitedLinks><div id=header-wrapper><div id=header><a id=logo href=https://lamquangloc.github.io/FCAJ-Workshop/><svg id="Layer_1" data-name="Layer 1" viewBox="0 0 60 30" width="30%"><defs><style>.cls-1{fill:#fff}.cls-2{fill:#fff;fill-rule:evenodd}</style></defs><title>AWS-Logo_White-Color</title><path class="cls-1" d="M14.09 10.85a4.7 4.7.0 00.19 1.48 7.73 7.73.0 00.54 1.19.77.77.0 01.12.38.64.64.0 01-.32.49l-1 .7a.83.83.0 01-.44.15.69.69.0 01-.49-.23 3.8 3.8.0 01-.6-.77q-.25-.42-.51-1a6.14 6.14.0 01-4.89 2.3 4.54 4.54.0 01-3.32-1.19 4.27 4.27.0 01-1.22-3.2 4.28 4.28.0 011.46-3.4A6.06 6.06.0 017.69 6.46a12.47 12.47.0 011.76.13q.92.13 1.91.36V5.73a3.65 3.65.0 00-.79-2.66A3.81 3.81.0 007.86 2.3a7.71 7.71.0 00-1.79.22 12.78 12.78.0 00-1.79.57 4.55 4.55.0 01-.58.22h-.26q-.35.0-.35-.52V2a1.09 1.09.0 01.12-.58 1.2 1.2.0 01.47-.35A10.88 10.88.0 015.77.32 10.19 10.19.0 018.36.0a6 6 0 014.35 1.35 5.49 5.49.0 011.38 4.09zM7.34 13.38a5.36 5.36.0 001.72-.31A3.63 3.63.0 0010.63 12 2.62 2.62.0 0011.19 11a5.63 5.63.0 00.16-1.44v-.7a14.35 14.35.0 00-1.53-.28 12.37 12.37.0 00-1.56-.1 3.84 3.84.0 00-2.47.67A2.34 2.34.0 005 11a2.35 2.35.0 00.61 1.76A2.4 2.4.0 007.34 13.38zm13.35 1.8a1 1 0 01-.64-.16 1.3 1.3.0 01-.35-.65L15.81 1.51a3 3 0 01-.15-.67.36.36.0 01.41-.41H17.7a1 1 0 01.65.16 1.4 1.4.0 01.33.65l2.79 11 2.59-11A1.17 1.17.0 0124.39.6a1.1 1.1.0 01.67-.16H26.4a1.1 1.1.0 01.67.16 1.17 1.17.0 01.32.65L30 12.39 32.88 1.25A1.39 1.39.0 0133.22.6a1 1 0 01.65-.16h1.54a.36.36.0 01.41.41 1.36 1.36.0 010 .26 3.64 3.64.0 01-.12.41l-4 12.86a1.3 1.3.0 01-.35.65 1 1 0 01-.64.16H29.25a1 1 0 01-.67-.17 1.26 1.26.0 01-.32-.67L25.67 3.64l-2.56 10.7a1.26 1.26.0 01-.32.67 1 1 0 01-.67.17zm21.36.44a11.28 11.28.0 01-2.56-.29 7.44 7.44.0 01-1.92-.67 1 1 0 01-.61-.93v-.84q0-.52.38-.52a.9.9.0 01.31.06l.42.17a8.77 8.77.0 001.83.58 9.78 9.78.0 002 .2 4.48 4.48.0 002.43-.55 1.76 1.76.0 00.86-1.57 1.61 1.61.0 00-.45-1.16A4.29 4.29.0 0043 9.22l-2.41-.76A5.15 5.15.0 0138 6.78a3.94 3.94.0 01-.83-2.41 3.7 3.7.0 01.45-1.85 4.47 4.47.0 011.19-1.37 5.27 5.27.0 011.7-.86A7.4 7.4.0 0142.6.0a8.87 8.87.0 011.12.07q.57.07 1.08.19t.95.26a4.27 4.27.0 01.7.29 1.59 1.59.0 01.49.41.94.94.0 01.15.55v.79q0 .52-.38.52a1.76 1.76.0 01-.64-.2 7.74 7.74.0 00-3.2-.64 4.37 4.37.0 00-2.21.47 1.6 1.6.0 00-.79 1.48 1.58 1.58.0 00.49 1.18 4.94 4.94.0 001.83.92L44.55 7a5.08 5.08.0 012.57 1.6A3.76 3.76.0 0147.9 11a4.21 4.21.0 01-.44 1.93 4.4 4.4.0 01-1.21 1.47 5.43 5.43.0 01-1.85.93A8.25 8.25.0 0142.05 15.62z"/><path class="cls-2" d="M45.19 23.81C39.72 27.85 31.78 30 25 30A36.64 36.64.0 01.22 20.57c-.51-.46-.06-1.09.56-.74A49.78 49.78.0 0025.53 26.4 49.23 49.23.0 0044.4 22.53C45.32 22.14 46.1 23.14 45.19 23.81z"/><path class="cls-2" d="M47.47 21.21c-.7-.9-4.63-.42-6.39-.21-.53.06-.62-.4-.14-.74 3.13-2.2 8.27-1.57 8.86-.83s-.16 5.89-3.09 8.35c-.45.38-.88.18-.68-.32C46.69 25.8 48.17 22.11 47.47 21.21z"/></svg></a></div><div class=searchbox><label for=search-by><i class="fas fa-search"></i></label>
+<input data-search-input id=search-by type=search placeholder=Search...>
+<span data-search-clear><i class="fas fa-times"></i></span></div><script type=text/javascript src=https://lamquangloc.github.io/FCAJ-Workshop/js/lunr.min.js?1784519745></script><script type=text/javascript src=https://lamquangloc.github.io/FCAJ-Workshop/js/auto-complete.js?1784519745></script><script type=text/javascript>var baseurl="https://lamquangloc.github.io/FCAJ-Workshop/"</script><script type=text/javascript src=https://lamquangloc.github.io/FCAJ-Workshop/js/search.js?1784519745></script></div><div class=highlightable><ul class=topics><li data-nav-id=/1-worklog/ title=Worklog class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/1-worklog/><b>1. </b>Worklog
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/1-worklog/1.1-week1/ title="Week 1 Worklog" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/1-worklog/1.1-week1/><b>1.1. </b>Week 1 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.2-week2/ title="Week 2 Worklog" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/1-worklog/1.2-week2/><b>1.2. </b>Week 2 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.3-week3/ title="Week 3 Worklog" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/1-worklog/1.3-week3/><b>1.3. </b>Week 3 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.4-week4/ title="Week 4 Worklog" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/1-worklog/1.4-week4/><b>1.4. </b>Week 4 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.5-week5/ title="Week 5 Worklog" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/1-worklog/1.5-week5/><b>1.5. </b>Week 5 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.6-week6/ title="Week 6 Worklog" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/1-worklog/1.6-week6/><b>1.6. </b>Week 6 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.7-week7/ title="Week 7 Worklog" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/1-worklog/1.7-week7/><b>1.7. </b>Week 7 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.8-week8/ title="Week 8 Worklog" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/1-worklog/1.8-week8/><b>1.8. </b>Week 8 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.9-week9/ title="Week 9 Worklog" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/1-worklog/1.9-week9/><b>1.9. </b>Week 9 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.10-week10/ title="Week 10 Worklog" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/1-worklog/1.10-week10/><b>1.10. </b>Week 10 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.11-week11/ title="Week 11 Worklog" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/1-worklog/1.11-week11/><b>1.11. </b>Week 11 Worklog
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/1-worklog/1.12-week12/ title="Week 12 Worklog" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/1-worklog/1.12-week12/><b>1.12. </b>Week 12 Worklog
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/2-proposal/ title=Proposal class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/2-proposal/><b>2. </b>Proposal
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/3-blogsposted/ title="Blogs Posted" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/3-blogsposted/><b>3. </b>Blogs Posted
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/3-blogsposted/3.1-blog1/ title="Blog 1" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/3-blogsposted/3.1-blog1/><b>3.1. </b>Blog 1
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/3-blogsposted/3.2-blog2/ title="Blog 2" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/3-blogsposted/3.2-blog2/><b>3.2. </b>Blog 2
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/3-blogsposted/3.3-blog3/ title="Blog 3" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/3-blogsposted/3.3-blog3/><b>3.3. </b>Blog 3
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/3-blogsposted/3.4-blog4/ title="Blog 4" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/3-blogsposted/3.4-blog4/><b>3.4. </b>Blog 4
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/3-blogsposted/3.5-blog5/ title="Blog 5" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/3-blogsposted/3.5-blog5/><b>3.5. </b>Blog 5
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/4-eventparticipated/ title="Events Participated" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/4-eventparticipated/><b>4. </b>Events Participated
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/4-eventparticipated/4.1-event1/ title="Event 1" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/4-eventparticipated/4.1-event1/><b>4.1. </b>Event 1
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/4-eventparticipated/4.2-event2/ title="Event 2" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/4-eventparticipated/4.2-event2/><b>4.2. </b>Event 2
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/4-eventparticipated/4.3-event3/ title="Event 3" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/4-eventparticipated/4.3-event3/><b>4.3. </b>Event 3
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/4-eventparticipated/4.4-event4/ title="Event 4" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/4-eventparticipated/4.4-event4/><b>4.4. </b>Event 4
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/5-workshop/ title=Workshop class="dd-item
+parent"><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/><b>5. </b>Workshop
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/5-workshop/5.1-introduction/ title=Introduction class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.1-introduction/><b>5.1. </b>Introduction
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.2-prerequisite/ title=Prerequisite class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.2-prerequisite/><b>5.2. </b>Prerequisite
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.3-prepare-project-foundation/ title="Prepare Project Foundation" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.3-prepare-project-foundation/><b>5.3. </b>Prepare Project Foundation
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/5-workshop/5.3-prepare-project-foundation/5.3.1-iam/ title="Configure IAM Groups and Roles" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.3-prepare-project-foundation/5.3.1-iam/><b>5.3.1. </b>Configure IAM Groups and Roles
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.3-prepare-project-foundation/5.3.2-kms/ title="Initialize AWS KMS CMK" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.3-prepare-project-foundation/5.3.2-kms/><b>5.3.2. </b>Initialize AWS KMS CMK
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.3-prepare-project-foundation/5.3.3-s3/ title="Configure S3 Buckets" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.3-prepare-project-foundation/5.3.3-s3/><b>5.3.3. </b>Configure S3 Buckets
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.3-prepare-project-foundation/5.3.4-dynamodb/ title="Configure DynamoDB Table" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.3-prepare-project-foundation/5.3.4-dynamodb/><b>5.3.4. </b>Configure DynamoDB Table
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.3-prepare-project-foundation/5.3.5-secrets-manager/ title="Configure Secrets Manager" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.3-prepare-project-foundation/5.3.5-secrets-manager/><b>5.3.5. </b>Configure Secrets Manager
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.3-prepare-project-foundation/5.3.6-budgets/ title="Configure Budget Alerts" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.3-prepare-project-foundation/5.3.6-budgets/><b>5.3.6. </b>Configure Budget Alerts
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/5-workshop/5.4-setup-and-run-frontend/ title="Setup and Run Frontend" class="dd-item
+active"><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.4-setup-and-run-frontend/><b>5.4. </b>Setup and Run Frontend
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/5-workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/ title="Deploy Frontend with AWS Amplify Hosting" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/><b>5.4.1. </b>Deploy Frontend with AWS Amplify Hosting
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.4-setup-and-run-frontend/5.4.2-expected-result-evidence/ title="Expected Result & Evidence" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.4-setup-and-run-frontend/5.4.2-expected-result-evidence/><b>5.4.2. </b>Expected Result & Evidence
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/5-workshop/5.5-ai-processing-workflow/ title="AI Processing Workflow" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.5-ai-processing-workflow/><b>5.5. </b>AI Processing Workflow
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/5-workshop/5.5-ai-processing-workflow/5.5.1-validate/ title="Validate Lambda" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.5-ai-processing-workflow/5.5.1-validate/><b>5.5.1. </b>Validate Lambda
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.5-ai-processing-workflow/5.5.2-textract/ title="Textract Lambda" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.5-ai-processing-workflow/5.5.2-textract/><b>5.5.2. </b>Textract Lambda
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.5-ai-processing-workflow/5.5.3-proxy/ title="AI Proxy Lambda" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.5-ai-processing-workflow/5.5.3-proxy/><b>5.5.3. </b>AI Proxy Lambda
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.5-ai-processing-workflow/5.5.4-confidence/ title="Confidence Status Lambda" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.5-ai-processing-workflow/5.5.4-confidence/><b>5.5.4. </b>Confidence Status Lambda
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.5-ai-processing-workflow/5.5.5-stepfunctions/ title="Step Functions Workflow" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.5-ai-processing-workflow/5.5.5-stepfunctions/><b>5.5.5. </b>Step Functions Workflow
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/5-workshop/5.6-document-ingestion-pipeline/ title="Build Asynchronous Document Ingestion Pipeline" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.6-document-ingestion-pipeline/><b>5.6. </b>Build Asynchronous Document Ingestion Pipeline
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/5-workshop/5.6-document-ingestion-pipeline/5.6.1-s3-raw-bucket/ title="Configure EventBridge for S3 Raw Bucket" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.6-document-ingestion-pipeline/5.6.1-s3-raw-bucket/><b>5.6.1. </b>Configure EventBridge for S3 Raw Bucket
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.6-document-ingestion-pipeline/5.6.2-sqs-queues/ title="Create SQS Queues" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.6-document-ingestion-pipeline/5.6.2-sqs-queues/><b>5.6.2. </b>Create SQS Queues
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.6-document-ingestion-pipeline/5.6.3-eventbridge-rules/ title="Create EventBridge rule and Test" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.6-document-ingestion-pipeline/5.6.3-eventbridge-rules/><b>5.6.3. </b>Create EventBridge rule and Test
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.6-document-ingestion-pipeline/5.6.4-step-functions-skeleton/ title="Create and Test Step Functions Skeleton" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.6-document-ingestion-pipeline/5.6.4-step-functions-skeleton/><b>5.6.4. </b>Create and Test Step Functions Skeleton
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.6-document-ingestion-pipeline/5.6.5-job-starter-lambda/ title="Initialize Job Starter Lambda Function" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.6-document-ingestion-pipeline/5.6.5-job-starter-lambda/><b>5.6.5. </b>Initialize Job Starter Lambda Function
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/5-workshop/5.7-store-result-review-flow/ title="Store Result and Build Review Flow" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.7-store-result-review-flow/><b>5.7. </b>Store Result and Build Review Flow
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/5-workshop/5.7-store-result-review-flow/5.7.1-persistence/ title="Persistence & Offloading Design" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.7-store-result-review-flow/5.7.1-persistence/><b>5.7.1. </b>Persistence & Offloading Design
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.7-store-result-review-flow/5.7.2-lambdas/ title="Data Management Lambdas" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.7-store-result-review-flow/5.7.2-lambdas/><b>5.7.2. </b>Data Management Lambdas
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.7-store-result-review-flow/5.7.3-api-gateway/ title="API Gateway Configuration" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.7-store-result-review-flow/5.7.3-api-gateway/><b>5.7.3. </b>API Gateway Configuration
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.7-store-result-review-flow/5.7.4-testing/ title="Testing and Reporting" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.7-store-result-review-flow/5.7.4-testing/><b>5.7.4. </b>Testing and Reporting
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/5-workshop/5.8-observability-alerting-governance/ title="Observability, Alerting and Governance" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.8-observability-alerting-governance/><b>5.8. </b>Observability, Alerting and Governance
+<i class="fas fa-check read-icon"></i></a><ul><li data-nav-id=/5-workshop/5.8-observability-alerting-governance/5.8.1-logging/ title="CloudWatch Logs & Filters" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.8-observability-alerting-governance/5.8.1-logging/><b>5.8.1. </b>CloudWatch Logs & Filters
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.8-observability-alerting-governance/5.8.2-alerting/ title="SES, SNS & CloudWatch Alarms" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.8-observability-alerting-governance/5.8.2-alerting/><b>5.8.2. </b>SES, SNS & CloudWatch Alarms
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.8-observability-alerting-governance/5.8.3-tracing/ title="Distributed Tracing" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.8-observability-alerting-governance/5.8.3-tracing/><b>5.8.3. </b>Distributed Tracing
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.8-observability-alerting-governance/5.8.4-governance/ title="Governance & Audit Logs" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.8-observability-alerting-governance/5.8.4-governance/><b>5.8.4. </b>Governance & Audit Logs
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.8-observability-alerting-governance/5.8.5-notification-trigger-lambda/ title="Notification Trigger Lambda" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.8-observability-alerting-governance/5.8.5-notification-trigger-lambda/><b>5.8.5. </b>Notification Trigger Lambda
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/5-workshop/5.9-end-to-end-testing/ title="End-to-End Testing" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.9-end-to-end-testing/><b>5.9. </b>End-to-End Testing
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/5-workshop/5.10-clean-up/ title="Clean Up" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.10-clean-up/><b>5.10. </b>Clean Up
+<i class="fas fa-check read-icon"></i></a></li></ul></li><li data-nav-id=/6-self-evaluation/ title=Self-Assessment class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/6-self-evaluation/><b>6. </b>Self-Assessment
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/7-feedback/ title="Sharing and Feedback" class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/7-feedback/><b>7. </b>Sharing and Feedback
+<i class="fas fa-check read-icon"></i></a></li><li data-nav-id=/8-references/ title=References class=dd-item><a href=https://lamquangloc.github.io/FCAJ-Workshop/8-references/><b>8. </b>References
+<i class="fas fa-check read-icon"></i></a></li></ul><section id=shortcuts><h3>More</h3><ul><li><a class=padding href=https://awsstudygroup.com><i class='fab fa-aws'></i> AWS Study Group - Blog</a></li><li><a class=padding href=https://www.facebook.com/groups/awsstudygroupfcj><i class='fab fa-facebook'></i> AWS Study Group - FB Group</a></li></ul></section><section id=prefooter><hr><ul><li><a class=padding><i class="fas fa-language fa-fw"></i><div class=select-style><select id=select-language onchange="location=this.value"><option id=en value=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.4-setup-and-run-frontend/ selected>English</option><option id=vi value=https://lamquangloc.github.io/FCAJ-Workshop/vi/5-workshop/5.4-setup-and-run-frontend/>Tiếng Việt</option></select><svg id="Capa_1" xmlns:xlink="http://www.w3.org/1999/xlink" width="255" height="255" viewBox="0 0 255 255" style="enable-background:new 0 0 255 255"><g><g id="arrow-drop-down"><polygon points="0,63.75 127.5,191.25 255,63.75"/></g></g></svg></div></a></li><li><a class=padding href=# data-clear-history-toggle><i class="fas fa-history fa-fw"></i> Clear History</a></li></ul></section><section id=footer><left><br><br><b>Last Updated</b><br><i><font color=orange>20-07-2026</font>
+</i></left><left><br><br><b>Team</b><br><i><a href=https://www.facebook.com/groups/660548818043427 style=color:orange>First Cloud AI Journey</a>
+</i></left><script async defer src=https://buttons.github.io/buttons.js></script></section></div></nav><section id=body><div id=overlay></div><div class="padding highlightable"><div><div id=top-bar><div id=breadcrumbs itemscope itemtype=http://data-vocabulary.org/Breadcrumb><span id=sidebar-toggle-span><a href=# id=sidebar-toggle data-sidebar-toggle><i class="fas fa-bars"></i>
+</a></span><span id=toc-menu><i class="fas fa-list-alt"></i></span>
+<span class=links><a href=https://lamquangloc.github.io/FCAJ-Workshop/>Internship Report</a> > <a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/>Workshop</a> > Setup and Run Frontend</span></div><div class=progress><div class=wrapper><nav id=TableOfContents><ul><li><ul><li><a href=#1-goal>1. Goal</a></li><li><a href=#2-steps>2. Steps</a></li><li><a href=#3-expected-result>3. Expected Result</a></li><li><a href=#4-evidence>4. Evidence</a></li></ul></li></ul></nav></div></div></div></div><div id=head-tags></div><div id=body-inner><h1>Setup and Run Frontend</h1><h3 id=1-goal>1. Goal</h3><p>Download the Frontend source code (React/Vite), configure the environment variables to connect with AWS resources created in step 3, start the local development server, and verify user signup/login using Amazon Cognito, along with raw document uploads using S3 Presigned URLs.</p><h3 id=2-steps>2. Steps</h3><p>This section first prepares the frontend for local development. After the backend API is available, continue with <strong><a href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/>5.4.1 Deploy Frontend with AWS Amplify Hosting</a></strong> to publish the production frontend URL.</p><h4 id=step-1-initialize-amazon-cognito-user-pool>Step 1: Initialize Amazon Cognito User Pool</h4><p>To secure user access using standard JWT tokens before uploading files:</p><ol><li><p>Search for <strong>Cognito</strong> in the AWS Console search bar.</p><p><img alt=image1.png src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.4-setup-and-run-frontend/image1.png></p></li><li><p>In the User pools interface, click <strong>Create user pool</strong>.</p><p><img alt=image2.png src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.4-setup-and-run-frontend/image2.png></p></li><li><p>Under Application type, select <strong>Single-page application (SPA)</strong>.</p><p><img alt=image3.png src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.4-setup-and-run-frontend/image3.png></p></li><li><p>Enter <code>docuflow-dev-auth-user-pool</code> as the application name.</p><p><img alt=image4.png src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.4-setup-and-run-frontend/image4.png></p></li><li><p>For Options for sign-in identifier, check <strong>Email</strong>.</p><p><img alt=image5.png src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.4-setup-and-run-frontend/image5.png></p></li><li><p>For Required attributes for sign-up, select <code>email</code>, <code>family_name</code>, and <code>given_name</code>.</p><p><img alt=image6.png src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.4-setup-and-run-frontend/image6.png></p></li><li><p>Click <strong>Create user directory</strong> (or Create user pool).</p><p><img alt=image7.png src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.4-setup-and-run-frontend/image7.png></p></li><li><p>Save the <code>UserPoolID</code> and <code>ClientID</code> for your <code>.env</code> configuration file.</p><p><img alt=image8.png src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.4-setup-and-run-frontend/image8.png>
+<img alt=image9.png src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.4-setup-and-run-frontend/image9.png></p></li><li><p>(Optional) You can assign these values to your <code>.env</code> file now (we&rsquo;ll configure it fully in Step 3).</p><p><img alt=image10.png src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.4-setup-and-run-frontend/image10.png></p></li><li><p>In the newly created User pool, select the <strong>Groups</strong> tab to create user groups.</p><p><img alt=image11.png src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.4-setup-and-run-frontend/image11.png></p></li><li><p>Create a group named <code>docuflow-dev-admin</code>.</p><p><img alt=image12.png src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.4-setup-and-run-frontend/image12.png></p></li><li><p>Click <strong>Create group</strong>.</p><p><img alt=image13.png src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.4-setup-and-run-frontend/image13.png></p></li><li><p>Repeat the process to create another group named <code>docuflow-dev-users</code> to achieve the following result:</p><p><img alt=image14.png src=https://lamquangloc.github.io/FCAJ-Workshop/images/5-Workshop/5.4-setup-and-run-frontend/image14.png></p></li></ol><h4 id=step-2-clone--install-dependencies>Step 2: Clone & Install Dependencies</h4><ol><li>Open your terminal in the workspace directory and clone the project repository:<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>git clone https://github.com/AeroOps-AWS-FCAJ/aws-serverless-document-processing-workshop.git
+</span></span><span style=display:flex><span>cd aws-serverless-document-processing-workshop/apps/web
+</span></span><span style=display:flex><span>pnpm install
+</span></span><span style=display:flex><span>pnpm run lint
+</span></span><span style=display:flex><span>pnpm run typecheck
+</span></span></code></pre></div></li></ol><h4 id=step-3-configure-environment-variables-env>Step 3: Configure Environment Variables (<code>.env</code>)</h4><ol><li>Create a <code>.env</code> file in the <code>apps/web/</code> directory based on <code>.env.example</code>:<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-env data-lang=env><span style=display:flex><span>VITE_COGNITO_REGION<span style=color:#f92672>=</span>ap-southeast-1
+</span></span><span style=display:flex><span>VITE_COGNITO_USER_POOL_ID<span style=color:#f92672>=</span>ap-southeast-1_xxxxxxxxx
+</span></span><span style=display:flex><span>VITE_COGNITO_CLIENT_ID<span style=color:#f92672>=</span>xxxxxxxxxxxxxxxxxxxxxxxxxx
+</span></span><span style=display:flex><span>VITE_API_BASE_URL<span style=color:#f92672>=</span>https://xxxxxxxxx.execute-api.ap-southeast-1.amazonaws.com/dev
+</span></span></code></pre></div><em>Note: If the API Gateway is not yet available, you can leave <code>VITE_API_BASE_URL</code> blank. The frontend will automatically fall back to using Mock data for UI exploration.</em></li><li>Save the file.</li></ol><h4 id=step-4-run-application--explore-local-demo-roles>Step 4: Run Application & Explore (Local Demo Roles)</h4><ol><li>Start the local development server:<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>pnpm --filter docuflow-ai-web dev
+</span></span></code></pre></div></li><li>Open your browser and navigate to the provided URL (e.g., <code>http://localhost:5173</code>).</li><li>If Cognito is not yet fully wired, the frontend provides Mock Authentication stored in LocalStorage for authorization testing:<ul><li><strong>Finance User:</strong> <code>finance@docuflow.ai</code> / <code>password</code> (Uploads and views their own invoices, performs reviews)</li><li><strong>Administrator:</strong> <code>admin@docuflow.ai</code> / <code>password</code> (Inspects all records, accesses Operations)</li></ul></li></ol><h4 id=step-5-deploy-the-presigned-url-lambda-function-docuflow-dev-api-generate-upload-url-lambda>Step 5: Deploy the Presigned URL Lambda Function (<code>docuflow-dev-api-generate-upload-url-lambda</code>)</h4><p>This Lambda function receives frontend requests, generates S3 Presigned URLs, and initializes metadata inside the DynamoDB documents table.</p><ol><li>Go to <strong>Lambda</strong> -> click <strong>Create function</strong> -> <strong>Author from scratch</strong>.</li><li><strong>Function name</strong>: <code>docuflow-dev-api-generate-upload-url-lambda</code>.</li><li><strong>Runtime</strong>: Select <code>Node.js 18.x</code> or higher.</li><li><strong>Role</strong>: Select <strong>Use an existing role</strong> -> choose <code>docuflow-dev-security-upload-url-role</code>.</li><li>Click <strong>Create function</strong>.</li><li>Under <strong>Configuration</strong> tab -> <strong>General configuration</strong>: Edit the Timeout to <strong>10 seconds</strong>.</li><li>Under <strong>Configuration</strong> tab -> <strong>Environment variables</strong>: Add the following environment variables:<ul><li><code>DOCUFLOW_DEV_TABLE_NAME</code> = <code>docuflow-dev-documents-table</code></li><li><code>DOCUFLOW_DEV_RAW_BUCKET</code> = <code>docuflow-dev-raw-&lt;AWS_ACCOUNT_ID>-ap-southeast-1</code></li></ul></li><li>In the <strong>Code</strong> tab, copy and paste the code below into <code>index.mjs</code> and click <strong>Deploy</strong>:<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-javascript data-lang=javascript><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>randomUUID</span> } <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#34;node:crypto&#34;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>DynamoDBClient</span> } <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#34;@aws-sdk/client-dynamodb&#34;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>DynamoDBDocumentClient</span>, <span style=color:#a6e22e>PutCommand</span> } <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#34;@aws-sdk/lib-dynamodb&#34;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>S3Client</span>, <span style=color:#a6e22e>PutObjectCommand</span> } <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#34;@aws-sdk/client-s3&#34;</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>import</span> { <span style=color:#a6e22e>getSignedUrl</span> } <span style=color:#a6e22e>from</span> <span style=color:#e6db74>&#34;@aws-sdk/s3-request-presigner&#34;</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>docClient</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>DynamoDBDocumentClient</span>.<span style=color:#a6e22e>from</span>(<span style=color:#66d9ef>new</span> <span style=color:#a6e22e>DynamoDBClient</span>({}));
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>s3Client</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>S3Client</span>({
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>requestChecksumCalculation</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;WHEN_REQUIRED&#34;</span>,
+</span></span><span style=display:flex><span>});
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>RAW_BUCKET</span> <span style=color:#f92672>=</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>process</span>.<span style=color:#a6e22e>env</span>.<span style=color:#a6e22e>RAW_BUCKET</span> <span style=color:#f92672>||</span> <span style=color:#a6e22e>process</span>.<span style=color:#a6e22e>env</span>.<span style=color:#a6e22e>DOCUFLOW_DEV_RAW_BUCKET</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>TABLE_NAME</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>process</span>.<span style=color:#a6e22e>env</span>.<span style=color:#a6e22e>DOCUFLOW_DEV_TABLE_NAME</span>;
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>EXPIRES_SECONDS</span> <span style=color:#f92672>=</span> Number(
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>process</span>.<span style=color:#a6e22e>env</span>.<span style=color:#a6e22e>PRESIGNED_EXPIRES_SECONDS</span> <span style=color:#f92672>||</span> <span style=color:#ae81ff>300</span>
+</span></span><span style=display:flex><span>);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>MAX_FILE_SIZE_BYTES</span> <span style=color:#f92672>=</span> Number(
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>process</span>.<span style=color:#a6e22e>env</span>.<span style=color:#a6e22e>MAX_FILE_SIZE_BYTES</span> <span style=color:#f92672>||</span> <span style=color:#ae81ff>10</span> <span style=color:#f92672>*</span> <span style=color:#ae81ff>1024</span> <span style=color:#f92672>*</span> <span style=color:#ae81ff>1024</span>
+</span></span><span style=display:flex><span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> <span style=color:#a6e22e>ALLOWED_MIME_TYPES</span> <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>  <span style=color:#e6db74>&#34;application/pdf&#34;</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>fileExtension</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;pdf&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>allowedOriginalExtensions</span><span style=color:#f92672>:</span> [<span style=color:#e6db74>&#34;.pdf&#34;</span>],
+</span></span><span style=display:flex><span>  },
+</span></span><span style=display:flex><span>  <span style=color:#e6db74>&#34;image/jpeg&#34;</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>fileExtension</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;jpg&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>allowedOriginalExtensions</span><span style=color:#f92672>:</span> [<span style=color:#e6db74>&#34;.jpg&#34;</span>, <span style=color:#e6db74>&#34;.jpeg&#34;</span>],
+</span></span><span style=display:flex><span>  },
+</span></span><span style=display:flex><span>  <span style=color:#e6db74>&#34;image/png&#34;</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>fileExtension</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;png&#34;</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>allowedOriginalExtensions</span><span style=color:#f92672>:</span> [<span style=color:#e6db74>&#34;.png&#34;</span>],
+</span></span><span style=display:flex><span>  },
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>export</span> <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>handler</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>async</span> (<span style=color:#a6e22e>event</span>) =&gt; {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>method</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>getHttpMethod</span>(<span style=color:#a6e22e>event</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#34;INFO&#34;</span>, { <span style=color:#a6e22e>method</span>, <span style=color:#a6e22e>message</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Request received&#34;</span> });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>method</span> <span style=color:#f92672>===</span> <span style=color:#e6db74>&#34;OPTIONS&#34;</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>successResponse</span>(<span style=color:#ae81ff>200</span>, <span style=color:#66d9ef>null</span>);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>method</span> <span style=color:#f92672>!==</span> <span style=color:#e6db74>&#34;POST&#34;</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>errorResponse</span>(
+</span></span><span style=display:flex><span>      <span style=color:#ae81ff>405</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;METHOD_NOT_ALLOWED&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;Only POST is supported.&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;API&#34;</span>
+</span></span><span style=display:flex><span>    );
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>configurationError</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>validateConfiguration</span>();
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>configurationError</span>) <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>configurationError</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>userId</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>getUserId</span>(<span style=color:#a6e22e>event</span>);
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span><span style=color:#a6e22e>userId</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>errorResponse</span>(
+</span></span><span style=display:flex><span>      <span style=color:#ae81ff>401</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;UNAUTHORIZED&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;Missing authenticated Cognito user.&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;AUTH&#34;</span>
+</span></span><span style=display:flex><span>    );
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>body</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>parseBody</span>(<span style=color:#a6e22e>event</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>body</span> <span style=color:#f92672>===</span> <span style=color:#66d9ef>null</span>) {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>errorResponse</span>(
+</span></span><span style=display:flex><span>        <span style=color:#ae81ff>400</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;SCHEMA_VALIDATION_FAILED&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;Request body must be valid JSON.&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;SCHEMA_VALIDATION&#34;</span>
+</span></span><span style=display:flex><span>      );
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>originalFileName</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>body</span>.<span style=color:#a6e22e>originalFileName</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>mimeType</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>body</span>.<span style=color:#a6e22e>mimeType</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>fileSizeBytes</span> <span style=color:#f92672>=</span> Number(<span style=color:#a6e22e>body</span>.<span style=color:#a6e22e>fileSizeBytes</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>pageCount</span> <span style=color:#f92672>=</span> Number(<span style=color:#a6e22e>body</span>.<span style=color:#a6e22e>pageCount</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>documentType</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>normalizeDocumentType</span>(<span style=color:#a6e22e>body</span>.<span style=color:#a6e22e>documentType</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (
+</span></span><span style=display:flex><span>      <span style=color:#f92672>!</span><span style=color:#a6e22e>originalFileName</span> <span style=color:#f92672>||</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>!</span><span style=color:#a6e22e>mimeType</span> <span style=color:#f92672>||</span>
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>body</span>.<span style=color:#a6e22e>fileSizeBytes</span> <span style=color:#f92672>===</span> <span style=color:#66d9ef>undefined</span> <span style=color:#f92672>||</span>
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>body</span>.<span style=color:#a6e22e>pageCount</span> <span style=color:#f92672>===</span> <span style=color:#66d9ef>undefined</span>
+</span></span><span style=display:flex><span>    ) {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>errorResponse</span>(
+</span></span><span style=display:flex><span>        <span style=color:#ae81ff>400</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;SCHEMA_VALIDATION_FAILED&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;originalFileName, mimeType, fileSizeBytes, and pageCount are required.&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;SCHEMA_VALIDATION&#34;</span>
+</span></span><span style=display:flex><span>      );
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span><span style=color:#a6e22e>isValidOriginalFileName</span>(<span style=color:#a6e22e>originalFileName</span>)) {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>errorResponse</span>(
+</span></span><span style=display:flex><span>        <span style=color:#ae81ff>400</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;SCHEMA_VALIDATION_FAILED&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;originalFileName is invalid.&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;SCHEMA_VALIDATION&#34;</span>
+</span></span><span style=display:flex><span>      );
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>Number.isFinite(<span style=color:#a6e22e>fileSizeBytes</span>) <span style=color:#f92672>||</span> <span style=color:#a6e22e>fileSizeBytes</span> <span style=color:#f92672>&lt;=</span> <span style=color:#ae81ff>0</span>) {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>errorResponse</span>(
+</span></span><span style=display:flex><span>        <span style=color:#ae81ff>400</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;SCHEMA_VALIDATION_FAILED&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;fileSizeBytes must be a positive number.&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;SCHEMA_VALIDATION&#34;</span>
+</span></span><span style=display:flex><span>      );
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>fileSizeBytes</span> <span style=color:#f92672>&gt;</span> <span style=color:#a6e22e>MAX_FILE_SIZE_BYTES</span>) {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>errorResponse</span>(
+</span></span><span style=display:flex><span>        <span style=color:#ae81ff>413</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;FILE_TOO_LARGE&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>`File size exceeds the maximum allowed size of </span><span style=color:#e6db74>${</span><span style=color:#a6e22e>MAX_FILE_SIZE_BYTES</span><span style=color:#e6db74>}</span><span style=color:#e6db74> bytes.`</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;VALIDATION&#34;</span>
+</span></span><span style=display:flex><span>      );
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>Number.<span style=color:#a6e22e>isInteger</span>(<span style=color:#a6e22e>pageCount</span>) <span style=color:#f92672>||</span> <span style=color:#a6e22e>pageCount</span> <span style=color:#f92672>&lt;=</span> <span style=color:#ae81ff>0</span>) {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>errorResponse</span>(
+</span></span><span style=display:flex><span>        <span style=color:#ae81ff>400</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;SCHEMA_VALIDATION_FAILED&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;pageCount must be a positive integer.&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;SCHEMA_VALIDATION&#34;</span>
+</span></span><span style=display:flex><span>      );
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>pageCount</span> <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>1</span>) {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>errorResponse</span>(
+</span></span><span style=display:flex><span>        <span style=color:#ae81ff>422</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;MULTI_PAGE_REQUIRES_ASYNC_TEXTRACT&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;Multi-page documents are not supported until the asynchronous Textract workflow is enabled.&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;TEXTRACT_VALIDATION&#34;</span>
+</span></span><span style=display:flex><span>      );
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>body</span>.<span style=color:#a6e22e>documentType</span> <span style=color:#f92672>!==</span> <span style=color:#66d9ef>undefined</span> <span style=color:#f92672>&amp;&amp;</span> <span style=color:#a6e22e>documentType</span> <span style=color:#f92672>===</span> <span style=color:#e6db74>&#34;UNKNOWN&#34;</span>) {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>errorResponse</span>(
+</span></span><span style=display:flex><span>        <span style=color:#ae81ff>400</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;INVALID_DOCUMENT_TYPE&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;documentType must be INVOICE or RECEIPT when provided.&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;SCHEMA_VALIDATION&#34;</span>
+</span></span><span style=display:flex><span>      );
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>mimeTypeConfig</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>ALLOWED_MIME_TYPES</span>[<span style=color:#a6e22e>mimeType</span>];
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span><span style=color:#a6e22e>mimeTypeConfig</span> <span style=color:#f92672>||</span> <span style=color:#f92672>!</span><span style=color:#a6e22e>isExtensionMatched</span>(<span style=color:#a6e22e>originalFileName</span>, <span style=color:#a6e22e>mimeTypeConfig</span>)) {
+</span></span><span style=display:flex><span>      <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>errorResponse</span>(
+</span></span><span style=display:flex><span>        <span style=color:#ae81ff>400</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;INVALID_FILE_TYPE&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;Only matching PDF, JPG, JPEG, and PNG file types are supported.&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;VALIDATION&#34;</span>
+</span></span><span style=display:flex><span>      );
+</span></span><span style=display:flex><span>    }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>documentId</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>`doc-</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>randomUUID</span>()<span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>now</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> Date().<span style=color:#a6e22e>toISOString</span>();
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>rawS3Key</span> <span style=color:#f92672>=</span>
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>`raw/</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>userId</span><span style=color:#e6db74>}</span><span style=color:#e6db74>/</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>documentId</span><span style=color:#e6db74>}</span><span style=color:#e6db74>/</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>toRawObjectFileName</span>(<span style=color:#a6e22e>originalFileName</span>)<span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>;
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>uploadMetadata</span> <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;original-file-name&#34;</span><span style=color:#f92672>:</span> encodeURIComponent(<span style=color:#a6e22e>originalFileName</span>),
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;page-count&#34;</span><span style=color:#f92672>:</span> String(<span style=color:#a6e22e>pageCount</span>),
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;document-type&#34;</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>documentType</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;declared-file-size&#34;</span><span style=color:#f92672>:</span> String(<span style=color:#a6e22e>fileSizeBytes</span>),
+</span></span><span style=display:flex><span>    };
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>putCommand</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>PutObjectCommand</span>({
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>Bucket</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>RAW_BUCKET</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>Key</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>rawS3Key</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>ContentType</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>mimeType</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>Metadata</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>uploadMetadata</span>,
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>signedUploadHeaders</span> <span style=color:#f92672>=</span> {
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;content-type&#34;</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>mimeType</span>,
+</span></span><span style=display:flex><span>      ...Object.<span style=color:#a6e22e>fromEntries</span>(
+</span></span><span style=display:flex><span>        Object.<span style=color:#a6e22e>entries</span>(<span style=color:#a6e22e>uploadMetadata</span>).<span style=color:#a6e22e>map</span>(([<span style=color:#a6e22e>key</span>, <span style=color:#a6e22e>value</span>]) =&gt; [
+</span></span><span style=display:flex><span>          <span style=color:#e6db74>`x-amz-meta-</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>key</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>,
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>value</span>,
+</span></span><span style=display:flex><span>        ])
+</span></span><span style=display:flex><span>      ),
+</span></span><span style=display:flex><span>    };
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>uploadUrl</span> <span style=color:#f92672>=</span> <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>getSignedUrl</span>(<span style=color:#a6e22e>s3Client</span>, <span style=color:#a6e22e>putCommand</span>, {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>expiresIn</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>EXPIRES_SECONDS</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>signableHeaders</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Set</span>(Object.<span style=color:#a6e22e>keys</span>(<span style=color:#a6e22e>signedUploadHeaders</span>)),
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>unhoistableHeaders</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>Set</span>(
+</span></span><span style=display:flex><span>        Object.<span style=color:#a6e22e>keys</span>(<span style=color:#a6e22e>signedUploadHeaders</span>).<span style=color:#a6e22e>filter</span>((<span style=color:#a6e22e>key</span>) =&gt;
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>key</span>.<span style=color:#a6e22e>startsWith</span>(<span style=color:#e6db74>&#34;x-amz-meta-&#34;</span>)
+</span></span><span style=display:flex><span>        )
+</span></span><span style=display:flex><span>      ),
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>createUploadMetadata</span>({
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>documentId</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>documentType</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>fileSizeBytes</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>mimeType</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>now</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>originalFileName</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>pageCount</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>rawS3Key</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>userId</span>,
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#34;INFO&#34;</span>, {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>documentId</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>userId</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>mimeType</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>fileSizeBytes</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>pageCount</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>documentType</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>rawS3Bucket</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>RAW_BUCKET</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>rawS3Key</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>status</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;UPLOAD_URL_CREATED&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>message</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Presigned URL generated&#34;</span>,
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>successResponse</span>(<span style=color:#ae81ff>200</span>, {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>documentId</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>uploadUrl</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>rawS3Key</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>originalFileName</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>expiresInSeconds</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>EXPIRES_SECONDS</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>uploadHeaders</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>signedUploadHeaders</span>,
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>  } <span style=color:#66d9ef>catch</span> (<span style=color:#a6e22e>error</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>log</span>(<span style=color:#e6db74>&#34;ERROR&#34;</span>, {
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>errorName</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>error</span><span style=color:#f92672>?</span>.<span style=color:#a6e22e>name</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>errorMessage</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>error</span><span style=color:#f92672>?</span>.<span style=color:#a6e22e>message</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>message</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;Failed to generate presigned URL&#34;</span>,
+</span></span><span style=display:flex><span>    });
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>errorResponse</span>(
+</span></span><span style=display:flex><span>      <span style=color:#ae81ff>500</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;UNKNOWN_ERROR&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;Could not generate upload URL.&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;UPLOAD&#34;</span>
+</span></span><span style=display:flex><span>    );
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>apiResponse</span>(<span style=color:#a6e22e>statusCode</span>, <span style=color:#a6e22e>body</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>statusCode</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>headers</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;Content-Type&#34;</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;application/json&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;Access-Control-Allow-Origin&#34;</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;*&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;Access-Control-Allow-Headers&#34;</span><span style=color:#f92672>:</span>
+</span></span><span style=display:flex><span>        <span style=color:#e6db74>&#34;Content-Type,Authorization,X-Amz-Date,X-Api-Key,X-Amz-Security-Token&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;Access-Control-Allow-Methods&#34;</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;OPTIONS,POST&#34;</span>,
+</span></span><span style=display:flex><span>    },
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>body</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>JSON</span>.<span style=color:#a6e22e>stringify</span>(<span style=color:#a6e22e>body</span>),
+</span></span><span style=display:flex><span>  };
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>successResponse</span>(<span style=color:#a6e22e>statusCode</span>, <span style=color:#a6e22e>data</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>apiResponse</span>(<span style=color:#a6e22e>statusCode</span>, { <span style=color:#a6e22e>success</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>true</span>, <span style=color:#a6e22e>data</span>, <span style=color:#a6e22e>error</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>null</span> });
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>errorResponse</span>(
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>statusCode</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>errorCode</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>errorMessage</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>errorStage</span> <span style=color:#f92672>=</span> <span style=color:#e6db74>&#34;VALIDATION&#34;</span>
+</span></span><span style=display:flex><span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>apiResponse</span>(<span style=color:#a6e22e>statusCode</span>, {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>success</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>false</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>data</span><span style=color:#f92672>:</span> <span style=color:#66d9ef>null</span>,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>error</span><span style=color:#f92672>:</span> { <span style=color:#a6e22e>errorCode</span>, <span style=color:#a6e22e>errorMessage</span>, <span style=color:#a6e22e>errorStage</span> },
+</span></span><span style=display:flex><span>  });
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>getHttpMethod</span>(<span style=color:#a6e22e>event</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>event</span><span style=color:#f92672>?</span>.<span style=color:#a6e22e>requestContext</span><span style=color:#f92672>?</span>.<span style=color:#a6e22e>http</span><span style=color:#f92672>?</span>.<span style=color:#a6e22e>method</span> <span style=color:#f92672>||</span> <span style=color:#a6e22e>event</span><span style=color:#f92672>?</span>.<span style=color:#a6e22e>httpMethod</span> <span style=color:#f92672>||</span> <span style=color:#e6db74>&#34;&#34;</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>parseBody</span>(<span style=color:#a6e22e>event</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span><span style=color:#a6e22e>event</span><span style=color:#f92672>?</span>.<span style=color:#a6e22e>body</span>) <span style=color:#66d9ef>return</span> {};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>let</span> <span style=color:#a6e22e>bodyText</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>body</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>isBase64Encoded</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>bodyText</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>Buffer</span>.<span style=color:#a6e22e>from</span>(<span style=color:#a6e22e>event</span>.<span style=color:#a6e22e>body</span>, <span style=color:#e6db74>&#34;base64&#34;</span>).<span style=color:#a6e22e>toString</span>(<span style=color:#e6db74>&#34;utf8&#34;</span>);
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#66d9ef>typeof</span> <span style=color:#a6e22e>bodyText</span> <span style=color:#f92672>===</span> <span style=color:#e6db74>&#34;object&#34;</span> <span style=color:#f92672>&amp;&amp;</span> <span style=color:#a6e22e>bodyText</span> <span style=color:#f92672>!==</span> <span style=color:#66d9ef>null</span>) <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>bodyText</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>try</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>parsed</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>JSON</span>.<span style=color:#a6e22e>parse</span>(<span style=color:#a6e22e>bodyText</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>parsed</span> <span style=color:#f92672>&amp;&amp;</span> <span style=color:#66d9ef>typeof</span> <span style=color:#a6e22e>parsed</span> <span style=color:#f92672>===</span> <span style=color:#e6db74>&#34;object&#34;</span> <span style=color:#f92672>&amp;&amp;</span> <span style=color:#f92672>!</span>Array.<span style=color:#a6e22e>isArray</span>(<span style=color:#a6e22e>parsed</span>)
+</span></span><span style=display:flex><span>      <span style=color:#f92672>?</span> <span style=color:#a6e22e>parsed</span>
+</span></span><span style=display:flex><span>      <span style=color:#f92672>:</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>  } <span style=color:#66d9ef>catch</span> {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>getUserId</span>(<span style=color:#a6e22e>event</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> (
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>event</span><span style=color:#f92672>?</span>.<span style=color:#a6e22e>requestContext</span><span style=color:#f92672>?</span>.<span style=color:#a6e22e>authorizer</span><span style=color:#f92672>?</span>.<span style=color:#a6e22e>jwt</span><span style=color:#f92672>?</span>.<span style=color:#a6e22e>claims</span><span style=color:#f92672>?</span>.<span style=color:#a6e22e>sub</span> <span style=color:#f92672>||</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>event</span><span style=color:#f92672>?</span>.<span style=color:#a6e22e>requestContext</span><span style=color:#f92672>?</span>.<span style=color:#a6e22e>authorizer</span><span style=color:#f92672>?</span>.<span style=color:#a6e22e>claims</span><span style=color:#f92672>?</span>.<span style=color:#a6e22e>sub</span> <span style=color:#f92672>||</span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>null</span>
+</span></span><span style=display:flex><span>  );
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>normalizeDocumentType</span>(<span style=color:#a6e22e>value</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>type</span> <span style=color:#f92672>=</span> String(<span style=color:#a6e22e>value</span> <span style=color:#f92672>||</span> <span style=color:#e6db74>&#34;&#34;</span>).<span style=color:#a6e22e>trim</span>().<span style=color:#a6e22e>toUpperCase</span>();
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>type</span> <span style=color:#f92672>===</span> <span style=color:#e6db74>&#34;INVOICE&#34;</span> <span style=color:#f92672>||</span> <span style=color:#a6e22e>type</span> <span style=color:#f92672>===</span> <span style=color:#e6db74>&#34;RECEIPT&#34;</span> <span style=color:#f92672>?</span> <span style=color:#a6e22e>type</span> <span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;UNKNOWN&#34;</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>validateConfiguration</span>() {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span><span style=color:#a6e22e>RAW_BUCKET</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>errorResponse</span>(
+</span></span><span style=display:flex><span>      <span style=color:#ae81ff>500</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;MISSING_ENVIRONMENT_VARIABLE&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;RAW_BUCKET or DOCUFLOW_DEV_RAW_BUCKET environment variable is missing.&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;CONFIGURATION&#34;</span>
+</span></span><span style=display:flex><span>    );
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span><span style=color:#a6e22e>TABLE_NAME</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>errorResponse</span>(
+</span></span><span style=display:flex><span>      <span style=color:#ae81ff>500</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;MISSING_ENVIRONMENT_VARIABLE&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;DOCUFLOW_DEV_TABLE_NAME environment variable is missing.&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;CONFIGURATION&#34;</span>
+</span></span><span style=display:flex><span>    );
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (
+</span></span><span style=display:flex><span>    <span style=color:#f92672>!</span>Number.<span style=color:#a6e22e>isInteger</span>(<span style=color:#a6e22e>EXPIRES_SECONDS</span>) <span style=color:#f92672>||</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>EXPIRES_SECONDS</span> <span style=color:#f92672>&lt;</span> <span style=color:#ae81ff>1</span> <span style=color:#f92672>||</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>EXPIRES_SECONDS</span> <span style=color:#f92672>&gt;</span> <span style=color:#ae81ff>3600</span>
+</span></span><span style=display:flex><span>  ) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>errorResponse</span>(
+</span></span><span style=display:flex><span>      <span style=color:#ae81ff>500</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;INVALID_CONFIGURATION&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;PRESIGNED_EXPIRES_SECONDS must be an integer between 1 and 3600.&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;CONFIGURATION&#34;</span>
+</span></span><span style=display:flex><span>    );
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>if</span> (<span style=color:#f92672>!</span>Number.isFinite(<span style=color:#a6e22e>MAX_FILE_SIZE_BYTES</span>) <span style=color:#f92672>||</span> <span style=color:#a6e22e>MAX_FILE_SIZE_BYTES</span> <span style=color:#f92672>&lt;=</span> <span style=color:#ae81ff>0</span>) {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>errorResponse</span>(
+</span></span><span style=display:flex><span>      <span style=color:#ae81ff>500</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;INVALID_CONFIGURATION&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;MAX_FILE_SIZE_BYTES must be a positive number.&#34;</span>,
+</span></span><span style=display:flex><span>      <span style=color:#e6db74>&#34;CONFIGURATION&#34;</span>
+</span></span><span style=display:flex><span>    );
+</span></span><span style=display:flex><span>  }
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#66d9ef>null</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>isValidOriginalFileName</span>(<span style=color:#a6e22e>originalFileName</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> (
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>typeof</span> <span style=color:#a6e22e>originalFileName</span> <span style=color:#f92672>===</span> <span style=color:#e6db74>&#34;string&#34;</span> <span style=color:#f92672>&amp;&amp;</span>
+</span></span><span style=display:flex><span>    Boolean(<span style=color:#a6e22e>originalFileName</span>.<span style=color:#a6e22e>trim</span>()) <span style=color:#f92672>&amp;&amp;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>!</span><span style=color:#a6e22e>originalFileName</span>.<span style=color:#a6e22e>includes</span>(<span style=color:#e6db74>&#34;/&#34;</span>) <span style=color:#f92672>&amp;&amp;</span>
+</span></span><span style=display:flex><span>    <span style=color:#f92672>!</span><span style=color:#a6e22e>originalFileName</span>.<span style=color:#a6e22e>includes</span>(<span style=color:#e6db74>&#34;\\&#34;</span>) <span style=color:#f92672>&amp;&amp;</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>originalFileName</span>.<span style=color:#a6e22e>length</span> <span style=color:#f92672>&lt;=</span> <span style=color:#ae81ff>255</span>
+</span></span><span style=display:flex><span>  );
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>isExtensionMatched</span>(<span style=color:#a6e22e>originalFileName</span>, <span style=color:#a6e22e>mimeTypeConfig</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>lowerFileName</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>originalFileName</span>.<span style=color:#a6e22e>toLowerCase</span>();
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>mimeTypeConfig</span>.<span style=color:#a6e22e>allowedOriginalExtensions</span>.<span style=color:#a6e22e>some</span>((<span style=color:#a6e22e>extension</span>) =&gt;
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>lowerFileName</span>.<span style=color:#a6e22e>endsWith</span>(<span style=color:#a6e22e>extension</span>)
+</span></span><span style=display:flex><span>  );
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>toRawObjectFileName</span>(<span style=color:#a6e22e>originalFileName</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>originalFileName</span>
+</span></span><span style=display:flex><span>    .<span style=color:#a6e22e>trim</span>()
+</span></span><span style=display:flex><span>    .<span style=color:#a6e22e>replace</span>(<span style=color:#e6db74>/[\u0000-\u001f\u007f]/g</span>, <span style=color:#e6db74>&#34;_&#34;</span>)
+</span></span><span style=display:flex><span>    .<span style=color:#a6e22e>replace</span>(<span style=color:#e6db74>/[?#]/g</span>, <span style=color:#e6db74>&#34;_&#34;</span>);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>async</span> <span style=color:#66d9ef>function</span> <span style=color:#a6e22e>createUploadMetadata</span>({
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>documentId</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>documentType</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>fileSizeBytes</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>mimeType</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>now</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>originalFileName</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>pageCount</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>rawS3Key</span>,
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>userId</span>,
+</span></span><span style=display:flex><span>}) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>await</span> <span style=color:#a6e22e>docClient</span>.<span style=color:#a6e22e>send</span>(
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>new</span> <span style=color:#a6e22e>PutCommand</span>({
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>TableName</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>TABLE_NAME</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>Item</span><span style=color:#f92672>:</span> {
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>PK</span><span style=color:#f92672>:</span> <span style=color:#e6db74>`USER#</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>userId</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>SK</span><span style=color:#f92672>:</span> <span style=color:#e6db74>`DOC#</span><span style=color:#e6db74>${</span><span style=color:#a6e22e>documentId</span><span style=color:#e6db74>}</span><span style=color:#e6db74>`</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>GSI1PK</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;STATUS#UPLOADED&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>GSI1SK</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>now</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>schemaVersion</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;1.0.0&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>documentId</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>userId</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>documentType</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>status</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;UPLOADED&#34;</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>originalFileName</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>fileExtension</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>getFileExtension</span>(<span style=color:#a6e22e>originalFileName</span>),
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>pageCount</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>mimeType</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>contentType</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>mimeType</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>fileSizeBytes</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>rawS3Key</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>createdAt</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>now</span>,
+</span></span><span style=display:flex><span>        <span style=color:#a6e22e>updatedAt</span><span style=color:#f92672>:</span> <span style=color:#a6e22e>now</span>,
+</span></span><span style=display:flex><span>      },
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>ConditionExpression</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;attribute_not_exists(PK) AND attribute_not_exists(SK)&#34;</span>,
+</span></span><span style=display:flex><span>    })
+</span></span><span style=display:flex><span>  );
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>getFileExtension</span>(<span style=color:#a6e22e>fileName</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>match</span> <span style=color:#f92672>=</span> String(<span style=color:#a6e22e>fileName</span> <span style=color:#f92672>||</span> <span style=color:#e6db74>&#34;&#34;</span>).<span style=color:#a6e22e>toLowerCase</span>().<span style=color:#a6e22e>match</span>(<span style=color:#e6db74>/\.([a-z0-9]+)$/</span>);
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>return</span> <span style=color:#a6e22e>match</span> <span style=color:#f92672>?</span> <span style=color:#a6e22e>match</span>[<span style=color:#ae81ff>1</span>] <span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;&#34;</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>function</span> <span style=color:#a6e22e>log</span>(<span style=color:#a6e22e>level</span>, <span style=color:#a6e22e>data</span>) {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>const</span> <span style=color:#a6e22e>writer</span> <span style=color:#f92672>=</span> <span style=color:#a6e22e>level</span> <span style=color:#f92672>===</span> <span style=color:#e6db74>&#34;ERROR&#34;</span> <span style=color:#f92672>?</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>error</span> <span style=color:#f92672>:</span> <span style=color:#a6e22e>console</span>.<span style=color:#a6e22e>log</span>;
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>writer</span>(
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>JSON</span>.<span style=color:#a6e22e>stringify</span>({
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>level</span>,
+</span></span><span style=display:flex><span>      <span style=color:#a6e22e>service</span><span style=color:#f92672>:</span> <span style=color:#e6db74>&#34;docuflow-dev-api-generate-upload-url-lambda&#34;</span>,
+</span></span><span style=display:flex><span>      ...<span style=color:#a6e22e>data</span>,
+</span></span><span style=display:flex><span>    })
+</span></span><span style=display:flex><span>  );
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div></li></ol><h4 id=step-5-run-the-dev-server--test-uploads>Step 5: Run the Dev Server & Test Uploads</h4><ol><li>Start the React/Vite local dev server:<div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-bash data-lang=bash><span style=display:flex><span>npm run dev
+</span></span></code></pre></div></li><li>Open <code>http://localhost:5173</code> on your browser.</li><li>Sign up a test user account -> confirm the account using the verification code sent to your email.</li><li>Log in -> upload a test PDF invoice or receipt.</li><li>In the S3 console, check your S3 Raw Bucket to verify the file was uploaded directly to <code>raw/user-xxxx/doc-xxxx/original.pdf</code>.</li></ol><h3 id=3-expected-result>3. Expected Result</h3><ul><li>React Frontend runs successfully in development mode.</li><li>Cognito JWT Authentication works perfectly.</li><li>Frontend uploads PDF documents directly to the S3 Raw Bucket using Presigned URLs.</li></ul><h3 id=4-evidence>4. Evidence</h3><p>Before continuing, verify that:</p><ul><li>The React application runs locally without console errors.</li><li>Cognito registration and sign-in succeed.</li><li>The upload flow reports success.</li><li>The uploaded object appears at the expected key in the S3 Raw bucket.</li></ul><footer class=footline></footer></div></div><div id=navigation><a class="nav nav-prev" href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.3-prepare-project-foundation/5.3.6-budgets/ title="Configure Budget Alerts"><i class="fa fa-chevron-left"></i></a>
+<a class="nav nav-next" href=https://lamquangloc.github.io/FCAJ-Workshop/5-workshop/5.4-setup-and-run-frontend/5.4.1-deploy-amplify/ title="Deploy Frontend with AWS Amplify Hosting" style=margin-right:0><i class="fa fa-chevron-right"></i></a></div></section><div style=left:-1000px;overflow:scroll;position:absolute;top:-1000px;border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px><div style=border:none;box-sizing:content-box;height:200px;margin:0;padding:0;width:200px></div></div><script src=https://lamquangloc.github.io/FCAJ-Workshop/js/clipboard.min.js?1784519745></script><script src=https://lamquangloc.github.io/FCAJ-Workshop/js/perfect-scrollbar.min.js?1784519745></script><script src=https://lamquangloc.github.io/FCAJ-Workshop/js/perfect-scrollbar.jquery.min.js?1784519745></script><script src=https://lamquangloc.github.io/FCAJ-Workshop/js/jquery.sticky.js?1784519745></script><script src=https://lamquangloc.github.io/FCAJ-Workshop/js/featherlight.min.js?1784519745></script><script src=https://lamquangloc.github.io/FCAJ-Workshop/js/highlight.pack.js?1784519745></script><script>hljs.initHighlightingOnLoad()</script><script src=https://lamquangloc.github.io/FCAJ-Workshop/js/modernizr.custom-3.6.0.js?1784519745></script><script src=https://lamquangloc.github.io/FCAJ-Workshop/js/learn.js?1784519745></script><script src=https://lamquangloc.github.io/FCAJ-Workshop/js/hugo-learn.js?1784519745></script><link href=https://lamquangloc.github.io/FCAJ-Workshop/mermaid/mermaid.css?1784519745 rel=stylesheet><script src=https://lamquangloc.github.io/FCAJ-Workshop/mermaid/mermaid.js?1784519745></script><script>mermaid.initialize({startOnLoad:!0})</script><script>(function(e,t,n,s,o,i,a){e.GoogleAnalyticsObject=o,(e[o]=e[o]||function(){(e[o].q=e[o].q||[]).push(arguments)},e[o].l=1*new Date),(i=t.createElement(n),a=t.getElementsByTagName(n)[0]),i.async=1,i.src=s,a.parentNode.insertBefore(i,a)})(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-158079754-2","auto"),ga("send","pageview")</script></body></html>
